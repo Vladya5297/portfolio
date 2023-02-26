@@ -1,0 +1,16 @@
+@reset-global pc;
+
+/* Used percent instead of vh to prevent mobile 100vh bug */
+html, body {
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Provides correct scroll on low height devices */
+:global(#app) {
+    flex: 1;
+}

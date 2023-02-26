@@ -1,0 +1,85 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 13,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "react/function-component-definition": ["error", {
+            "namedComponents": "arrow-function",
+            "unnamedComponents": "arrow-function"
+        }],
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "error",
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-filename-extension": ["warn", { "extensions": [".tsx", ".jsx"] }],
+        "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off",
+        "react/jsx-no-useless-fragment": "off",
+        "react/destructuring-assignment": "off",
+        "react/button-has-type": "off",
+
+        "jsx-a11y/click-events-have-key-events": "off",
+
+        "import/prefer-default-export": "off",
+        "import/no-unresolved": "off",
+        "import/extensions": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/order": ["error", {
+            "newlines-between": "always",
+            "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+            "pathGroups": [
+                {
+                    "pattern": "~/**",
+                    "group": "internal"
+                }
+            ]
+        }],
+        
+        "object-curly-newline": ["error", {"consistent": true}],
+        "arrow-parens": ["error", "as-needed"],
+        "no-unused-expressions": "off",
+        "arrow-body-style": "off",
+        "block-spacing": ["error", "never"],
+        "prefer-destructuring": "off",
+        "max-classes-per-file": "off",
+        "no-use-before-define": "off",
+        "no-param-reassign": "off",
+        "global-require": "off",
+        
+        "indent": "off",
+        "@typescript-eslint/indent": ["error", 4],
+
+        "semi": "off",
+        "@typescript-eslint/semi": ["error", "always", {"omitLastInOneLineBlock": true}],
+
+        "object-curly-spacing": "off",
+        "@typescript-eslint/object-curly-spacing": ["error", "never"],
+        
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+
+        "@typescript-eslint/member-delimiter-style": "error",
+        "@typescript-eslint/consistent-type-imports": ["error", {"prefer": "type-imports"}],
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-var-requires": "off"
+    }
+}

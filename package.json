@@ -1,0 +1,45 @@
+{
+    "name": "portfolio",
+    "scripts": {
+        "start": "webpack serve --config=./configs/webpack.dev.js",
+        "build": "webpack --config=./configs/webpack.prod.js",
+        "lint": "eslint ./src"
+    },
+    "author": "Vladya5297",
+    "dependencies": {
+        "classnames": "^2.3.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@svgr/webpack": "^6.5.1",
+        "@types/react-dom": "^18.0.11",
+        "@typescript-eslint/eslint-plugin": "^5.53.0",
+        "@typescript-eslint/parser": "^5.53.0",
+        "css-loader": "^6.7.3",
+        "eslint": "^8.35.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-jsx-a11y": "^6.7.1",
+        "eslint-plugin-react": "^7.32.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "favicons": "^7.1.0",
+        "favicons-webpack-plugin": "^6.0.0",
+        "gh-pages": "^5.0.0",
+        "html-loader": "^4.2.0",
+        "html-webpack-plugin": "^5.5.0",
+        "postcss-css-reset": "^1.0.2",
+        "postcss-import": "^15.1.0",
+        "postcss-loader": "^7.0.2",
+        "postcss-mixins": "^9.0.4",
+        "postcss-nested": "^6.0.1",
+        "postcss-preset-env": "^8.0.1",
+        "postcss-simple-vars": "^7.0.1",
+        "style-loader": "^3.3.1",
+        "ts-loader": "^9.4.2",
+        "typescript": "^4.9.5",
+        "webpack": "^5.75.0",
+        "webpack-cli": "^5.0.1",
+        "webpack-dev-server": "^4.11.1",
+        "webpack-merge": "^5.8.0"    }
+}
