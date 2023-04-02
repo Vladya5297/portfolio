@@ -1,7 +1,7 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const APP_DIR = path.resolve(__dirname, '../src');
 const BUILD_DIR = path.resolve(__dirname, '../build');
@@ -52,9 +52,6 @@ module.exports = {
                                 localIdentName: '[folder]__[local]__[hash:base64:5]',
                             },
                         },
-                    },
-                    {
-                        loader: 'postcss-loader',
                     },
                 ],
             },

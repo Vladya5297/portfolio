@@ -9,6 +9,7 @@ type Props = {
 
 export const Button = ({size = 'm', className, children, ...props}: Props) => {
     const buttonClassName = cn(
+        'border-inset',
         css.root,
         css[`size_${size}`],
         className,

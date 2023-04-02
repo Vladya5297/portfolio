@@ -1,13 +1,11 @@
-@reset-global pc;
-
-/* Used percent instead of vh to prevent mobile 100vh bug */
-html, body {
-    min-height: 100%;
-}
+@import url('normalize.css');
+@import url('./components/styles/index');
 
 body {
+    height: 100svh;
     display: flex;
     flex-direction: column;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
 }
 
 /* Provides correct scroll on low height devices */
