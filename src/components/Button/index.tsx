@@ -1,17 +1,23 @@
 import cn from 'classnames';
 import type {ButtonHTMLAttributes} from 'react';
 
+import {CSS_GLOBAL_CLASS} from '../styles';
+
 import css from './style.css';
 
-type Props = {
+type CustomProps = {
     size?: 's' | 'm';
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+};
+
+type DefaultProps = ButtonHTMLAttributes<HTMLButtonElement>;
+
+type Props = CustomProps & Omit<DefaultProps, keyof CustomProps>;
 
 export const Button = ({size = 'm', className, children, ...props}: Props) => {
     const buttonClassName = cn(
-        'border-inset',
+        CSS_GLOBAL_CLASS.BORDER_INSET,
         css.root,
-        css[`size_${size}`],
+        css[`size-${size}`],
         className,
     );
 
