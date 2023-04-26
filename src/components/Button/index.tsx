@@ -11,9 +11,9 @@ type CustomProps = {
 
 type DefaultProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-type Props = CustomProps & Omit<DefaultProps, keyof CustomProps>;
+export type ButtonProps = CustomProps & Omit<DefaultProps, keyof CustomProps>;
 
-export const Button = ({size = 'm', className, children, ...props}: Props) => {
+export const Button = ({size = 'm', className, children, ...props}: ButtonProps) => {
     const buttonClassName = cn(
         CSS_GLOBAL_CLASS.BORDER_INSET,
         css.root,

@@ -3,13 +3,13 @@ import cn from 'classnames';
 import * as icons from './icons';
 import css from './style.css';
 
-type Props = {
+export type IconProps = {
     name: keyof typeof icons;
     size?: 's' | 'm';
     className?: string;
 };
 
-export const Icon = ({name, size = 'm', className}: Props) => {
+export const Icon = ({name, size = 'm', className}: IconProps) => {
     const iconClassName = cn(
         css[`size-${size}`],
         className,
