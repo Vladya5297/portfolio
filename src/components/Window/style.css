@@ -26,12 +26,15 @@
     background: linear-gradient(90deg,#808080,#c0c0c0);
 }
 
-.icon {
-    color: black;
+.label {
+    display: flex;
+    margin-right: auto;
+    align-items: center;
+    gap: 2px;
 }
 
-.icon:nth-child(1) {
-    margin-left: auto;
+.icon {
+    color: black;
 }
 
 .dragging {

@@ -12,19 +12,29 @@ type Position = {
     y: number;
 };
 
-type Props = {
+type CustomProps = {
     root?: HTMLElement;
     position?: Position;
+    onDragStart?: (position: Position) => void;
     onDragStop?: (position: Position) => void;
-} & ViewProps;
+    onMouseDown?: (event: MouseEvent) => void;
+};
+
+type Props = CustomProps & Omit<ViewProps, keyof CustomProps>;
 
 export const Window = ({
     root = document.body,
     position,
     children,
+    onDragStart,
     onDragStop,
+    onMouseDown,
     ...props
 }: Props) => {
+    const onStart: DraggableEventHandler = useCallback((_, {x, y}) => {
+        onDragStart?.({x, y});
+    }, [onDragStart]);
+
     const onStop: DraggableEventHandler = useCallback((_, {x, y}) => {
         onDragStop?.({x, y});
     }, [onDragStop]);
@@ -36,7 +46,9 @@ export const Window = ({
             bounds="parent"
             offsetParent={root}
             defaultPosition={position}
+            onStart={onStart}
             onStop={onStop}
+            onMouseDown={onMouseDown}
         >
             <View {...props}>
                 {children}

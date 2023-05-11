@@ -1,11 +1,11 @@
 import {Provider} from 'react-redux';
 
 import {Main} from './page';
-import {store} from './page/state';
+import {state} from './page/state';
 
 export const App = () => {
     return (
-        <Provider store={store}>
+        <Provider store={state}>
             <Main />
         </Provider>
     );

@@ -60,6 +60,10 @@ module.exports = {
                 issuer: /\.tsx?$/,
                 use: ['@svgr/webpack'],
             },
+            {
+                test: /\.png$/i,
+                type: 'asset/inline',
+            },
         ],
     },
     resolve: {

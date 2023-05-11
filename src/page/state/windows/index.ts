@@ -2,9 +2,10 @@ import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 
 import {defaultPosition} from './constants';
-import type {Window, WindowId, WindowsState} from './types';
+import type {AddWindowPayload, Window, WindowId, WindowsState} from './types';
+import {removeFromQueue, updateActive} from './utils';
 
-const windowAdapter = createEntityAdapter<Window>();
+export const windowAdapter = createEntityAdapter<Window>();
 const collection = windowAdapter.getInitialState();
 
 const initialState: WindowsState = {
@@ -17,30 +18,25 @@ export const windowsSlice = createSlice({
     name: 'windows',
     initialState,
     reducers: {
-        addWindow(state, action: PayloadAction<WindowId>) {
-            const windowId = action.payload;
+        addWindow(state, action: PayloadAction<AddWindowPayload>) {
+            const {id: windowId, title, image} = action.payload;
 
             state.active = windowId;
             state.queue.push(windowId);
 
             windowAdapter.addOne(state, {
                 id: windowId,
+                title,
+                image,
                 isMinimized: false,
-                isOpened: true,
+                isOpened: false,
                 position: defaultPosition,
             });
         },
         setActive(state, action: PayloadAction<WindowId>) {
             const windowId = action.payload;
-
             state.active = windowId;
-
-            const index = state.queue.indexOf(windowId);
-
-            if (index !== -1) {
-                state.queue.splice(index, 1);
-            }
-
+            removeFromQueue(state, windowId);
             state.queue.push(windowId);
         },
         setMinimized(state, action: PayloadAction<WindowId>) {
@@ -51,14 +47,8 @@ export const windowsSlice = createSlice({
                 changes: {isMinimized: true},
             });
 
-            const index = state.queue.indexOf(windowId);
-
-            if (index !== -1) {
-                state.queue.splice(index, 1);
-            }
-
-            const previous = state.queue.at(-1);
-            state.active = previous || null;
+            removeFromQueue(state, windowId);
+            updateActive(state);
         },
         setMaximized(state, action: PayloadAction<WindowId>) {
             const windowId = action.payload;
@@ -69,6 +59,32 @@ export const windowsSlice = createSlice({
             });
 
             state.queue.push(windowId);
+        },
+        setOpened(state, action: PayloadAction<WindowId>) {
+            const windowId = action.payload;
+
+            windowAdapter.updateOne(state, {
+                id: windowId,
+                changes: {
+                    isMinimized: false,
+                    isOpened: true,
+                },
+            });
+
+            state.queue.push(windowId);
+        },
+        setClosed(state, action: PayloadAction<WindowId>) {
+            const windowId = action.payload;
+
+            windowAdapter.updateOne(state, {
+                id: windowId,
+                changes: {
+                    isOpened: false,
+                },
+            });
+
+            removeFromQueue(state, windowId);
+            updateActive(state);
         },
     },
 });

@@ -9,6 +9,7 @@ import css from './style.css';
 
 type CustomProps = {
     title: ReactNode;
+    image: string;
     active?: boolean;
     onClose?: () => void;
     onMinimize?: () => void;
@@ -20,10 +21,10 @@ export type ViewProps = CustomProps & Omit<DefaultProps, keyof CustomProps>;
 
 export const View = ({
     title,
+    image,
     active = true,
     className,
     children,
-    onClick,
     onClose,
     onMinimize,
     ...props
@@ -33,8 +34,12 @@ export const View = ({
 
     return (
         <div {...props} className={rootClassName}>
-            <h2 className={titleClassName} onClick={onClick}>
-                {title}
+            <div className={titleClassName}>
+                <div className={css.label}>
+                    <img src={image} width={16} height={16} alt="" />
+
+                    {title}
+                </div>
 
                 {onMinimize && (
                     <Button size="s" className={css.icon} onClick={onMinimize}>
@@ -47,7 +52,7 @@ export const View = ({
                         <Icon name="cross" size="s" />
                     </Button>
                 )}
-            </h2>
+            </div>
 
             {children}
         </div>

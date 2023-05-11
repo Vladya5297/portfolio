@@ -2,11 +2,13 @@ import type {AnyAction} from '@reduxjs/toolkit';
 import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 
-export const useAction = (actionCreator: () => AnyAction) => {
+type ActionCreator = (...params: any[]) => AnyAction;
+
+export const useAction = <T extends ActionCreator>(actionCreator: T) => {
     const dispatch = useDispatch();
 
-    return useCallback(() => {
-        const action = actionCreator();
+    return useCallback((...params: Parameters<T>) => {
+        const action = actionCreator(...params);
         dispatch(action);
     }, []);
 };
