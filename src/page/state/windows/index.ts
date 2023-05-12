@@ -2,7 +2,7 @@ import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 
 import {defaultPosition} from './constants';
-import type {AddWindowPayload, Window, WindowId, WindowsState} from './types';
+import type {AddWindowPayload, SetupPositionPayload, Window, WindowId, WindowsState} from './types';
 import {removeFromQueue, updateActive} from './utils';
 
 export const windowAdapter = createEntityAdapter<Window>();
@@ -21,9 +21,6 @@ export const windowsSlice = createSlice({
         addWindow(state, action: PayloadAction<AddWindowPayload>) {
             const {id: windowId, title, image} = action.payload;
 
-            state.active = windowId;
-            state.queue.push(windowId);
-
             windowAdapter.addOne(state, {
                 id: windowId,
                 title,
@@ -36,6 +33,7 @@ export const windowsSlice = createSlice({
         setActive(state, action: PayloadAction<WindowId>) {
             const windowId = action.payload;
             state.active = windowId;
+
             removeFromQueue(state, windowId);
             state.queue.push(windowId);
         },
@@ -59,6 +57,7 @@ export const windowsSlice = createSlice({
             });
 
             state.queue.push(windowId);
+            state.active = windowId;
         },
         setOpened(state, action: PayloadAction<WindowId>) {
             const windowId = action.payload;
@@ -72,6 +71,7 @@ export const windowsSlice = createSlice({
             });
 
             state.queue.push(windowId);
+            state.active = windowId;
         },
         setClosed(state, action: PayloadAction<WindowId>) {
             const windowId = action.payload;
@@ -85,6 +85,14 @@ export const windowsSlice = createSlice({
 
             removeFromQueue(state, windowId);
             updateActive(state);
+        },
+        setupPosition(state, action: PayloadAction<SetupPositionPayload>) {
+            const {id: windowId, position} = action.payload;
+
+            windowAdapter.updateOne(state, {
+                id: windowId,
+                changes: {position},
+            });
         },
     },
 });

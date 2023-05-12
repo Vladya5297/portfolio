@@ -46,7 +46,6 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            importLoaders: 1,
                             modules: {
                                 mode: 'local',
                                 localIdentName: '[folder]__[local]__[hash:base64:5]',
@@ -62,7 +61,7 @@ module.exports = {
             },
             {
                 test: /\.png$/i,
-                type: 'asset/inline',
+                type: 'asset/resource',
             },
         ],
     },

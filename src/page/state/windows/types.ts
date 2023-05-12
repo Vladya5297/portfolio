@@ -27,3 +27,8 @@ export type AddWindowPayload = {
     title: string;
     image: string;
 };
+
+export type SetupPositionPayload = {
+    id: WindowId;
+    position: Position;
+};

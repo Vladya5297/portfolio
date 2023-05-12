@@ -1,3 +1,5 @@
+import {memoize} from 'proxy-memoize';
+
 import type {State} from '../types';
 
 import type {Window, WindowId} from './types';
@@ -19,3 +21,13 @@ export const selectActiveWindowId = (state: State): WindowId | null => {
 export const selectQueueIndex = (state: State, windowId: WindowId): number => {
     return state.windows.queue.indexOf(windowId);
 };
+
+export const selectOpenedWindows = memoize((state: State): WindowId[] => {
+    const windows = windowsSelectors.selectAll(state);
+
+    const result = windows
+        .filter(window => window.isOpened)
+        .map(window => window.id);
+
+    return result;
+});

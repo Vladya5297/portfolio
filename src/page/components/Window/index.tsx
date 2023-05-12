@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 
 import {useAction} from '~/utils/useAction';
 import {windowsSlice} from '~/page/state/windows';
-import type {WindowId} from '~/page/state/windows/types';
+import type {Position, WindowId} from '~/page/state/windows/types';
 import {selectActiveWindowId, selectQueueIndex, selectWindow} from '~/page/state/windows/selectors';
 import type {State} from '~/page/state/types';
 import {Window as WindowBase} from '~/components/Window';
@@ -27,6 +27,9 @@ export const Window = ({title, image, children}: Props) => {
     const minimize = useAction(() => windowsSlice.actions.setMinimized(windowId));
     const setActive = useAction(() => windowsSlice.actions.setActive(windowId));
     const close = useAction(() => windowsSlice.actions.setClosed(windowId));
+    const setupPosition = useAction(
+        (position: Position) => windowsSlice.actions.setupPosition({id: windowId, position}),
+    );
 
     const activeWindowId = useSelector(selectActiveWindowId);
     const isActive = activeWindowId === windowId;
@@ -41,9 +44,11 @@ export const Window = ({title, image, children}: Props) => {
             image={image}
             root={root}
             active={isActive}
+            position={window.position}
             onMouseDown={setActive}
             onMinimize={minimize}
             onClose={close}
+            onDragStop={setupPosition}
             style={{zIndex: index}}
         >
             {children}
