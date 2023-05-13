@@ -1,9 +1,14 @@
 import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 
-import {defaultPosition} from './constants';
-import type {AddWindowPayload, SetupPositionPayload, Window, WindowId, WindowsState} from './types';
-import {removeFromQueue, updateActive} from './utils';
+import type {
+    AddWindowPayload,
+    SetupPositionPayload,
+    Window,
+    WindowId,
+    WindowsState,
+} from './types';
+import {getDefaultPosition, removeFromQueue, updateActive} from './utils';
 
 export const windowAdapter = createEntityAdapter<Window>();
 const collection = windowAdapter.getInitialState();
@@ -27,7 +32,7 @@ export const windowsSlice = createSlice({
                 image,
                 isMinimized: false,
                 isOpened: false,
-                position: defaultPosition,
+                position: getDefaultPosition(),
             });
         },
         setActive(state, action: PayloadAction<WindowId>) {

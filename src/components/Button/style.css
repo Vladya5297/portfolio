@@ -11,6 +11,10 @@
     font-weight: 400;
 }
 
+.root:focus {
+    outline: black dotted 2px;
+}
+
 .root:hover {
     filter: brightness(1.1);
 }

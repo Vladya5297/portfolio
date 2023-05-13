@@ -1,4 +1,3 @@
-import {useId} from 'react';
 import type {ReactNode} from 'react';
 import {useSelector} from 'react-redux';
 
@@ -7,22 +6,16 @@ import {windowsSlice} from '~/page/state/windows';
 import type {Position, WindowId} from '~/page/state/windows/types';
 import {selectActiveWindowId, selectQueueIndex, selectWindow} from '~/page/state/windows/selectors';
 import type {State} from '~/page/state/types';
-import {Window as WindowBase} from '~/components/Window';
-
-import {useRoot, useSetup} from './utils';
+import {Window as View} from '~/components/Window';
 
 type Props = {
-    title: string;
-    image: string;
-    children: ReactNode;
+    id: WindowId;
+    content: ReactNode;
+    root: HTMLElement;
 };
 
-export const Window = ({title, image, children}: Props) => {
-    const windowId = useId() as WindowId;
-    useSetup({id: windowId, title, image});
-
+export const Window = ({id: windowId, root, content}: Props) => {
     const window = useSelector((state: State) => selectWindow(state, windowId));
-    const root = useRoot();
 
     const minimize = useAction(() => windowsSlice.actions.setMinimized(windowId));
     const setActive = useAction(() => windowsSlice.actions.setActive(windowId));
@@ -36,12 +29,14 @@ export const Window = ({title, image, children}: Props) => {
 
     const index = useSelector((state: State) => selectQueueIndex(state, windowId));
 
-    const showWindow = root && window && !window.isMinimized;
+    const showWindow = window
+        && window.isOpened
+        && !window.isMinimized;
 
     return showWindow ? (
-        <WindowBase
-            title={title}
-            image={image}
+        <View
+            title={window.title}
+            image={window.image}
             root={root}
             active={isActive}
             position={window.position}
@@ -51,7 +46,7 @@ export const Window = ({title, image, children}: Props) => {
             onDragStop={setupPosition}
             style={{zIndex: index}}
         >
-            {children}
-        </WindowBase>
+            {content}
+        </View>
     ) : null;
 };

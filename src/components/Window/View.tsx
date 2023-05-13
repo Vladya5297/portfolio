@@ -30,7 +30,7 @@ export const View = ({
     ...props
 }: ViewProps) => {
     const rootClassName = cn(CSS_GLOBAL_CLASS.BORDER_INSET, css.root, className);
-    const titleClassName = cn(css.title, active ? css.active : css.inactive);
+    const titleClassName = cn(css.title, active && css.active);
 
     return (
         <div {...props} className={rootClassName}>

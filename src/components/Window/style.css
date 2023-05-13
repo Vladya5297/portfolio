@@ -8,22 +8,22 @@
 }
 
 .title {
+    padding: 2px;
+    margin: 1px;
+    
+    display: flex;
+    align-items: center;
+
     color: #fff;
     font-size: 12px;
     font-weight: 700;
-    padding: 2px;
-    margin: 1px;
-    display: flex;
-    align-items: center;
     user-select: none;
+
+    background: linear-gradient(90deg,#808080,#c0c0c0);
 }
 
 .active {
     background: linear-gradient(90deg, navy, #1084d0);
-}
-
-.inactive {
-    background: linear-gradient(90deg,#808080,#c0c0c0);
 }
 
 .label {
