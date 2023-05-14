@@ -2,8 +2,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const APP_DIR = path.resolve(__dirname, '../src');
 const BUILD_DIR = path.resolve(__dirname, '../build');
@@ -34,7 +33,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name]_[contenthash].css',
         }),
-        // new FaviconsWebpackPlugin(path.join(APP_DIR, 'images/favicon.svg')),
+        new FaviconsWebpackPlugin(path.join(APP_DIR, 'assets/favicon.svg')),
     ],
     module: {
         rules: [
