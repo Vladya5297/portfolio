@@ -5,7 +5,7 @@ import type {DraggableEventHandler} from 'react-draggable';
 
 import {View} from './View';
 import type {ViewProps} from './View';
-import css from './style.css';
+import css from './style.m.css';
 
 type Position = {
     x: number;

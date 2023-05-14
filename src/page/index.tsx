@@ -1,5 +1,5 @@
 import {Footer} from './components/Footer';
-import css from './style.css';
+import css from './style.m.css';
 import {Kaspersky} from './components/Kaspersky';
 
 export const Main = () => {

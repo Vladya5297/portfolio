@@ -13,10 +13,3 @@
     display: flex;
     gap: 4px;
 }
-
-.active {
-    border-bottom-color: #fff;
-    border-right-color: #fff;
-    border-left-color: #000;
-    border-top-color: #000;
-}

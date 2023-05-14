@@ -5,7 +5,7 @@ import {Button} from '../Button';
 import {Icon} from '../Icon';
 import {CSS_GLOBAL_CLASS} from '../styles';
 
-import css from './style.css';
+import css from './style.m.css';
 
 type CustomProps = {
     title: ReactNode;
@@ -29,7 +29,7 @@ export const View = ({
     onMinimize,
     ...props
 }: ViewProps) => {
-    const rootClassName = cn(CSS_GLOBAL_CLASS.BORDER_INSET, css.root, className);
+    const rootClassName = cn(CSS_GLOBAL_CLASS.BORDER_OUTSET, css.root, className);
     const titleClassName = cn(css.title, active && css.active);
 
     return (

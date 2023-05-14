@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import * as icons from './icons';
-import css from './style.css';
+import css from './style.m.css';
 
 export type IconProps = {
     name: keyof typeof icons;

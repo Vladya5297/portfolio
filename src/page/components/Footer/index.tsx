@@ -1,5 +1,4 @@
 import {useSelector} from 'react-redux';
-import cn from 'classnames';
 
 import {Button} from '~/components/Button';
 import {selectActiveWindowId, selectOpenedWindows, selectWindow} from '~/page/state/windows/selectors';
@@ -8,7 +7,7 @@ import type {State} from '~/page/state/types';
 import {useAction} from '~/utils/useAction';
 import {windowsSlice} from '~/page/state/windows';
 
-import css from './style.css';
+import css from './style.m.css';
 
 type Props = {
     windowId: WindowId;
@@ -30,10 +29,8 @@ const Item = ({windowId}: Props) => {
         }
     };
 
-    const className = cn(css.item, isActive && css.active);
-
     return (
-        <Button className={className} onClick={onClick}>
+        <Button className={css.item} active={isActive} onClick={onClick}>
             <img src={window.image} alt="" width={16} height={16} />
 
             {window.title}

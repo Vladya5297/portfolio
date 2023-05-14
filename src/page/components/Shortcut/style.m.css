@@ -16,6 +16,10 @@
     outline: white dotted 1px;
 }
 
+.root:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 .image {
     position: relative;
     min-width: 40px;

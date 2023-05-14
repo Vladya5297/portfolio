@@ -1,6 +1,8 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 // const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const APP_DIR = path.resolve(__dirname, '../src');
@@ -16,9 +18,24 @@ module.exports = {
                     name: 'vendor',
                     chunks: 'initial',
                 },
+                normalize: {
+                    name: 'normalize',
+                    test: /normalize\.css/,
+                    chunks: 'all',
+                    enforce: true,
+                },
             },
         },
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.join(APP_DIR, 'index.html'),
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name]_[contenthash].css',
+        }),
+        // new FaviconsWebpackPlugin(path.join(APP_DIR, 'images/favicon.svg')),
+    ],
     module: {
         rules: [
             {
@@ -37,7 +54,7 @@ module.exports = {
                 use: ['html-loader'],
             },
             {
-                test: /\.css$/,
+                test: /\.m\.css$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -48,19 +65,24 @@ module.exports = {
                         options: {
                             modules: {
                                 mode: 'local',
-                                localIdentName: '[folder]__[local]__[hash:base64:5]',
+                                localIdentName: '[folder]_[local]_[hash:base64:5]',
                             },
                         },
                     },
                 ],
             },
             {
-                test: /\.svg$/i,
+                test: /\.css$/,
+                exclude: /\.m\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
+                test: /\.svg$/,
                 issuer: /\.tsx?$/,
                 use: ['@svgr/webpack'],
             },
             {
-                test: /\.png$/i,
+                test: /\.png$/,
                 type: 'asset/resource',
             },
         ],
@@ -73,12 +95,6 @@ module.exports = {
     },
     output: {
         path: BUILD_DIR,
-        filename: '[name].[contenthash].js',
+        filename: '[name]_[contenthash].js',
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: path.join(APP_DIR, 'index.html'),
-        }),
-        // new FaviconsWebpackPlugin(path.join(APP_DIR, 'images/favicon.svg')),
-    ],
 };
