@@ -33,7 +33,7 @@ const Item = ({windowId}: Props) => {
         <Button className={css.item} active={isActive} onClick={onClick}>
             <img src={window.image} alt="" width={16} height={16} />
 
-            {window.title}
+            <span className={css.label}>{window.title}</span>
         </Button>
     );
 };

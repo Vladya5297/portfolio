@@ -1,8 +1,9 @@
+import {DEFAULT_SIZE} from './constants';
 import type {Position, WindowId, WindowsState} from './types';
 
 export const getDefaultPosition = (): Position => {
     const {width} = document.body.getBoundingClientRect();
-    const x = width / 2 - 200;
+    const x = width / 2 - DEFAULT_SIZE.width / 2;
     const y = 100;
 
     return {x, y};

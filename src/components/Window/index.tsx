@@ -1,58 +1,48 @@
-import {useCallback} from 'react';
 import {createPortal} from 'react-dom';
-import Draggable from 'react-draggable';
-import type {DraggableEventHandler} from 'react-draggable';
 
 import {View} from './View';
 import type {ViewProps} from './View';
-import css from './style.m.css';
+import {Draggable} from './Draggable';
+import type {DraggableProps} from './Draggable';
+import {Resizable} from './Resizable';
+import type {ResizableProps} from './Resizable';
 
-type Position = {
-    x: number;
-    y: number;
-};
-
-type CustomProps = {
-    root?: HTMLElement;
-    position?: Position;
-    onDragStart?: (position: Position) => void;
-    onDragStop?: (position: Position) => void;
-    onMouseDown?: (event: MouseEvent) => void;
-};
-
-type Props = CustomProps & Omit<ViewProps, keyof CustomProps>;
+type Props = ViewProps
+& Omit<DraggableProps, 'children'>
+& Omit<ResizableProps, 'children'>;
 
 export const Window = ({
-    root = document.body,
-    position,
+    root,
+    draggable,
+    initialPosition,
+    resizeable,
+    initialSize,
     children,
     onDragStart,
     onDragStop,
     onMouseDown,
+    onResizeStop,
     ...props
 }: Props) => {
-    const onStart: DraggableEventHandler = useCallback((_, {x, y}) => {
-        onDragStart?.({x, y});
-    }, [onDragStart]);
-
-    const onStop: DraggableEventHandler = useCallback((_, {x, y}) => {
-        onDragStop?.({x, y});
-    }, [onDragStop]);
-
     return createPortal(
         <Draggable
-            handle={`.${css.title}`}
-            defaultClassNameDragging={css.dragging}
-            bounds="parent"
-            offsetParent={root}
-            defaultPosition={position}
-            onStart={onStart}
-            onStop={onStop}
+            root={root}
+            initialPosition={initialPosition}
+            draggable={draggable}
+            onDragStart={onDragStart}
+            onDragStop={onDragStop}
             onMouseDown={onMouseDown}
         >
-            <View {...props}>
-                {children}
-            </View>
+            <Resizable
+                root={root}
+                initialSize={initialSize}
+                resizeable={resizeable}
+                onResizeStop={onResizeStop}
+            >
+                <View {...props}>
+                    {children}
+                </View>
+            </Resizable>
         </Draggable>,
         root,
     );

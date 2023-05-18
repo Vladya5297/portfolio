@@ -4,11 +4,13 @@ import type {PayloadAction} from '@reduxjs/toolkit';
 import type {
     AddWindowPayload,
     SetupPositionPayload,
+    SetupSizePayload,
     Window,
     WindowId,
     WindowsState,
 } from './types';
 import {getDefaultPosition, removeFromQueue, updateActive} from './utils';
+import {DEFAULT_SIZE} from './constants';
 
 export const windowAdapter = createEntityAdapter<Window>();
 const collection = windowAdapter.getInitialState();
@@ -33,6 +35,7 @@ export const windowsSlice = createSlice({
                 isMinimized: false,
                 isOpened: false,
                 position: getDefaultPosition(),
+                size: DEFAULT_SIZE,
             });
         },
         setActive(state, action: PayloadAction<WindowId>) {
@@ -97,6 +100,14 @@ export const windowsSlice = createSlice({
             windowAdapter.updateOne(state, {
                 id: windowId,
                 changes: {position},
+            });
+        },
+        setupSize(state, action: PayloadAction<SetupSizePayload>) {
+            const {id: windowId, size} = action.payload;
+
+            windowAdapter.updateOne(state, {
+                id: windowId,
+                changes: {size},
             });
         },
     },

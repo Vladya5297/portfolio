@@ -7,8 +7,17 @@
 
 .main {
     flex: 1;
+    position: relative;
     background-color: rgb(0, 128, 128);
+}
+
+.grid {
+    position: absolute;
+    inset: 0;
+
     padding: 8px;
+    box-sizing: border-box;
+
     display: grid;
     grid-template-columns: repeat(auto-fill, 80px);
     grid-template-rows: repeat(auto-fill, 80px);

@@ -8,6 +8,11 @@ export type Position = {
     y: number;
 };
 
+export type Size = {
+    width: number;
+    height: number;
+};
+
 export type Window = {
     id: WindowId;
     title: string;
@@ -15,6 +20,7 @@ export type Window = {
     isOpened: boolean;
     isMinimized: boolean;
     position: Position;
+    size: Size;
 };
 
 export type WindowsState = {
@@ -31,4 +37,9 @@ export type AddWindowPayload = {
 export type SetupPositionPayload = {
     id: WindowId;
     position: Position;
+};
+
+export type SetupSizePayload = {
+    id: WindowId;
+    size: Size;
 };

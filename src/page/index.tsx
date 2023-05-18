@@ -6,7 +6,9 @@ export const Main = () => {
     return (
         <div className={css.root}>
             <main className={css.main}>
-                <Kaspersky />
+                <div className={css.grid}>
+                    <Kaspersky />
+                </div>
             </main>
             <Footer />
         </div>

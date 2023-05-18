@@ -3,10 +3,10 @@ import {useSelector} from 'react-redux';
 
 import {useAction} from '~/utils/useAction';
 import {windowsSlice} from '~/page/state/windows';
-import type {Position, WindowId} from '~/page/state/windows/types';
+import type {Position, Size, WindowId} from '~/page/state/windows/types';
 import {selectActiveWindowId, selectQueueIndex, selectWindow} from '~/page/state/windows/selectors';
 import type {State} from '~/page/state/types';
-import {Window as View} from '~/components/Window';
+import {Window as Core} from '~/components/Window';
 
 type Props = {
     id: WindowId;
@@ -23,6 +23,9 @@ export const Window = ({id: windowId, root, content}: Props) => {
     const setupPosition = useAction(
         (position: Position) => windowsSlice.actions.setupPosition({id: windowId, position}),
     );
+    const setupSize = useAction(
+        (size: Size) => windowsSlice.actions.setupSize({id: windowId, size}),
+    );
 
     const activeWindowId = useSelector(selectActiveWindowId);
     const isActive = activeWindowId === windowId;
@@ -34,19 +37,23 @@ export const Window = ({id: windowId, root, content}: Props) => {
         && !window.isMinimized;
 
     return showWindow ? (
-        <View
+        <Core
             title={window.title}
             image={window.image}
             root={root}
             active={isActive}
-            position={window.position}
+            draggable
+            initialPosition={window.position}
+            resizeable
+            initialSize={window.size}
             onMouseDown={setActive}
             onMinimize={minimize}
             onClose={close}
             onDragStop={setupPosition}
+            onResizeStop={setupSize}
             style={{zIndex: index}}
         >
             {content}
-        </View>
+        </Core>
     ) : null;
 };

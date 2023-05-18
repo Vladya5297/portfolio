@@ -1,5 +1,6 @@
 import cn from 'classnames';
-import type {ReactNode, HTMLAttributes} from 'react';
+import type {ReactNode, HTMLAttributes, ForwardedRef} from 'react';
+import {forwardRef} from 'react';
 
 import {Button} from '../Button';
 import {Icon} from '../Icon';
@@ -19,26 +20,34 @@ type DefaultProps = HTMLAttributes<HTMLDivElement>;
 
 export type ViewProps = CustomProps & Omit<DefaultProps, keyof CustomProps>;
 
-export const View = ({
-    title,
-    image,
-    active = true,
-    className,
-    children,
-    onClose,
-    onMinimize,
-    ...props
-}: ViewProps) => {
-    const rootClassName = cn(CSS_GLOBAL_CLASS.BORDER_OUTSET, css.root, className);
-    const titleClassName = cn(css.title, active && css.active);
+export const View = forwardRef(function View(
+    {
+        title,
+        image,
+        active = true,
+        className,
+        children,
+        onClose,
+        onMinimize,
+        ...props
+    }: ViewProps,
+    ref: ForwardedRef<HTMLDivElement | null>,
+) {
+    const rootClassName = cn(
+        CSS_GLOBAL_CLASS.BORDER_OUTSET,
+        css.root,
+        className,
+    );
+
+    const headerClassName = cn(css.header, active && css.active);
 
     return (
-        <div {...props} className={rootClassName}>
-            <div className={titleClassName}>
-                <div className={css.label}>
+        <div {...props} className={rootClassName} ref={ref}>
+            <div className={headerClassName}>
+                <div className={css.title}>
                     <img src={image} width={16} height={16} alt="" />
 
-                    {title}
+                    <span className={css.label}>{title}</span>
                 </div>
 
                 {onMinimize && (
@@ -57,4 +66,4 @@ export const View = ({
             {children}
         </div>
     );
-};
+});
