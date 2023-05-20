@@ -1,4 +1,8 @@
 .root {
+    min-width: 200px;
+    min-height: 100px;
+
+    position: absolute;
     padding: 2px;
     box-sizing: border-box;
 
@@ -27,11 +31,12 @@
 }
 
 .title {
+    flex: 1;
     display: flex;
-    margin-right: auto;
     align-items: center;
     gap: 2px;
     overflow: hidden;
+    cursor: move;
 }
 
 .label {
@@ -42,13 +47,4 @@
 
 .icon {
     color: black;
-}
-
-.dragging {
-    cursor: move;
-}
-
-:global(.react-resizable) {
-    min-width: 200px;
-    min-height: 100px;
 }

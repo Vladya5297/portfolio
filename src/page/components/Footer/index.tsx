@@ -1,11 +1,11 @@
 import {useSelector} from 'react-redux';
 
 import {Button} from '~/components/Button';
+import {useAction} from '~/utils/useAction';
+import {windowsSlice} from '~/page/state/windows';
 import {selectActiveWindowId, selectOpenedWindows, selectWindow} from '~/page/state/windows/selectors';
 import type {Window, WindowId} from '~/page/state/windows/types';
 import type {State} from '~/page/state/types';
-import {useAction} from '~/utils/useAction';
-import {windowsSlice} from '~/page/state/windows';
 
 import css from './style.m.css';
 
@@ -20,13 +20,20 @@ const Item = ({windowId}: Props) => {
 
     const setMaximized = useAction(() => windowsSlice.actions.setMaximized(windowId));
     const setMinimized = useAction(() => windowsSlice.actions.setMinimized(windowId));
+    const setActive = useAction(() => windowsSlice.actions.setActive(windowId));
 
     const onClick = () => {
+        if (isActive) {
+            setMinimized();
+            return;
+        }
+
         if (window.isMinimized) {
             setMaximized();
-        } else {
-            setMinimized();
+            return;
         }
+
+        setActive();
     };
 
     return (

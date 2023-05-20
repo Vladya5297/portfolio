@@ -9,8 +9,7 @@ import type {
     WindowId,
     WindowsState,
 } from './types';
-import {getDefaultPosition, removeFromQueue, updateActive} from './utils';
-import {DEFAULT_SIZE} from './constants';
+import {getDefaultRect, removeFromQueue, updateActive} from './utils';
 
 export const windowAdapter = createEntityAdapter<Window>();
 const collection = windowAdapter.getInitialState();
@@ -34,8 +33,7 @@ export const windowsSlice = createSlice({
                 image,
                 isMinimized: false,
                 isOpened: false,
-                position: getDefaultPosition(),
-                size: DEFAULT_SIZE,
+                ...getDefaultRect(),
             });
         },
         setActive(state, action: PayloadAction<WindowId>) {

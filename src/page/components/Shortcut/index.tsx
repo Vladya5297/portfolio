@@ -3,18 +3,21 @@ import css from './style.m.css';
 type Props = {
     image: string;
     title: string;
-    row: number;
-    column: number;
+    column?: number | 'last';
+    row?: number | 'last';
     onClick: () => void;
 };
 
 export const Shortcut = ({
     image,
     title,
-    row: gridRow,
-    column: gridColumn,
+    column,
+    row,
     onClick,
 }: Props) => {
+    const gridColumn = column === 'last' ? -2 : column;
+    const gridRow = row === 'last' ? -2 : row;
+
     return (
         <button
             className={css.root}

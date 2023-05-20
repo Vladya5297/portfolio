@@ -1,5 +1,6 @@
-import React, {useMemo, useCallback, useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import type {ReactElement, CSSProperties, SyntheticEvent} from 'react';
+import cn from 'classnames';
 import type {ResizeCallbackData} from 'react-resizable';
 import {Resizable as ResizableBase} from 'react-resizable';
 import 'react-resizable/css/styles.css';
@@ -22,6 +23,8 @@ export const Resizable = ({
     resizeable,
     children,
     onResizeStop,
+    style,
+    className,
     ...props
 }: ResizableProps) => {
     const ref = useRef<HTMLDivElement | null>(null);
@@ -48,9 +51,16 @@ export const Resizable = ({
         onResizeStop?.(data.size);
     }, [onResizeStop]);
 
-    const element = useMemo(() => React.Children.only(children), [children]);
+    const element = React.Children.only(children);
 
-    const style = {
+    const childClassName = cn(
+        className,
+        element.props.className,
+    );
+
+    const childStyle = {
+        ...style,
+        ...element.props.style,
         width: `${size.width}px`,
         height: `${size.height}px`,
     };
@@ -65,7 +75,11 @@ export const Resizable = ({
             onResizeStop={onStop}
             onResize={onResize}
         >
-            {React.cloneElement(element, {style, ref})}
+            {React.cloneElement(element, {
+                className: childClassName,
+                style: childStyle,
+                ref,
+            })}
         </ResizableBase>
     );
 };

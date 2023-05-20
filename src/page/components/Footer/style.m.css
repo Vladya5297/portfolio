@@ -1,15 +1,17 @@
 .footer {
     height: 26px;
+    padding: 2px 4px;
+    border-top: 1px solid #fff;
     display: flex;
     gap: 4px;
     background-color: silver;
     box-shadow: inset 0 1px 0 0 #fff;
-    padding: 2px 4px;
-    border-top: 1px solid #fff;
 }
 
 .item {
-    width: 120px;
+    flex: 1;
+    min-width: 26px;
+    max-width: 120px;
     display: flex;
     gap: 4px;
 }

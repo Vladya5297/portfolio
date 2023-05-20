@@ -1,12 +1,23 @@
 import {DEFAULT_SIZE} from './constants';
-import type {Position, WindowId, WindowsState} from './types';
+import type {Position, Size, WindowId, WindowsState} from './types';
 
-export const getDefaultPosition = (): Position => {
-    const {width} = document.body.getBoundingClientRect();
-    const x = width / 2 - DEFAULT_SIZE.width / 2;
-    const y = 100;
+type Rect = {
+    position: Position;
+    size: Size;
+};
 
-    return {x, y};
+export const getDefaultRect = (): Rect => {
+    const {width: maxWidth, height: maxHeight} = document.body.getBoundingClientRect();
+    const width = Math.min(DEFAULT_SIZE.width, maxWidth);
+    const height = Math.min(DEFAULT_SIZE.height, maxHeight);
+
+    const x = maxWidth / 2 - width / 2;
+    const y = maxHeight / 2 - height / 2;
+
+    return {
+        position: {x, y},
+        size: {width, height},
+    };
 };
 
 export const removeFromQueue = (state: WindowsState, windowId: WindowId): void => {

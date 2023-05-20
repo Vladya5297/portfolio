@@ -35,8 +35,7 @@ export const Draggable = ({
 
     return (
         <DraggableBase
-            handle={`.${css.header}`}
-            defaultClassNameDragging={css.dragging}
+            handle={`.${css.title}`}
             bounds="parent"
             offsetParent={root}
             defaultPosition={initialPosition}
