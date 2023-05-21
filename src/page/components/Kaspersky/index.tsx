@@ -1,8 +1,14 @@
+import {lazy} from 'react';
+
 import kasperskyLogo from '~/assets/kaspersky-logo.png';
+import {promiseDelay} from '~/utils/promiseDelay';
 
 import {Application} from '../Application';
+import {WindowContent} from '../WindowContent';
 
 const id = 'kaspersky';
+
+const Content = lazy(() => promiseDelay(import('./Content.mdx'), 1000));
 
 export const Kaspersky = () => {
     return (
@@ -10,8 +16,11 @@ export const Kaspersky = () => {
             id={id}
             title="Kaspersky"
             image={kasperskyLogo}
-            position={{column: 1, row: 1}}
-            content="hello"
+            content={(
+                <WindowContent>
+                    <Content />
+                </WindowContent>
+            )}
         />
     );
 };

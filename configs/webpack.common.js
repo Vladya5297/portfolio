@@ -84,6 +84,14 @@ module.exports = {
                 test: /\.png$/,
                 type: 'asset/resource',
             },
+            {
+                test: /\.mdx?$/,
+                use: [
+                    {
+                        loader: '@mdx-js/loader',
+                    },
+                ],
+            },
         ],
     },
     resolve: {

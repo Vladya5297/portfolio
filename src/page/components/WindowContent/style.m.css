@@ -1,0 +1,9 @@
+.content {
+    height: 100%;
+    margin: 8px;
+    padding: 4px;
+    background-color: white;
+    overflow: auto;
+    font-family: monospace;
+    font-size: 16px;
+}

@@ -17,7 +17,9 @@
         "react-resizable": "^3.0.5"
     },
     "devDependencies": {
+        "@mdx-js/loader": "^2.3.0",
         "@svgr/webpack": "^6.5.1",
+        "@types/mdx": "^2.0.5",
         "@types/react-dom": "^18.0.11",
         "@types/react-resizable": "^3.0.4",
         "@typescript-eslint/eslint-plugin": "^5.53.0",
