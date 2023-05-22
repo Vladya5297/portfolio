@@ -12,8 +12,11 @@ type CustomProps = {
     title: ReactNode;
     image: string;
     active?: boolean;
+    fullscreen?: boolean;
     onClose?: () => void;
     onMinimize?: () => void;
+    onFullScreen?: () => void;
+    onSmallScreen?: () => void;
 };
 
 type DefaultProps = HTMLAttributes<HTMLDivElement>;
@@ -25,10 +28,13 @@ export const View = forwardRef(function View(
         title,
         image,
         active = true,
+        fullscreen = false,
         className,
         children,
         onClose,
         onMinimize,
+        onFullScreen,
+        onSmallScreen,
         ...props
     }: ViewProps,
     ref: ForwardedRef<HTMLDivElement | null>,
@@ -53,6 +59,18 @@ export const View = forwardRef(function View(
                 {onMinimize && (
                     <Button size="s" className={css.icon} onClick={onMinimize}>
                         <Icon name="lodash" size="s" />
+                    </Button>
+                )}
+
+                {!fullscreen && onFullScreen && (
+                    <Button size="s" className={css.icon} onClick={onFullScreen}>
+                        <Icon name="window" size="s" />
+                    </Button>
+                )}
+
+                {fullscreen && onSmallScreen && (
+                    <Button size="s" className={css.icon} onClick={onSmallScreen}>
+                        <Icon name="windows" size="s" />
                     </Button>
                 )}
 

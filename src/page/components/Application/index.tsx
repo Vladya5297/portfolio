@@ -52,11 +52,13 @@ export const Application = ({id, title, image, position, content}: Props) => {
         setOpened();
     };
 
+    const showWindow = root && window;
+
     return (
         <>
             <Shortcut title={title} image={image} {...position} onClick={onClick} />
 
-            {root ? <Window id={windowId} root={root} content={content} /> : null}
+            {showWindow ? <Window id={windowId} root={root} content={content} /> : null}
         </>
     );
 };

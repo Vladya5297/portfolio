@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useEffect, useState} from 'react';
 import type {ReactNode} from 'react';
 import DraggableBase from 'react-draggable';
 import type {DraggableEventHandler} from 'react-draggable';
@@ -18,30 +18,41 @@ export type DraggableProps = {
 
 export const Draggable = ({
     root,
-    initialPosition,
+    initialPosition = {x: 0, y: 0},
     draggable,
     children,
     onDragStart,
     onDragStop,
     onMouseDown,
 }: DraggableProps) => {
-    const onStart: DraggableEventHandler = useCallback((_, {x, y}) => {
-        onDragStart?.({x, y});
-    }, [onDragStart]);
+    const [position, setPosition] = useState<Position>(initialPosition);
 
-    const onStop: DraggableEventHandler = useCallback((_, {x, y}) => {
+    useEffect(() => {
+        setPosition(initialPosition);
+    }, [initialPosition]);
+
+    const onStart: DraggableEventHandler = (_, {x, y}) => {
+        onDragStart?.({x, y});
+    };
+
+    const onStop: DraggableEventHandler = (_, {x, y}) => {
         onDragStop?.({x, y});
-    }, [onDragStop]);
+    };
+
+    const onResize: DraggableEventHandler = (_, {x, y}) => {
+        setPosition({x, y});
+    };
 
     return (
         <DraggableBase
             handle={`.${css.title}`}
             bounds="parent"
             offsetParent={root}
-            defaultPosition={initialPosition}
+            position={position}
             disabled={!draggable}
             onStart={onStart}
             onStop={onStop}
+            onDrag={onResize}
             onMouseDown={onMouseDown}
         >
             {children}

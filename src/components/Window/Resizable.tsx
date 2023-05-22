@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import type {ReactElement, CSSProperties, SyntheticEvent} from 'react';
 import cn from 'classnames';
 import type {ResizeCallbackData} from 'react-resizable';
@@ -28,9 +28,13 @@ export const Resizable = ({
     ...props
 }: ResizableProps) => {
     const ref = useRef<HTMLDivElement | null>(null);
-    const [size, setSize] = useState(initialSize);
+    const [size, setSize] = useState<Size>(initialSize);
 
-    const onResize = useCallback((_: SyntheticEvent, data: ResizeCallbackData) => {
+    useEffect(() => {
+        setSize(initialSize);
+    }, [initialSize]);
+
+    const onResize = (_: SyntheticEvent, data: ResizeCallbackData) => {
         const self = ref.current;
         if (!self) return;
 
@@ -45,11 +49,11 @@ export const Resizable = ({
         if (width > maxWidth || height > maxHeight) return;
 
         setSize({width, height});
-    }, [root]);
+    };
 
-    const onStop = useCallback((_: SyntheticEvent, data: ResizeCallbackData) => {
+    const onStop = (_: SyntheticEvent, data: ResizeCallbackData) => {
         onResizeStop?.(data.size);
-    }, [onResizeStop]);
+    };
 
     const element = React.Children.only(children);
 

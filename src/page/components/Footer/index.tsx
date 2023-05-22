@@ -4,7 +4,7 @@ import {Button} from '~/components/Button';
 import {useAction} from '~/utils/useAction';
 import {windowsSlice} from '~/page/state/windows';
 import {selectActiveWindowId, selectOpenedWindows, selectWindow} from '~/page/state/windows/selectors';
-import type {Window, WindowId} from '~/page/state/windows/types';
+import type {WindowId} from '~/page/state/windows/types';
 import type {State} from '~/page/state/types';
 
 import css from './style.m.css';
@@ -14,7 +14,7 @@ type Props = {
 };
 
 const Item = ({windowId}: Props) => {
-    const window = useSelector((state: State) => selectWindow(state, windowId)) as Window;
+    const window = useSelector((state: State) => selectWindow(state, windowId))!;
     const activeWindowId = useSelector(selectActiveWindowId);
     const isActive = activeWindowId === windowId;
 

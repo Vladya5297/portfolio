@@ -1,6 +1,6 @@
 import {Footer} from './components/Footer';
-import css from './style.m.css';
 import {Kaspersky} from './components/Kaspersky';
+import css from './style.m.css';
 
 export const Main = () => {
     return (
