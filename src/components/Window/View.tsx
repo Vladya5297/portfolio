@@ -5,6 +5,7 @@ import {forwardRef} from 'react';
 import {Button} from '../Button';
 import {Icon} from '../Icon';
 import {CSS_GLOBAL_CLASS} from '../styles';
+import {useBreakpoint} from '../Breakpoint/useBreakpoint';
 
 import css from './style.m.css';
 
@@ -37,10 +38,15 @@ export const View = forwardRef(function View(
         onSmallScreen,
         ...props
     }: ViewProps,
-    ref: ForwardedRef<HTMLDivElement | null>,
+    ref: ForwardedRef<HTMLDivElement>,
 ) {
+    const isMobile = useBreakpoint({to: 's'});
+
+    const size = isMobile ? 'm' : 's';
+
     const rootClassName = cn(
         CSS_GLOBAL_CLASS.BORDER_OUTSET,
+        css[`size-${size}`],
         css.root,
         className,
     );
@@ -57,26 +63,26 @@ export const View = forwardRef(function View(
                 </div>
 
                 {onMinimize && (
-                    <Button size="s" className={css.icon} onClick={onMinimize}>
-                        <Icon name="lodash" size="s" />
+                    <Button size="s" onClick={onMinimize}>
+                        <Icon name="lodash" size={size} />
                     </Button>
                 )}
 
                 {!fullscreen && onFullScreen && (
-                    <Button size="s" className={css.icon} onClick={onFullScreen}>
-                        <Icon name="window" size="s" />
+                    <Button size="s" onClick={onFullScreen}>
+                        <Icon name="window" size={size} />
                     </Button>
                 )}
 
                 {fullscreen && onSmallScreen && (
-                    <Button size="s" className={css.icon} onClick={onSmallScreen}>
-                        <Icon name="windows" size="s" />
+                    <Button size="s" onClick={onSmallScreen}>
+                        <Icon name="windows" size={size} />
                     </Button>
                 )}
 
                 {onClose && (
-                    <Button size="s" className={css.icon} onClick={onClose}>
-                        <Icon name="cross" size="s" />
+                    <Button size="s" onClick={onClose}>
+                        <Icon name="cross" size={size} />
                     </Button>
                 )}
             </div>

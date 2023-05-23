@@ -1,6 +1,8 @@
 .root {
     min-width: 200px;
     min-height: 100px;
+    max-width: 100%;
+    max-height: 100%;
 
     position: absolute;
     padding: 2px;
@@ -14,15 +16,9 @@
 .header {
     padding: 2px;
     margin: 1px;
-    
     display: flex;
     align-items: center;
-
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
     user-select: none;
-
     background: linear-gradient(90deg,#808080,#c0c0c0);
 }
 
@@ -34,17 +30,27 @@
     flex: 1;
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
     overflow: hidden;
+}
+
+.draggable .title {
     cursor: move;
 }
 
 .label {
+    color: #fff;
+    font-weight: 700;
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.icon {
-    color: black;
+.size-s .label {
+    font-size: 12px;
+}
+
+.size-m .label {
+    font-size: 14px;
 }

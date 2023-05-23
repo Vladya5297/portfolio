@@ -1,14 +1,15 @@
-import {useEffect, useState} from 'react';
-import type {ReactNode} from 'react';
+import React, {useEffect, useState} from 'react';
+import type {ReactElement} from 'react';
 import DraggableBase from 'react-draggable';
 import type {DraggableEventHandler} from 'react-draggable';
+import cn from 'classnames';
 
 import type {Position} from './types';
 import css from './style.m.css';
 
 export type DraggableProps = {
     root: HTMLElement;
-    children: ReactNode;
+    children: ReactElement;
     initialPosition?: Position;
     draggable?: boolean;
     onDragStart?: (position: Position) => void;
@@ -29,7 +30,7 @@ export const Draggable = ({
 
     useEffect(() => {
         setPosition(initialPosition);
-    }, [initialPosition]);
+    }, [initialPosition.x, initialPosition.y]);
 
     const onStart: DraggableEventHandler = (_, {x, y}) => {
         onDragStart?.({x, y});
@@ -43,9 +44,19 @@ export const Draggable = ({
         setPosition({x, y});
     };
 
+    const element = React.Children.only(children);
+
+    const childClassName = cn(
+        draggable && css.draggable,
+        element.props.className,
+    );
+
     return (
         <DraggableBase
             handle={`.${css.title}`}
+            defaultClassName=""
+            defaultClassNameDragged=""
+            defaultClassNameDragging=""
             bounds="parent"
             offsetParent={root}
             position={position}
@@ -55,7 +66,9 @@ export const Draggable = ({
             onDrag={onResize}
             onMouseDown={onMouseDown}
         >
-            {children}
+            {React.cloneElement(element, {
+                className: childClassName,
+            })}
         </DraggableBase>
     );
 };

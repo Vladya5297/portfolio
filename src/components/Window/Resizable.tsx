@@ -27,12 +27,12 @@ export const Resizable = ({
     className,
     ...props
 }: ResizableProps) => {
-    const ref = useRef<HTMLDivElement | null>(null);
+    const ref = useRef<HTMLDivElement>(null);
     const [size, setSize] = useState<Size>(initialSize);
 
     useEffect(() => {
         setSize(initialSize);
-    }, [initialSize]);
+    }, [initialSize.width, initialSize.height]);
 
     const onResize = (_: SyntheticEvent, data: ResizeCallbackData) => {
         const self = ref.current;
