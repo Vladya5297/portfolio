@@ -1,12 +1,11 @@
 .border-outset {
     border-width: 0.8px;
-    border-bottom-color: #000;
-    border-right-color: #000;
-    border-top-color: #fff;
-    border-left-color: #fff;
+    border-style: solid;
+    border-top-color: var(--color-border-outset-outer-primary);
+    border-left-color: var(--color-border-outset-outer-primary);
+    border-bottom-color: var(--color-border-outset-outer-secondary);
+    border-right-color: var(--color-border-outset-outer-secondary);
     box-shadow:
-        inset -1px 0 0 0 grey,
-        inset -1px 1px 0 0 #fff,
-        inset -1px -1px 0 0 grey,
-        inset 0 0 0 1px #fff;
+        inset -1px -1px 0 0 var(--color-border-outset-inner-secondary),
+        inset 1px 1px 0 0 var(--color-border-outset-inner-primary);
 }

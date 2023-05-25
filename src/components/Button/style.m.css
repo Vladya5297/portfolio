@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
 
-    background-color: silver;
+    background-color: var(--color-background-primary);
     
     user-select: none;
     cursor: pointer;
@@ -12,7 +12,7 @@
 }
 
 .root:focus {
-    outline: black dotted 2px;
+    outline: var(--color-outline-primary) dotted 2px;
 }
 
 .root:hover {
@@ -20,8 +20,8 @@
 }
 
 .root:active {
-    border-color: #000;
-    box-shadow: inset 0 0 0 1px grey;
+    border-color: var(--color-border-outset-outer-secondary);
+    box-shadow: inset 0 0 0 1px var(--color-border-outset-inner-secondary);
 }
 
 .size-s {

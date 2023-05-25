@@ -13,11 +13,11 @@
 }
 
 .root:focus {
-    outline: white dotted 1px;
+    outline: var(--color-outline-secondary) dotted 1px;
 }
 
 .root:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--color-blur-secondary);
 }
 
 .image {
@@ -36,7 +36,7 @@
 
 .label {
     user-select: none;
-    color: white;
+    color: var(--color-text-secondary);
     text-align: center;
     font-size: 14px;
     word-break: break-word;
@@ -44,6 +44,5 @@
 
 .root:active .image::before,
 .root:active .label {
-    background-color:blue;
-    opacity: 0.5;
+    background-color: var(--color-blur-accent);
 }

@@ -10,7 +10,7 @@
 
     display: flex;
     flex-direction: column;
-    background-color: silver;
+    background-color: var(--color-background-primary);
 }
 
 .header {
@@ -19,11 +19,19 @@
     display: flex;
     align-items: center;
     user-select: none;
-    background: linear-gradient(90deg,#808080,#c0c0c0);
+    background: linear-gradient(
+        90deg,
+        var(--color-accent-inactive-primary),
+        var(--color-accent-inactive-secondary)
+    );
 }
 
 .active {
-    background: linear-gradient(90deg, navy, #1084d0);
+    background: linear-gradient(
+        90deg,
+        var(--color-accent-primary),
+        var(--color-accent-secondary)
+    );
 }
 
 .title {
@@ -39,7 +47,7 @@
 }
 
 .label {
-    color: #fff;
+    color: var(--color-text-secondary);
     font-weight: 700;
 
     white-space: nowrap;

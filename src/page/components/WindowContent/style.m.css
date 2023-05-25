@@ -2,7 +2,7 @@
     height: 100%;
     margin: 8px;
     padding: 8px;
-    background-color: white;
+    background-color: var(--color-background-content);
     overflow: auto;
     font-family: monospace;
     font-size: 16px;
