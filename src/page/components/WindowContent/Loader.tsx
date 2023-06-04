@@ -16,6 +16,8 @@ export const Loader = () => {
                 return value + 10;
             });
         }, 100);
+
+        return () => clearInterval(tid);
     }, []);
 
     return (

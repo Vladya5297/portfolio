@@ -1,14 +1,8 @@
 import {useEffect, useState} from 'react';
 
+import {state} from '~/page/state';
 import {windowsSlice} from '~/page/state/windows';
 import type {AddWindowPayload} from '~/page/state/windows/types';
-import {useAction} from '~/utils/useAction';
-
-export const useSetup = (params: AddWindowPayload): void => {
-    const setup = useAction(() => windowsSlice.actions.addWindow(params));
-
-    useEffect(setup, [setup]);
-};
 
 export const useRoot = (): HTMLElement | null => {
     const [root, setRoot] = useState<HTMLElement | null>(null);
@@ -19,4 +13,15 @@ export const useRoot = (): HTMLElement | null => {
     }, []);
 
     return root;
+};
+
+/**
+ * Should be called before rendering.
+ * @example
+ * setup({id, title, image});
+ *
+ * const Component = () => {...}
+ */
+export const setup = (params: AddWindowPayload) => {
+    state.dispatch(windowsSlice.actions.addWindow(params));
 };

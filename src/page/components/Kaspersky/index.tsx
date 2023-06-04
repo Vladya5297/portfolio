@@ -1,21 +1,21 @@
-import {lazy} from 'react';
+import image from '~/assets/kaspersky-logo.png';
+import type {WindowId} from '~/page/state/windows/types';
 
-import kasperskyLogo from '~/assets/kaspersky-logo.png';
-import {promiseDelay} from '~/utils/promiseDelay';
+import {Application, setup} from '../Application';
+import {WindowContent, lazyContent} from '../WindowContent';
 
-import {Application} from '../Application';
-import {WindowContent} from '../WindowContent';
+const id = 'kaspersky' as WindowId;
+const title = 'Kaspersky';
+const Content = lazyContent(() => import('./Content.mdx'));
 
-const id = 'kaspersky';
-
-const Content = lazy(() => promiseDelay(import('./Content.mdx'), 1000));
+setup({id, title, image});
 
 export const Kaspersky = () => {
     return (
         <Application
             id={id}
-            title="Kaspersky"
-            image={kasperskyLogo}
+            title={title}
+            image={image}
             content={(
                 <WindowContent>
                     <Content />

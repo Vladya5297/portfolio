@@ -1,11 +1,13 @@
 import {useSelector} from 'react-redux';
 
 import {Button} from '~/components/Button';
-import {useAction} from '~/utils/useAction';
+import {useAction} from '~/utils/redux/useAction';
 import {windowsSlice} from '~/page/state/windows';
 import {selectActiveWindowId, selectOpenedWindows, selectWindow} from '~/page/state/windows/selectors';
 import type {WindowId} from '~/page/state/windows/types';
 import type {State} from '~/page/state/types';
+import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
+import {pick} from '~/utils/pick';
 
 import css from './style.m.css';
 
@@ -14,7 +16,10 @@ type Props = {
 };
 
 const Item = ({windowId}: Props) => {
-    const window = useSelector((state: State) => selectWindow(state, windowId))!;
+    const window = useSelectorMapper(
+        (state: State) => selectWindow(state, windowId),
+        value => pick(value, ['isMinimized', 'image', 'title']),
+    );
     const activeWindowId = useSelector(selectActiveWindowId);
     const isActive = activeWindowId === windowId;
 

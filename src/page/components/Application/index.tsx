@@ -1,16 +1,19 @@
 import type {ReactNode} from 'react';
-import {useSelector} from 'react-redux';
 
-import {useAction} from '~/utils/useAction';
+import {useAction} from '~/utils/redux/useAction';
 import {windowsSlice} from '~/page/state/windows';
 import {selectWindow} from '~/page/state/windows/selectors';
 import type {WindowId} from '~/page/state/windows/types';
 import type {State} from '~/page/state/types';
+import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
+import {pick} from '~/utils/pick';
 
 import {Shortcut} from '../Shortcut';
 import {Window} from '../Window';
 
-import {useRoot, useSetup} from './utils';
+import {useRoot} from './utils';
+
+export * from './utils';
 
 type Position = {
     row: number | 'last';
@@ -18,27 +21,26 @@ type Position = {
 };
 
 type Props = {
-    id: string;
+    id: WindowId;
     title: string;
     image: string;
     position?: Position;
     content: ReactNode;
 };
 
-export const Application = ({id, title, image, position, content}: Props) => {
-    const windowId = id as WindowId;
-    useSetup({id: windowId, title, image});
-
+/** Make sure to call `setup` before render! */
+export const Application = ({id: windowId, title, image, position, content}: Props) => {
     const root = useRoot();
-    const window = useSelector((state: State) => selectWindow(state, windowId));
+    const window = useSelectorMapper(
+        (state: State) => selectWindow(state, windowId),
+        value => pick(value, ['isMinimized', 'isOpened']),
+    );
 
     const setOpened = useAction(() => windowsSlice.actions.setOpened(windowId));
     const setActive = useAction(() => windowsSlice.actions.setActive(windowId));
     const setMaximized = useAction(() => windowsSlice.actions.setMaximized(windowId));
 
     const onClick = () => {
-        if (!window) return;
-
         if (window.isMinimized) {
             setMaximized();
             return;
@@ -52,13 +54,11 @@ export const Application = ({id, title, image, position, content}: Props) => {
         setOpened();
     };
 
-    const showWindow = root && window;
-
     return (
         <>
             <Shortcut title={title} image={image} {...position} onClick={onClick} />
 
-            {showWindow ? <Window id={windowId} root={root} content={content} /> : null}
+            {root ? <Window id={windowId} root={root} content={content} /> : null}
         </>
     );
 };

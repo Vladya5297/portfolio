@@ -1,7 +1,7 @@
 import type {ReactNode} from 'react';
 import {useSelector} from 'react-redux';
 
-import {useAction} from '~/utils/useAction';
+import {useAction} from '~/utils/redux/useAction';
 import {windowsSlice} from '~/page/state/windows';
 import type {WindowId} from '~/page/state/windows/types';
 import {selectQueueIndex, selectWindow} from '~/page/state/windows/selectors';
@@ -17,7 +17,7 @@ type Props = {
 };
 
 export const MobileWindow = ({id: windowId, root, content}: Props) => {
-    const window = useSelector((state: State) => selectWindow(state, windowId))!;
+    const window = useSelector((state: State) => selectWindow(state, windowId));
     const index = useSelector((state: State) => selectQueueIndex(state, windowId));
     const rootSize = useRootSize(root);
 

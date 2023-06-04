@@ -1,7 +1,7 @@
 import type {ReactNode} from 'react';
 import {useSelector} from 'react-redux';
 
-import {useAction} from '~/utils/useAction';
+import {useAction} from '~/utils/redux/useAction';
 import {windowsSlice} from '~/page/state/windows';
 import type {Position, Size, WindowId} from '~/page/state/windows/types';
 import {selectActiveWindowId, selectQueueIndex, selectWindow} from '~/page/state/windows/selectors';
@@ -18,7 +18,7 @@ type Props = {
 };
 
 export const DesktopWindow = ({id: windowId, root, content}: Props) => {
-    const window = useSelector((state: State) => selectWindow(state, windowId))!;
+    const window = useSelector((state: State) => selectWindow(state, windowId));
     const activeWindowId = useSelector(selectActiveWindowId);
     const isActive = activeWindowId === windowId;
 
