@@ -87,7 +87,9 @@ export const View = forwardRef(function View(
                 )}
             </div>
 
-            {children}
+            <div className={css.content}>
+                {children}
+            </div>
         </div>
     );
 });

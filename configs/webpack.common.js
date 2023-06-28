@@ -81,7 +81,7 @@ module.exports = {
                 use: ['@svgr/webpack'],
             },
             {
-                test: /\.png$/,
+                test: /\.(png|jpeg|jpg|webp)$/,
                 type: 'asset/resource',
             },
             {

@@ -28,14 +28,16 @@ export const WindowContent = React.memo(
     function WindowContent({children}: Props) {
         const className = cn(
             CSS_GLOBAL_CLASS.BORDER_INSET,
-            css.content,
+            css.wrapper,
         );
 
         return (
             <div className={className}>
-                <Suspense fallback={<Loader />}>
-                    {children}
-                </Suspense>
+                <div className={css.content}>
+                    <Suspense fallback={<Loader />}>
+                        {children}
+                    </Suspense>
+                </div>
             </div>
         );
     },

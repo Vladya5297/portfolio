@@ -62,3 +62,9 @@
 .size-m .label {
     font-size: 14px;
 }
+
+.content {
+    flex: 1;
+    margin: 8px;
+    overflow: hidden;
+}

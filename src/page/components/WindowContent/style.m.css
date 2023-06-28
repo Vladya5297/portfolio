@@ -1,8 +1,13 @@
-.content {
-    height: 100%;
-    margin: 8px;
-    padding: 8px;
+.wrapper {
     background-color: var(--color-background-content);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    margin: 1px;
+    padding: 8px;
     overflow: auto;
     font-family: monospace;
     font-size: 16px;

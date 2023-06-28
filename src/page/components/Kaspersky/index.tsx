@@ -1,8 +1,9 @@
-import image from '~/assets/kaspersky-logo.png';
 import type {WindowId} from '~/page/state/windows/types';
 
 import {Application, setup} from '../Application';
 import {WindowContent, lazyContent} from '../WindowContent';
+
+import image from './assets/kaspersky-logo.webp';
 
 const id = 'kaspersky' as WindowId;
 const title = 'Kaspersky';
