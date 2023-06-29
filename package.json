@@ -12,9 +12,8 @@
         "normalize.css": "^8.0.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-draggable": "^4.4.5",
         "react-redux": "^8.0.5",
-        "react-resizable": "^3.0.5"
+        "react-rnd": "^10.4.1"
     },
     "devDependencies": {
         "@mdx-js/loader": "^2.3.0",

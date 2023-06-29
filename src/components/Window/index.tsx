@@ -2,48 +2,40 @@ import {createPortal} from 'react-dom';
 
 import {View} from './View';
 import type {ViewProps} from './View';
-import {Draggable} from './Draggable';
-import type {DraggableProps} from './Draggable';
-import {Resizable} from './Resizable';
-import type {ResizableProps} from './Resizable';
+import {Movable} from './Movable';
+import type {MovableProps} from './Movable';
 
-type Props = ViewProps
-& Omit<DraggableProps, 'children'>
-& Omit<ResizableProps, 'children'>;
+type Props = MovableProps & Omit<ViewProps, keyof MovableProps>;
 
 export const Window = ({
     root,
     draggable,
     initialPosition,
-    resizeable,
+    resizable,
     initialSize,
     children,
-    onDragStart,
-    onDragStop,
     onMouseDown,
+    onMouseUp,
+    onDragStop,
     onResizeStop,
     ...props
 }: Props) => {
     return createPortal(
-        <Draggable
-            root={root}
-            initialPosition={initialPosition}
+        <Movable
             draggable={draggable}
-            onDragStart={onDragStart}
+            initialPosition={initialPosition}
+            resizable={resizable}
+            initialSize={initialSize}
+            root={root}
             onDragStop={onDragStop}
             onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
+            onResizeStop={onResizeStop}
         >
-            <Resizable
-                root={root}
-                initialSize={initialSize}
-                resizeable={resizeable}
-                onResizeStop={onResizeStop}
-            >
-                <View {...props}>
-                    {children}
-                </View>
-            </Resizable>
-        </Draggable>,
+            <View {...props}>
+                {children}
+            </View>
+        </Movable>,
         root,
     );
 };

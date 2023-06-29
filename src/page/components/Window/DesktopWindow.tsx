@@ -34,6 +34,10 @@ export const DesktopWindow = ({id: windowId, root, content}: Props) => {
     const setupSize = useAction(
         (size: Size) => windowsSlice.actions.setupSize({id: windowId, size}),
     );
+    const onResizeStop = (size: Size, position: Position) => {
+        setupSize(size);
+        setupPosition(position);
+    };
 
     const rootSize = useRootSize(root);
     const isFullWidth = window.size.width === rootSize.width;
@@ -64,9 +68,9 @@ export const DesktopWindow = ({id: windowId, root, content}: Props) => {
             draggable
             initialPosition={window.position}
             onDragStop={setupPosition}
-            resizeable
+            resizable
             initialSize={window.size}
-            onResizeStop={setupSize}
+            onResizeStop={onResizeStop}
             fullscreen={isFullScreen}
             onFullScreen={setFullScreen}
             onSmallScreen={setSmallScreen}
