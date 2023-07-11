@@ -1,3 +1,5 @@
+import {searchParams} from '~/utils/searchParams';
+
 import {DEFAULT_SIZE} from './constants';
 import type {Position, Size, WindowId, WindowsState} from './types';
 
@@ -28,7 +30,9 @@ export const removeFromQueue = (state: WindowsState, windowId: WindowId): void =
     }
 };
 
-export const updateActive = (state: WindowsState): void => {
+export const updateActive = (state: WindowsState, windowId?: WindowId): void => {
     const previous = state.queue.at(-1);
-    state.active = previous || null;
+    const id = windowId || previous || null;
+    state.active = id;
+    searchParams.apply({windowId: id});
 };

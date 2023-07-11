@@ -1,6 +1,6 @@
 import type {ReactNode} from 'react';
 
-import type {WindowId} from '~/page/state/windows/types';
+import type {WindowId} from '~/page/state/windows';
 import {useBreakpoint} from '~/components/Breakpoint/useBreakpoint';
 
 import {DesktopWindow} from './DesktopWindow';

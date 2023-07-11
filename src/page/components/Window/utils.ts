@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-import type {Size} from '~/page/state/windows/types';
+import type {Size} from '~/page/state/windows';
 
 export const useRootSize = (root: HTMLElement): Size => {
     const [size, setSize] = useState<Size>(() => {

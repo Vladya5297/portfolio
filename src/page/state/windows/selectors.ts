@@ -4,8 +4,7 @@ import {paramSelector} from '~/utils/redux/paramSelector';
 import type {State} from '../types';
 
 import type {Window, WindowId} from './types';
-
-import {windowAdapter} from './index';
+import {windowAdapter} from './slice';
 
 const windowsSelectors = windowAdapter.getSelectors<State>(state => state.windows);
 

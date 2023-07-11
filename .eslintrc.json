@@ -68,6 +68,7 @@
         "no-param-reassign": "off",
         "global-require": "off",
         "prefer-arrow-callback": "off",
+        "consistent-return": "off",
         
         "indent": "off",
         "@typescript-eslint/indent": ["error", 4],

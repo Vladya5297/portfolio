@@ -1,12 +1,11 @@
 import type {ReactNode} from 'react';
 import {useSelector} from 'react-redux';
 
-import {useAction} from '~/utils/redux/useAction';
-import {windowsSlice} from '~/page/state/windows';
-import type {WindowId} from '~/page/state/windows/types';
-import {selectQueueIndex, selectWindow} from '~/page/state/windows/selectors';
-import type {State} from '~/page/state/types';
 import {Window} from '~/components/Window';
+import {useAction} from '~/utils/redux/useAction';
+import {windowsActions, selectQueueIndex, selectWindow} from '~/page/state/windows';
+import type {WindowId} from '~/page/state/windows/types';
+import type {State} from '~/page/state/types';
 
 import {useRootSize} from './utils';
 
@@ -21,7 +20,7 @@ export const MobileWindow = ({id: windowId, root, content}: Props) => {
     const index = useSelector((state: State) => selectQueueIndex(state, windowId));
     const rootSize = useRootSize(root);
 
-    const setClosed = useAction(() => windowsSlice.actions.setClosed(windowId));
+    const setClosed = useAction(() => windowsActions.setClosed(windowId));
 
     const showWindow = window.isOpened && !window.isMinimized;
 

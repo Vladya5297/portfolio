@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 
 import {state} from '~/page/state';
-import {windowsSlice} from '~/page/state/windows';
-import type {AddWindowPayload} from '~/page/state/windows/types';
+import {windowsActions} from '~/page/state/windows';
+import type {AddWindowPayload} from '~/page/state/windows';
 
 export const useRoot = (): HTMLElement | null => {
     const [root, setRoot] = useState<HTMLElement | null>(null);
@@ -23,5 +23,5 @@ export const useRoot = (): HTMLElement | null => {
  * const Component = () => {...}
  */
 export const setup = (params: AddWindowPayload) => {
-    state.dispatch(windowsSlice.actions.addWindow(params));
+    state.dispatch(windowsActions.addWindow(params));
 };
