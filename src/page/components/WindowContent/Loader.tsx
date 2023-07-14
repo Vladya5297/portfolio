@@ -1,24 +1,15 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 
 import {Loader as LoaderBase} from '~/components/Loader';
+import {useInterval} from '~/utils/useInterval';
 
 export const Loader = () => {
     const [progress, setProgress] = useState(0);
 
-    useEffect(() => {
-        const tid = setInterval(() => {
-            setProgress(value => {
-                if (value === 100) {
-                    clearInterval(tid);
-                    return value;
-                }
-
-                return value + 10;
-            });
-        }, 100);
-
-        return () => clearInterval(tid);
-    }, []);
+    useInterval(
+        () => setProgress(value => value + 10),
+        progress === 100 ? null : 50,
+    );
 
     return (
         <>
