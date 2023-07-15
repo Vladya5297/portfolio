@@ -13,7 +13,7 @@ export const useInitWindow = (rootRef: RefObject<HTMLElement>): void => {
     const setupPosition = useAction(windowsActions.setupPosition);
 
     useEffect(() => {
-        const windowId = searchParams.get<WindowId>('windowId');
+        const windowId = searchParams.get<WindowId>('window');
 
         if (windowId && rootRef.current) {
             const {width, height} = rootRef.current.getBoundingClientRect();

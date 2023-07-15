@@ -1,4 +1,60 @@
+@font-face {
+    font-family: 'MuseoSans';
+    src: url(./assets/MuseoSans-700.woff) format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MuseoSans';
+    src: url(./assets/MuseoSans-500.woff) format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MuseoSans';
+    src: url(./assets/MuseoSans-300.woff) format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
 .root {
+    width: 90%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: MuseoSans, Arial, Helvetica, sans-serif;
+
     --accent-color-primary: #006d5c;
     --accent-color-secondary: #00a88e;
+    --text-primary: #535353;
+    --text-secondary: #444444;
+}
+
+.root p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text-primary)
+}
+
+.root h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-secondary)
+}
+
+.background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 400px;
+    background: url('./assets/header-bg.svg');
+    background-repeat: no-repeat;
+    background-size: 1900px 800px;
+    z-index: -1;
 }

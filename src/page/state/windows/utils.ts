@@ -34,5 +34,5 @@ export const updateActive = (state: WindowsState, windowId?: WindowId): void => 
     const previous = state.queue.at(-1);
     const id = windowId || previous || null;
     state.active = id;
-    searchParams.apply({windowId: id});
+    searchParams.apply({window: id});
 };

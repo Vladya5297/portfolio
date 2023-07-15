@@ -16,7 +16,7 @@ type Position = {
     column: number | 'last';
 };
 
-type Props = {
+export type ApplicationProps = {
     id: WindowId;
     title: string;
     image: string;
@@ -25,7 +25,7 @@ type Props = {
 };
 
 /** Make sure to call `setup` before render! */
-export const Application = ({id: windowId, title, image, position, content}: Props) => {
+export const Application = ({id: windowId, title, image, position, content}: ApplicationProps) => {
     const root = useRoot();
 
     const openWindow = useAction(() => windowsActions.open(windowId));

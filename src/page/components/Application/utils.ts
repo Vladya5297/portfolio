@@ -22,6 +22,6 @@ export const useRoot = (): HTMLElement | null => {
  *
  * const Component = () => {...}
  */
-export const setup = (params: AddWindowPayload) => {
-    state.dispatch(windowsActions.addWindow(params));
+export const setup = ({id, title, image}: AddWindowPayload) => {
+    state.dispatch(windowsActions.addWindow({id, title, image}));
 };

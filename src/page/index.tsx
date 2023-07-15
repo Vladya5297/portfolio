@@ -1,9 +1,11 @@
 import {useRef} from 'react';
 
 import {Footer} from './components/Footer';
-import {Kaspersky} from './applications/Kaspersky';
+import * as applications from './applications';
 import {useInitWindow} from './utils';
 import css from './style.m.css';
+import type {ApplicationProps} from './components/Application';
+import {Application} from './components/Application';
 
 export const Main = () => {
     const rootRef = useRef<HTMLDivElement>(null);
@@ -13,7 +15,9 @@ export const Main = () => {
         <div className={css.root}>
             <main className={css.main} ref={rootRef}>
                 <div className={css.grid}>
-                    <Kaspersky />
+                    {Object.values(applications).map((props: ApplicationProps) => (
+                        <Application key={props.id} {...props} />
+                    ))}
                 </div>
             </main>
             <Footer />

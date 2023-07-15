@@ -37,6 +37,7 @@
         "react/jsx-no-useless-fragment": "off",
         "react/destructuring-assignment": "off",
         "react/button-has-type": "off",
+        "react/no-unescaped-entities": "off",
 
         "jsx-a11y/click-events-have-key-events": "off",
         "jsx-a11y/no-static-element-interactions": "off",
