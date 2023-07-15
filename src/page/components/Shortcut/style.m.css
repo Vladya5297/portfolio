@@ -25,6 +25,8 @@
     min-width: 40px;
     min-height: 40px;
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .image::before {

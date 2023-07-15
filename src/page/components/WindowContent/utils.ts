@@ -5,7 +5,7 @@ import {promiseDelay} from '~/utils/promiseDelay';
 
 type LazyContent = () => Promise<{default: ComponentType<any>}>;
 
-/** Wraps async import into React.lazy and delay for better UX */
+/** Wraps async import into React.lazy with delay for better UX */
 export const lazyContent = (content: LazyContent) => {
-    return lazy(() => promiseDelay(content(), 1000));
+    return lazy(() => promiseDelay(content(), 500));
 };

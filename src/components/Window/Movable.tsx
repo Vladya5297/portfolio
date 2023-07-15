@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useRef} from 'react';
-import type {ReactNode} from 'react';
+import type {ReactNode, CSSProperties} from 'react';
 import {Rnd} from 'react-rnd';
 import type {RndDragCallback, RndResizeCallback} from 'react-rnd';
 import cn from 'classnames';
@@ -12,6 +12,7 @@ export type MovableProps = {
     resizable?: boolean;
     initialPosition?: Position;
     initialSize?: Size;
+    style?: CSSProperties;
     children: ReactNode;
     root: HTMLElement;
     onMouseDown?: (e: MouseEvent) => void;
@@ -25,6 +26,7 @@ export const Movable = ({
     resizable = false,
     initialPosition = {x: 0, y: 0},
     initialSize = {width: 0, height: 0},
+    style,
     children,
     root,
     onMouseDown,
@@ -76,6 +78,7 @@ export const Movable = ({
             onMouseUp={onMouseUp}
             onDragStop={onDragStopHandler}
             onResizeStop={onResizeStopHandler}
+            style={style}
         >
             {children}
         </Rnd>

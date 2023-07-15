@@ -13,6 +13,7 @@ export const Window = ({
     initialPosition,
     resizable,
     initialSize,
+    style,
     children,
     onMouseDown,
     onMouseUp,
@@ -26,6 +27,7 @@ export const Window = ({
             initialPosition={initialPosition}
             resizable={resizable}
             initialSize={initialSize}
+            style={style}
             root={root}
             onDragStop={onDragStop}
             onMouseDown={onMouseDown}
