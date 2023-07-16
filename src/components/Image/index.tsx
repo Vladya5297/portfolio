@@ -1,45 +1,48 @@
-import {useRef} from 'react';
-import type {ImgHTMLAttributes} from 'react';
+import type {CSSProperties} from 'react';
 import cn from 'classnames';
 
 import css from './style.m.css';
 
-type CustomProps = {
+export type ImageProps = {
     src: string;
+    alt: string;
     width: number;
     height: number;
+    maxWidth?: CSSProperties['maxWidth'];
+    maxHeight?: CSSProperties['maxHeight'];
+    placeholder?: string;
+    className?: string;
+    style?: CSSProperties;
 };
 
-type DefaultProps = ImgHTMLAttributes<HTMLImageElement>;
-
-export type ImageProps = CustomProps & Omit<DefaultProps, keyof CustomProps>;
-
-export const Image = ({src, alt, width, height, className, style, ...props}: ImageProps) => {
-    const ref = useRef<HTMLImageElement>(null);
-
-    const onLoad = () => {
-        ref.current?.classList.remove(css.loading);
-    };
-
-    const imageClassName = cn(css.image, css.loading, className);
+export const Image = ({
+    src,
+    alt,
+    width,
+    height,
+    maxWidth = 'fit-content',
+    maxHeight = 'fit-content',
+    placeholder,
+    className,
+    style,
+}: ImageProps) => {
+    const imageClassName = cn(css.image, className);
 
     const imageStyle = {
         ...style,
-        maxWidth: width,
-        maxHeight: height,
+        maxWidth,
+        maxHeight,
         aspectRatio: `${width} / ${height}`,
+        backgroundImage: placeholder ? `url("${placeholder}")` : undefined,
     };
 
     return (
         <img
-            {...props}
+            loading="lazy"
             src={src}
             alt={alt}
-            ref={ref}
-            loading="lazy"
             className={imageClassName}
             style={imageStyle}
-            onLoad={onLoad}
         />
     );
 };

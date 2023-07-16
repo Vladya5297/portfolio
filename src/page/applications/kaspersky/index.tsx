@@ -10,7 +10,7 @@ const Content = lazyContent(() => import('./Content'));
 export const kaspersky: ApplicationProps = {
     id: 'kaspersky' as WindowId,
     title: 'Kaspersky',
-    image,
+    image: image.src,
     content: (
         <WindowContent>
             <Content />

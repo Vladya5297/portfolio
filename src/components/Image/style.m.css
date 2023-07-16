@@ -1,24 +1,7 @@
 .image {
     width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     object-fit: contain;
-}
-
-@keyframes fade {
-    0% {
-        opacity: 0.5;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.5;
-    }
-}
-
-.loading {
-    background-color: var(--color-accent-inactive-secondary);
-    border-radius: 4px;
-    animation: fade 2.5s ease-in-out infinite;
 }

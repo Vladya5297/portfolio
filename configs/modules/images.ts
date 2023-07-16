@@ -9,8 +9,20 @@ export const images: Configuration = {
                 use: ['@svgr/webpack'],
             },
             {
-                test: /\.(png|jpeg|jpg|webp)$/,
+                test: /\.(jpeg|jpg|webp)$/,
                 type: 'asset/resource',
+            },
+            {
+                test: /\.png$/,
+                issuer: /\.tsx?$/,
+                use: [{
+                    loader: 'responsive-loader',
+                    options: {
+                        placeholder: true,
+                        format: 'webp',
+                        adapter: require('responsive-loader/sharp'),
+                    },
+                }],
             },
         ],
     },
