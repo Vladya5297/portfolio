@@ -26,32 +26,20 @@
     margin-right: auto;
     font-family: MuseoSans, Arial, Helvetica, sans-serif;
 
-    --accent-color-primary: #006d5c;
-    --accent-color-secondary: #00a88e;
-    --text-primary: #535353;
-    --text-secondary: #444444;
+    --color-accent-primary: #006d5c;
+    --color-accent-secondary: #00a88e;
+    --color-text-primary: #535353;
+    --color-text-secondary: #444444;
 }
 
 .root p {
     font-size: 16px;
     font-weight: 300;
-    color: var(--text-primary)
+    color: var(--color-text-primary);
 }
 
 .root h2 {
     font-size: 16px;
     font-weight: 700;
-    color: var(--text-secondary)
-}
-
-.background {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 400px;
-    background: url('./assets/header-bg.svg');
-    background-repeat: no-repeat;
-    background-size: 1900px 800px;
-    z-index: -1;
+    color: var(--color-text-secondary);
 }

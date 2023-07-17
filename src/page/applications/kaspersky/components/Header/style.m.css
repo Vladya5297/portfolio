@@ -28,5 +28,5 @@
 .subtitle {
     font-size: 18px;
     font-weight: 500;
-    color: var(--accent-color-primary);
+    color: var(--color-accent-primary);
 }

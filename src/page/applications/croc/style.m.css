@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'Croc';
+    src: url(./assets/Croc-500.woff) format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Croc';
+    src: url(./assets/Croc-300.woff) format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+.root {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Croc, sans-serif;
+
+    --color-text-primary: #68676c;
+    --color-text-secondary: #4d4d4d;
+}
+
+.root p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--color-text-primary);
+}
+
+.root h2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}

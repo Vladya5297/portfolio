@@ -1,6 +1,7 @@
 import {Image} from '~/components/Image';
 
 import {Header} from './components/Header';
+import {Background} from './components/Background';
 import photo1 from './assets/30.10.2019.png';
 import photo2 from './assets/21.02.2020.png';
 import css from './style.m.css';
@@ -8,7 +9,7 @@ import css from './style.m.css';
 const Content = () => {
     return (
         <div className={css.root}>
-            <div className={css.background} />
+            <Background />
 
             <Header />
 
@@ -30,7 +31,7 @@ const Content = () => {
                 My tasks involved fixing existing bugs and working on the
                 development of new features.
             </p>
-            <Image {...photo1} maxWidth={400} alt="" />
+            <Image {...photo1} maxWidth={400} alt="competition" />
             <h2>
                 Technologies
             </h2>
@@ -59,7 +60,7 @@ const Content = () => {
                 to a modern stack, we introduced styled-components and Ant Design.
                 I actively participated in adapting these tools to suit our project's needs.
             </p>
-            <Image {...photo2} maxWidth={400} alt="" />
+            <Image {...photo2} maxWidth={400} alt="souvenir" />
             <h2>
                 Summary
             </h2>
