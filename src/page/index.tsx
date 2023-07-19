@@ -1,11 +1,12 @@
 import {useRef} from 'react';
 
-import {Footer} from './components/Footer';
-import * as applications from './applications';
 import {useInitWindow} from './utils';
-import css from './style.m.css';
+import {GitHub} from './applications/github';
+import * as applications from './applications';
 import type {ApplicationProps} from './components/Application';
+import {Footer} from './components/Footer';
 import {Application} from './components/Application';
+import css from './style.m.css';
 
 export const Main = () => {
     const rootRef = useRef<HTMLDivElement>(null);
@@ -18,6 +19,7 @@ export const Main = () => {
                     {Object.values(applications).map((props: ApplicationProps) => (
                         <Application key={props.id} {...props} />
                     ))}
+                    <GitHub />
                 </div>
             </main>
             <Footer />

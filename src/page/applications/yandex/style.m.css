@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'YAtext';
+    src: url(./assets/YAtext-500.woff) format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'YAtext';
+    src: url(./assets/YAtext-300.woff) format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+.root {
+    font-family: YAtext, Arial, sans-serif;
+
+    --color-accent-primary: #fc3f1d;
+    --color-text-primary: #000000;
+}
+
+.content {
+    width: 90%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.root p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--color-text-primary);
+}
+
+.root h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.root blockquote {
+    position: relative;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10px;
+}
+
+.root blockquote::before {
+    content: '';
+    background-color: var(--color-accent-primary);
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 4px;
+}

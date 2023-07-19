@@ -63,25 +63,25 @@ export const View = forwardRef(function View(
                 </div>
 
                 {onMinimize && (
-                    <Button size="s" onClick={onMinimize}>
+                    <Button size="s" onClick={onMinimize} title="Hide">
                         <Icon name="lodash" size={size} />
                     </Button>
                 )}
 
                 {!fullscreen && onFullScreen && (
-                    <Button size="s" onClick={onFullScreen}>
+                    <Button size="s" onClick={onFullScreen} title="Full screen">
                         <Icon name="window" size={size} />
                     </Button>
                 )}
 
                 {fullscreen && onSmallScreen && (
-                    <Button size="s" onClick={onSmallScreen}>
+                    <Button size="s" onClick={onSmallScreen} title="Small screen">
                         <Icon name="windows" size={size} />
                     </Button>
                 )}
 
                 {onClose && (
-                    <Button size="s" onClick={onClose}>
+                    <Button size="s" onClick={onClose} title="Close">
                         <Icon name="cross" size={size} />
                     </Button>
                 )}

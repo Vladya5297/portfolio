@@ -1,32 +1,47 @@
+import type {HTMLAttributeAnchorTarget} from 'react';
+
 import css from './style.m.css';
+
+type ButtonProps = {
+    tag?: 'button';
+    onClick: () => void;
+};
+
+type LinkProps = {
+    tag: 'a';
+    href: string;
+    target?: HTMLAttributeAnchorTarget;
+};
 
 type Props = {
     image: string;
     title: string;
     column?: number | 'last';
     row?: number | 'last';
-    onClick: () => void;
-};
+} & (
+    ButtonProps | LinkProps
+);
 
 export const Shortcut = ({
+    tag: Tag = 'button',
     image,
     title,
     column,
     row,
-    onClick,
+    ...rest
 }: Props) => {
     const gridColumn = column === 'last' ? -2 : column;
     const gridRow = row === 'last' ? -2 : row;
 
     return (
-        <button
+        <Tag
             className={css.root}
             style={{gridColumn, gridRow}}
-            onClick={onClick}
+            {...rest}
         >
             <div className={css.image} style={{backgroundImage: `url(${image})`}} />
 
             <span className={css.label}>{title}</span>
-        </button>
+        </Tag>
     );
 };
