@@ -1,6 +1,7 @@
 import {useEffect, useRef} from 'react';
 
-import {game} from './game';
+import css from './style.m.css';
+import {start} from './game/start';
 
 const Content = () => {
     const ref = useRef<HTMLCanvasElement>(null);
@@ -8,11 +9,13 @@ const Content = () => {
     useEffect(() => {
         const canvas = ref.current;
         if (!canvas) return;
-        game(canvas);
+        start(canvas);
     }, []);
 
     return (
-        <canvas ref={ref} width={400} height={600} style={{backgroundColor: 'black'}} />
+        <div className={css.root}>
+            <canvas ref={ref} width={400} height={600} className={css.canvas} />
+        </div>
     );
 };
 

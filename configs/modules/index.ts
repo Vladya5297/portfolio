@@ -5,3 +5,4 @@ export * from './favicon';
 export * from './typescript';
 export * from './chunks';
 export * from './aliases';
+export * from './fonts';
