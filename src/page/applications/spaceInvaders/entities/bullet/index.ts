@@ -1,5 +1,5 @@
-import type {Position, Size} from '../abstract';
-import {Entity} from '../abstract';
+import type {Position, Size} from '..';
+import {Entity} from '..';
 
 export type BulletParams = {
     position: Position;

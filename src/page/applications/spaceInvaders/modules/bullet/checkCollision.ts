@@ -11,21 +11,22 @@ export const checkCollision: RafHandler = (ctx, runtime) => {
     if (!bullet) return;
 
     invaders.forEach(invader => {
-        const invaderBounds = invader.bounds;
-        const bulletBounds = bullet.bounds;
+        if (!invader.collides(bullet)) return;
 
-        const verticalCollision = bulletBounds.top < invaderBounds.bottom
-            && bulletBounds.top > invaderBounds.top;
+        // Remove bullet and invader
+        runtime.bullet = null;
+        invaders.delete(invader);
 
-        const horizontalCollision = bulletBounds.right > invaderBounds.left
-            && bulletBounds.right < invaderBounds.right;
+        // Increase score
+        runtime.score.value += 10;
 
-        if (verticalCollision && horizontalCollision) {
-            runtime.bullet = null;
-            invaders.delete(invader);
+        // Increase speed
+        speedUp(invaders);
 
-            // Increase speed on each kill
-            speedUp(invaders);
+        // Check game over
+        if (invaders.size === 0) {
+            runtime.score.value += 100;
+            runtime.gameover = true;
         }
     });
 };

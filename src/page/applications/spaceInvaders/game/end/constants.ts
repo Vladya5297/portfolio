@@ -4,6 +4,9 @@ export const textColor = 'white';
 export const textFontFamily = 'SpaceInvaders';
 export const textAlign = 'center';
 
+export const titleFontSize = 40;
+export const subtitleFontSize = 20;
+
 export const buttonWidth = 150;
 export const buttonHeight = 60;
 export const buttonStyle: ButtonStyle = {

@@ -1,8 +1,8 @@
-import {Entity} from '../abstract';
-import type {Position, Size} from '../abstract';
+import {Entity} from '..';
+import type {Position, Size} from '..';
 import {Text} from '../text';
 
-import {getMouseEventHandler} from './getMouseEventHandler';
+import {getEventHandler} from './getEventHandler';
 import type {ButtonStyle} from './types';
 
 export type ButtonParams = {
@@ -11,8 +11,8 @@ export type ButtonParams = {
     size: Size;
     style: ButtonStyle;
     text: string;
-    onMouseDown?: () => void;
-    onMouseUp?: () => void;
+    onDown?: () => void;
+    onUp?: () => void;
 };
 
 export class Button extends Entity {
@@ -30,8 +30,8 @@ export class Button extends Entity {
         size,
         style,
         text,
-        onMouseDown,
-        onMouseUp,
+        onDown: onMouseDown,
+        onUp: onMouseUp,
     }: ButtonParams) {
         super();
 
@@ -49,18 +49,30 @@ export class Button extends Entity {
                 fontSize: style.fontSize,
                 textAlign: 'center',
             },
-            text,
+            value: text,
         });
 
-        const mouseDownHandler = getMouseEventHandler(this.bounds, onMouseDown);
-        const mouseUpHandler = getMouseEventHandler(this.bounds, onMouseUp);
+        const downHandler = getEventHandler(this.bounds, onMouseDown);
+        const upHandler = getEventHandler(this.bounds, onMouseUp);
 
-        canvas.addEventListener('mousedown', mouseDownHandler);
-        canvas.addEventListener('mouseup', mouseUpHandler);
+        const isTouchScreenDevice = 'ontouchstart' in window;
+
+        if (isTouchScreenDevice) {
+            canvas.addEventListener('touchstart', downHandler);
+            canvas.addEventListener('touchend', upHandler);
+        } else {
+            canvas.addEventListener('mousedown', downHandler);
+            canvas.addEventListener('mouseup', upHandler);
+        }
 
         this.unload = () => {
-            canvas.removeEventListener('mousedown', mouseDownHandler);
-            canvas.removeEventListener('mouseup', mouseUpHandler);
+            if (isTouchScreenDevice) {
+                canvas.removeEventListener('touchstart', downHandler);
+                canvas.removeEventListener('touchend', upHandler);
+            } else {
+                canvas.removeEventListener('mousedown', downHandler);
+                canvas.removeEventListener('mouseup', upHandler);
+            }
         };
     }
 

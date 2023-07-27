@@ -6,9 +6,11 @@ import {
     buttonHeight,
     buttonStyle,
     buttonWidth,
+    subtitleFontSize,
     textAlign,
     textColor,
     textFontFamily,
+    titleFontSize,
 } from './constants';
 
 export const end = (canvas: HTMLCanvasElement, score: number) => {
@@ -16,23 +18,23 @@ export const end = (canvas: HTMLCanvasElement, score: number) => {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     const title = new Text({
-        text: 'Game Over',
+        value: 'Game Over',
         position: {x: canvas.width / 2, y: canvas.height / 4},
         style: {
             color: textColor,
             fontFamily: textFontFamily,
-            fontSize: 40,
+            fontSize: titleFontSize,
             textAlign,
         },
     });
 
     const subtitle = new Text({
-        text: `score: ${score}`,
+        value: `score: ${score}`,
         position: {x: canvas.width / 2, y: canvas.height / 3},
         style: {
             color: textColor,
             fontFamily: textFontFamily,
-            fontSize: 20,
+            fontSize: subtitleFontSize,
             textAlign,
         },
     });
@@ -53,13 +55,25 @@ export const end = (canvas: HTMLCanvasElement, score: number) => {
         size: buttonSize,
         text: 'Restart',
         style: buttonStyle,
-        onMouseDown: () => {
-            button.unload();
-            start(canvas);
+        onDown: () => {
+            const event = new KeyboardEvent('keydown', {key: ' '});
+            document.dispatchEvent(event);
         },
     });
 
     title.draw(context);
     subtitle.draw(context);
     button.draw(context);
+
+    const handler = (event: KeyboardEvent) => {
+        if (event.key === ' ') {
+            button.unload();
+            document.removeEventListener('keydown', handler);
+            start(canvas);
+        }
+    };
+
+    setTimeout(() => {
+        document.addEventListener('keydown', handler);
+    }, 300);
 };

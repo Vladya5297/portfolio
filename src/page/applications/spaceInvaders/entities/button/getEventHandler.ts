@@ -1,11 +1,11 @@
-import type {Bounds} from '../abstract';
+import type {Bounds} from '..';
 
 import {getEventCoords} from './getEventCoords';
 
-export const getMouseEventHandler = (
+export const getEventHandler = (
     bounds: Bounds,
     handler?: () => void,
-) => (event: MouseEvent) => {
+) => (event: MouseEvent | TouchEvent) => {
     const {x, y} = getEventCoords(event);
 
     if (

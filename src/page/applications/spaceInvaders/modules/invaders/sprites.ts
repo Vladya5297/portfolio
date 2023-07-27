@@ -1,4 +1,4 @@
-import {makeImage} from '../../utils/makeImage';
+import {makeSvgImage} from '../utils';
 
 const images = {
     alienTop1: '<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="white"><path fill="#D9D9D9" d="M30 0h10v10H30V0ZM0 70h10v10H0V70Zm10-10h10v10H10V60Zm10 10h10v10H20V70Zm30 0h10v10H50V70Zm20 0h10v10H70V70ZM60 60h10v10H60V60Zm-20 0h10v10H40V60Zm-10 0h10v10H30V60Zm20-10h10v10H50V50Zm-30 0h10v10H20V50Zm50-10h10v10H70V40Zm0-10h10v10H70V30ZM60 40h10v10H60V40Zm0-10h10v10H60V30ZM50 40h10v10H50V40Zm-10 0h10v10H40V40Zm0-10h10v10H40V30ZM30 40h10v10H30V40Zm0-10h10v10H30V30ZM20 40h10v10H20V40Zm-10 0h10v10H10V40ZM0 40h10v10H0V40Zm0-10h10v10H0V30Zm10 0h10v10H10V30Zm50-10h10v10H60V20Zm-10 0h10v10H50V20Zm-10 0h10v10H40V20Zm-10 0h10v10H30V20Zm-20 0h10v10H10V20Zm10 0h10v10H20V20Zm30-10h10v10H50V10Zm-10 0h10v10H40V10Zm-20 0h10v10H20V10Zm10 0h10v10H30V10ZM40 0h10v10H40V0Z"/></svg>',
@@ -13,6 +13,6 @@ type Key = keyof typeof images;
 
 export const sprites = Object.entries(images)
     .reduce((acc, [key, value]) => {
-        acc[key as Key] = makeImage(value);
+        acc[key as Key] = makeSvgImage(value);
         return acc;
     }, {} as Record<Key, HTMLImageElement>);

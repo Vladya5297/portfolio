@@ -3,6 +3,16 @@ import {player} from '../../modules/player';
 import {bullet} from '../../modules/bullet';
 import type {Context, Runtime} from '../types';
 import {end} from '../end';
+import {score} from '../../modules/score';
+import {controls} from '../../modules/controls';
+
+const modules = [
+    invaders,
+    player,
+    bullet,
+    score,
+    controls,
+];
 
 export const run = (canvas: HTMLCanvasElement) => {
     const context = canvas.getContext('2d')!;
@@ -13,24 +23,21 @@ export const run = (canvas: HTMLCanvasElement) => {
         bullet: null,
         player: {},
         controls: {},
+        score: {},
     } as Runtime;
 
-    const unloadInvaders = invaders.setup(ctx, runtime);
-    const unloadPlayer = player.setup(ctx, runtime);
-    const unloadBullet = bullet.setup(ctx, runtime);
+    const unload = modules.map(({setup}) => setup?.(ctx, runtime));
 
     const draw = () => {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        invaders.raf.forEach(handler => handler(ctx, runtime));
-        player.raf.forEach(handler => handler(ctx, runtime));
-        bullet.raf.forEach(handler => handler(ctx, runtime));
+        modules.forEach(({raf}) => {
+            raf.forEach(handler => handler(ctx, runtime));
+        });
 
         if (runtime.gameover) {
-            unloadInvaders();
-            unloadPlayer();
-            unloadBullet();
-            return end(canvas, runtime.score);
+            unload.forEach(cb => cb?.());
+            return end(canvas, runtime.score.value);
         }
 
         requestAnimationFrame(draw);

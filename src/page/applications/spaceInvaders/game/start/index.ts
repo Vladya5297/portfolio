@@ -38,9 +38,9 @@ export const start = async (canvas: HTMLCanvasElement) => {
         size: buttonSize,
         text: 'Start',
         style: buttonStyle,
-        onMouseDown: () => {
-            button.unload();
-            run(canvas);
+        onDown: () => {
+            const event = new KeyboardEvent('keydown', {key: ' '});
+            document.dispatchEvent(event);
         },
     });
 
@@ -58,4 +58,14 @@ export const start = async (canvas: HTMLCanvasElement) => {
         imageWidth,
         imageHeight,
     );
+
+    const handler = (event: KeyboardEvent) => {
+        if (event.key === ' ') {
+            button.unload();
+            document.removeEventListener('keydown', handler);
+            run(canvas);
+        }
+    };
+
+    document.addEventListener('keydown', handler);
 };

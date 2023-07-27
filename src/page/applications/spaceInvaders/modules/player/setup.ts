@@ -13,15 +13,16 @@ const getKeyHandler = (
 ) => (event: KeyboardEvent) => {
     if (event.key === 'ArrowRight') {
         controls.rightPressed = value;
-    } else if (event.key === 'ArrowLeft') {
+    }
+    if (event.key === 'ArrowLeft') {
         controls.leftPressed = value;
     }
 };
 
 export const setup: Setup = ({canvas}, runtime) => {
     const position = {
-        x: canvas.width / 2,
-        y: canvas.height - 30,
+        x: canvas.width / 2 - playerWidth / 2,
+        y: canvas.height - 90,
     };
 
     const size = {
@@ -46,7 +47,7 @@ export const setup: Setup = ({canvas}, runtime) => {
     document.addEventListener('keyup', keyUpHandler);
 
     return () => {
-        canvas.removeEventListener('keydown', keyDownHandler);
-        canvas.removeEventListener('keyup', keyUpHandler);
+        document.removeEventListener('keydown', keyDownHandler);
+        document.removeEventListener('keyup', keyUpHandler);
     };
 };

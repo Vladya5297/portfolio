@@ -1,5 +1,5 @@
-import {Entity} from '../abstract';
-import type {Position, Size} from '../abstract';
+import {Entity} from '..';
+import type {Position, Size} from '..';
 
 import type {Sprites} from './types';
 

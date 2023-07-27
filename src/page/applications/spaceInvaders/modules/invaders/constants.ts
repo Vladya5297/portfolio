@@ -36,6 +36,6 @@ export const invadersConfigs: InvaderConfig[] = [
 
 export const invadersMaxWidth = Math.max(...invadersConfigs.map(({width}) => width));
 export const initialSpeedX = 0.5;
-export const initialSpeedY = 5;
+export const initialSpeedY = 8;
 export const invaderPerRow = 7;
 export const invadersGap = 10;

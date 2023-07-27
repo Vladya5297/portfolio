@@ -1,6 +1,6 @@
 import type {RafHandler} from '../../game/types';
 
-export const move: RafHandler = ({canvas}, {invaders}) => {
+export const move: RafHandler = ({canvas}, {invaders, score}) => {
     let rowEnd = false;
 
     invaders.forEach(invader => {
@@ -12,10 +12,15 @@ export const move: RafHandler = ({canvas}, {invaders}) => {
         }
     });
 
-    if (rowEnd) {
-        invaders.forEach(invader => {
-            invader.toggleMoveDirection();
-            invader.moveY();
-        });
+    if (!rowEnd) return;
+
+    invaders.forEach(invader => {
+        invader.toggleMoveDirection();
+        invader.moveY();
+    });
+
+    // Decrease score
+    if (score.value > 0) {
+        score.value -= 1;
     }
 };

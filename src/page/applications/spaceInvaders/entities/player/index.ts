@@ -1,5 +1,5 @@
-import {Entity} from '../abstract';
-import type {Position, Size} from '../abstract';
+import {Entity} from '..';
+import type {Position, Size} from '..';
 import {Bullet} from '../bullet';
 import type {BulletParams} from '../bullet';
 

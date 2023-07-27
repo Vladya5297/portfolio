@@ -13,7 +13,7 @@ import {
 export const setup: Setup = (ctx, runtime) => {
     const iids: ReturnType<typeof setInterval>[] = [];
 
-    let y = 10;
+    let y = 50;
 
     const invaders = invadersConfigs.flatMap(({width, height, sprites}) => {
         const offset = (invadersMaxWidth - width) / 2;

@@ -46,4 +46,18 @@ export abstract class Entity {
             right: x + width,
         };
     }
+
+    collides(entity: Entity) {
+        const a = this.bounds;
+        const b = entity.bounds;
+
+        const top = Math.max(a.top, b.top);
+        const bottom = Math.min(a.bottom, b.bottom);
+        const left = Math.max(a.left, b.left);
+        const right = Math.min(a.right, b.right);
+
+        if (top < bottom && left < right) return true;
+
+        return false;
+    }
 }

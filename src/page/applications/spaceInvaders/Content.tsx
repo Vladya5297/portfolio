@@ -14,7 +14,7 @@ const Content = () => {
 
     return (
         <div className={css.root}>
-            <canvas ref={ref} width={400} height={600} className={css.canvas} />
+            <canvas ref={ref} width={400} height={700} className={css.canvas} />
         </div>
     );
 };
