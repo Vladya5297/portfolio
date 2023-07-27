@@ -3,4 +3,5 @@ export type TextStyle = {
     fontFamily: string;
     color: string;
     textAlign: CanvasTextAlign;
+    textBaseline: CanvasTextBaseline;
 };

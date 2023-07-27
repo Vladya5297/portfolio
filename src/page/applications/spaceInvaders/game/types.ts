@@ -1,8 +1,14 @@
+import type {ValuesType} from 'utility-types';
+
 import type {Bullet} from '../entities/bullet';
 import type {Invader} from '../entities/invader';
 import type {Player} from '../entities/player';
 import type {Button} from '../entities/button';
 import type {Text} from '../entities/text';
+
+import type {GAME_STATE} from './constants';
+
+export type GameState = ValuesType<typeof GAME_STATE>;
 
 export type Sprite = HTMLImageElement;
 
@@ -33,9 +39,9 @@ export type Runtime = {
 
 export type RafHandler = (ctx: Context, runtime: Runtime) => void;
 
-export type Unload = () => void;
+export type Unmount = () => void;
 
-export type Setup = (ctx: Context, runtime: Runtime) => Unload | void;
+export type Setup = (ctx: Context, runtime: Runtime) => Unmount | void;
 
 export type Module = {
     setup?: Setup;

@@ -1,3 +1,5 @@
+import {isDefined} from '~/utils/isDefined';
+
 import type {Position, Size, Bounds} from './types';
 
 export * from './types';
@@ -9,14 +11,14 @@ export abstract class Entity {
     abstract height: number;
     abstract draw(context: CanvasRenderingContext2D): void;
 
-    setPosition({x, y}: Position) {
-        this.x = x;
-        this.y = y;
+    setPosition({x, y}: Partial<Position>) {
+        if (isDefined(x)) this.x = x;
+        if (isDefined(y)) this.y = y;
     }
 
-    setSize({width, height}: Size) {
-        this.width = width;
-        this.height = height;
+    setSize({width, height}: Partial<Size>) {
+        if (isDefined(width)) this.width = width;
+        if (isDefined(height)) this.height = height;
     }
 
     get centerX(): number {

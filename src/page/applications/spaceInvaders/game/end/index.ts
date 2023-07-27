@@ -1,30 +1,28 @@
 import {Button} from '../../entities/button';
 import {Text} from '../../entities/text';
-import {start} from '../start';
+import type {Game} from '..';
+import {onKeyDown} from '../../utils/onKeyDown';
+import {GAME_STATE, SPACE_KEY} from '../constants';
 
 import {
+    buttonFontSize,
     buttonHeight,
     buttonStyle,
     buttonWidth,
     subtitleFontSize,
-    textAlign,
-    textColor,
-    textFontFamily,
     titleFontSize,
 } from './constants';
 
-export const end = (canvas: HTMLCanvasElement, score: number) => {
-    const context = canvas.getContext('2d')!;
-    context.clearRect(0, 0, canvas.width, canvas.height);
+export function end(this: Game, {score}: {score: number}) {
+    const canvas = this.canvas;
+    const context = this.context;
 
     const title = new Text({
         value: 'Game Over',
         position: {x: canvas.width / 2, y: canvas.height / 4},
         style: {
-            color: textColor,
-            fontFamily: textFontFamily,
             fontSize: titleFontSize,
-            textAlign,
+            textAlign: 'center',
         },
     });
 
@@ -32,28 +30,25 @@ export const end = (canvas: HTMLCanvasElement, score: number) => {
         value: `score: ${score}`,
         position: {x: canvas.width / 2, y: canvas.height / 3},
         style: {
-            color: textColor,
-            fontFamily: textFontFamily,
             fontSize: subtitleFontSize,
-            textAlign,
+            textAlign: 'center',
         },
     });
 
-    const buttonPosition = {
-        x: canvas.width / 2 - buttonWidth / 2,
-        y: canvas.height * (3 / 4) - buttonHeight,
-    };
-
-    const buttonSize = {
-        width: buttonWidth,
-        height: buttonHeight,
-    };
-
     const button = new Button({
         canvas,
-        position: buttonPosition,
-        size: buttonSize,
-        text: 'Restart',
+        position: {
+            x: canvas.width / 2 - buttonWidth / 2,
+            y: canvas.height * (3 / 4) - buttonHeight,
+        },
+        size: {
+            width: buttonWidth,
+            height: buttonHeight,
+        },
+        text: new Text({
+            value: 'Restart',
+            style: {fontSize: buttonFontSize},
+        }),
         style: buttonStyle,
         onDown: () => {
             const event = new KeyboardEvent('keydown', {key: ' '});
@@ -65,15 +60,14 @@ export const end = (canvas: HTMLCanvasElement, score: number) => {
     subtitle.draw(context);
     button.draw(context);
 
-    const handler = (event: KeyboardEvent) => {
-        if (event.key === ' ') {
-            button.unload();
-            document.removeEventListener('keydown', handler);
-            start(canvas);
-        }
-    };
+    this.garbage.add(button.unmount);
 
+    // Setting delay for event listener to avoid accident press
     setTimeout(() => {
-        document.addEventListener('keydown', handler);
+        const unmount = onKeyDown(SPACE_KEY, () => {
+            this.changeState(GAME_STATE.INIT);
+        });
+
+        this.garbage.add(unmount);
     }, 300);
-};
+}

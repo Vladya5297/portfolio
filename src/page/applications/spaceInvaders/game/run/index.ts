@@ -1,10 +1,13 @@
-import {invaders} from '../../modules/invaders';
-import {player} from '../../modules/player';
-import {bullet} from '../../modules/bullet';
+import {isDefined} from '~/utils/isDefined';
+
+import {invaders} from '../modules/invaders';
+import {player} from '../modules/player';
+import {bullet} from '../modules/bullet';
+import {score} from '../modules/score';
+import {controls} from '../modules/controls';
+import {GAME_STATE} from '../constants';
 import type {Context, Runtime} from '../types';
-import {end} from '../end';
-import {score} from '../../modules/score';
-import {controls} from '../../modules/controls';
+import type {Game} from '..';
 
 const modules = [
     invaders,
@@ -14,8 +17,9 @@ const modules = [
     controls,
 ];
 
-export const run = (canvas: HTMLCanvasElement) => {
-    const context = canvas.getContext('2d')!;
+export function run(this: Game) {
+    const canvas = this.canvas;
+    const context = this.context;
     const ctx: Context = {context, canvas};
 
     const runtime = {
@@ -26,22 +30,25 @@ export const run = (canvas: HTMLCanvasElement) => {
         score: {},
     } as Runtime;
 
-    const unload = modules.map(({setup}) => setup?.(ctx, runtime));
+    modules
+        .map(({setup}) => setup?.(ctx, runtime))
+        .filter(isDefined)
+        .forEach(cb => this.garbage.add(cb));
 
     const draw = () => {
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        this.clear();
 
         modules.forEach(({raf}) => {
             raf.forEach(handler => handler(ctx, runtime));
         });
 
         if (runtime.gameover) {
-            unload.forEach(cb => cb?.());
-            return end(canvas, runtime.score.value);
+            this.changeState(GAME_STATE.END, {score: runtime.score.value});
+            return;
         }
 
-        requestAnimationFrame(draw);
+        this.rafId = requestAnimationFrame(draw);
     };
 
     draw();
-};
+}
