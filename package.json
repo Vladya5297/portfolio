@@ -3,7 +3,8 @@
     "scripts": {
         "start": "webpack serve --config=./configs/webpack.dev.ts",
         "build": "webpack --config=./configs/webpack.prod.ts",
-        "lint": "eslint ./src"
+        "lint": "eslint ./src",
+        "typecheck": "tsc --noEmit"
     },
     "author": "Vladya5297",
     "dependencies": {

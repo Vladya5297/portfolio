@@ -1,6 +1,6 @@
 import {Button} from '../../entities/button';
 import {Text} from '../../entities/text';
-import logo from '../../assets/space-invaders-logo.png';
+import logo from '../../assets/text-logo.png';
 import font from '../../assets/space-invaders.woff';
 import {onKeyDown} from '../../utils/onKeyDown';
 import {GAME_FONT_NAME, GAME_STATE, SPACE_KEY} from '../constants';

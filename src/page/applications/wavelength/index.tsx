@@ -1,19 +1,26 @@
+import {Application, useSetup} from '~/page/components/Application';
+import {lazyContent} from '~/page/components/WindowContent';
 import type {WindowId} from '~/page/state/windows';
-import type {ApplicationProps} from '~/page/components/Application';
-import {setup} from '~/page/components/Application';
-import {WindowContent, lazyContent} from '~/page/components/WindowContent';
 
+import type {ApplicationProps} from '../types';
+
+const id = 'wavelength' as WindowId;
+const title = 'Wavelength';
+const image = '';
 const Content = lazyContent(() => import('./Content'));
 
-export const wavelength: ApplicationProps = {
-    id: 'wavelength' as WindowId,
-    title: 'Wavelength',
-    image: '',
-    content: (
-        <WindowContent>
-            <Content />
-        </WindowContent>
-    ),
-};
+export const Wavelength = ({root}: ApplicationProps) => {
+    const ready = useSetup({id, title, image});
 
-setup(wavelength);
+    if (!ready) return null;
+
+    return (
+        <Application
+            id={id}
+            root={root}
+            window={{
+                content: <Content />,
+            }}
+        />
+    );
+};

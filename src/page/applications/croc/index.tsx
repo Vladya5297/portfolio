@@ -1,20 +1,28 @@
-import {setup, type ApplicationProps} from '~/page/components/Application';
+import {Application, useSetup} from '~/page/components/Application';
+import {lazyContent} from '~/page/components/WindowContent';
 import type {WindowId} from '~/page/state/windows';
-import {WindowContent, lazyContent} from '~/page/components/WindowContent';
 
-import image from './assets/croc-logo.png';
+import type {ApplicationProps} from '../types';
 
+import logo from './assets/croc-logo.png';
+
+const id = 'croc' as WindowId;
+const title = 'Croc';
+const image = logo.src;
 const Content = lazyContent(() => import('./Content'));
 
-export const croc: ApplicationProps = {
-    id: 'croc' as WindowId,
-    title: 'Croc',
-    image: image.src,
-    content: (
-        <WindowContent>
-            <Content />
-        </WindowContent>
-    ),
-};
+export const Croc = ({root}: ApplicationProps) => {
+    const ready = useSetup({id, title, image});
 
-setup(croc);
+    if (!ready) return null;
+
+    return (
+        <Application
+            id={id}
+            root={root}
+            window={{
+                content: <Content />,
+            }}
+        />
+    );
+};

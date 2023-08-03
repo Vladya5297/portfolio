@@ -1,21 +1,28 @@
+import {Application, useSetup} from '~/page/components/Application';
+import {lazyContent} from '~/page/components/WindowContent';
 import type {WindowId} from '~/page/state/windows';
-import type {ApplicationProps} from '~/page/components/Application';
-import {setup} from '~/page/components/Application';
-import {WindowContent, lazyContent} from '~/page/components/WindowContent';
 
-import image from './assets/yandex-logo.png';
+import type {ApplicationProps} from '../types';
 
+import logo from './assets/yandex-logo.png';
+
+const id = 'yandex' as WindowId;
+const title = 'Yandex';
+const image = logo.src;
 const Content = lazyContent(() => import('./Content'));
 
-export const yandex: ApplicationProps = {
-    id: 'yandex' as WindowId,
-    title: 'Yandex',
-    image: image.src,
-    content: (
-        <WindowContent>
-            <Content />
-        </WindowContent>
-    ),
-};
+export const Yandex = ({root}: ApplicationProps) => {
+    const ready = useSetup({id, title, image});
 
-setup(yandex);
+    if (!ready) return null;
+
+    return (
+        <Application
+            id={id}
+            root={root}
+            window={{
+                content: <Content />,
+            }}
+        />
+    );
+};

@@ -13,7 +13,7 @@ type LinkProps = {
     target?: HTMLAttributeAnchorTarget;
 };
 
-type Props = {
+export type ShortcutProps = {
     image: string;
     title: string;
     column?: number | 'last';
@@ -29,7 +29,7 @@ export const Shortcut = ({
     column,
     row,
     ...rest
-}: Props) => {
+}: ShortcutProps) => {
     const gridColumn = column === 'last' ? -2 : column;
     const gridRow = row === 'last' ? -2 : row;
 

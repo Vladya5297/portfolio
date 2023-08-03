@@ -1,19 +1,31 @@
+import {Application, useSetup} from '~/page/components/Application';
+import {lazyContent} from '~/page/components/WindowContent';
 import type {WindowId} from '~/page/state/windows';
-import type {ApplicationProps} from '~/page/components/Application';
-import {setup} from '~/page/components/Application';
-import {WindowContent, lazyContent} from '~/page/components/WindowContent';
 
+import type {ApplicationProps} from '../types';
+
+import logo from './assets/space-invaders-logo.png';
+
+const id = 'spaceInvaders' as WindowId;
+const title = 'Space Invaders';
+const image = logo.src;
 const Content = lazyContent(() => import('./Content'));
 
-export const spaceInvaders: ApplicationProps = {
-    id: 'spaceInvaders' as WindowId,
-    title: 'Space Invaders',
-    image: '',
-    content: (
-        <WindowContent>
-            <Content />
-        </WindowContent>
-    ),
-};
+export const SpaceInvaders = ({root}: ApplicationProps) => {
+    const ready = useSetup({id, title, image});
 
-setup(spaceInvaders);
+    if (!ready) return null;
+
+    return (
+        <Application
+            id={id}
+            root={root}
+            shortcut={{
+                column: 'last',
+            }}
+            window={{
+                content: <Content />,
+            }}
+        />
+    );
+};

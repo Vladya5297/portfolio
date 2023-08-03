@@ -1,6 +1,6 @@
+import React from 'react';
+import type {ReactNode, HTMLAttributes} from 'react';
 import cn from 'classnames';
-import type {ReactNode, HTMLAttributes, ForwardedRef} from 'react';
-import {forwardRef} from 'react';
 
 import {Button} from '../Button';
 import {Icon} from '../Icon';
@@ -24,7 +24,7 @@ type DefaultProps = HTMLAttributes<HTMLDivElement>;
 
 export type ViewProps = CustomProps & Omit<DefaultProps, keyof CustomProps>;
 
-export const View = forwardRef(function View(
+export const View = React.memo(function View(
     {
         title,
         image,
@@ -38,7 +38,6 @@ export const View = forwardRef(function View(
         onSmallScreen,
         ...props
     }: ViewProps,
-    ref: ForwardedRef<HTMLDivElement>,
 ) {
     const isMobile = useBreakpoint({to: 's'});
 
@@ -54,7 +53,7 @@ export const View = forwardRef(function View(
     const headerClassName = cn(css.header, active && css.active);
 
     return (
-        <div {...props} className={rootClassName} ref={ref}>
+        <div {...props} className={rootClassName}>
             <div className={headerClassName}>
                 <div className={css.title}>
                     <img src={image} width={16} height={16} alt="" />

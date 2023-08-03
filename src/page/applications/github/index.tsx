@@ -1,6 +1,6 @@
 import {Shortcut} from '~/page/components/Shortcut';
 
-import image from './assets/github-logo.png';
+import logo from './assets/github-logo.png';
 
 export const GitHub = () => {
     return (
@@ -9,7 +9,7 @@ export const GitHub = () => {
             href="https://github.com/Vladya5297/portfolio"
             target="_blank"
             title="GitHub"
-            image={image.src}
+            image={logo.src}
             column="last"
         />
     );

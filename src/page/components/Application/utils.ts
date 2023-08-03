@@ -1,27 +1,22 @@
 import {useEffect, useState} from 'react';
 
-import {state} from '~/page/state';
 import {windowsActions} from '~/page/state/windows';
 import type {AddWindowPayload} from '~/page/state/windows';
+import {useWindowExists} from '~/page/utils/useWindowExists';
+import {useAction} from '~/utils/redux/useAction';
 
-export const useRoot = (): HTMLElement | null => {
-    const [root, setRoot] = useState<HTMLElement | null>(null);
+export const useSetup = ({id, title, image}: AddWindowPayload): boolean => {
+    const isExists = useWindowExists(id);
+    const [ready, setReady] = useState(isExists);
+
+    const setup = useAction(() => windowsActions.addWindow({id, title, image}));
 
     useEffect(() => {
-        const main = document.querySelector('main')!;
-        setRoot(main);
+        if (ready) return;
+
+        setup();
+        setReady(true);
     }, []);
 
-    return root;
-};
-
-/**
- * Should be called before rendering.
- * @example
- * setup({id, title, image});
- *
- * const Component = () => {...}
- */
-export const setup = ({id, title, image}: AddWindowPayload) => {
-    state.dispatch(windowsActions.addWindow({id, title, image}));
+    return ready;
 };

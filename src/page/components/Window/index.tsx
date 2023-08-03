@@ -6,13 +6,13 @@ import {useBreakpoint} from '~/components/Breakpoint/useBreakpoint';
 import {DesktopWindow} from './DesktopWindow';
 import {MobileWindow} from './MobileWindow';
 
-type Props = {
+export type WindowProps = {
     id: WindowId;
     content: ReactNode;
     root: HTMLElement;
 };
 
-export const Window = (props: Props) => {
+export const Window = (props: WindowProps) => {
     const isMobile = useBreakpoint({to: 's'});
 
     return isMobile

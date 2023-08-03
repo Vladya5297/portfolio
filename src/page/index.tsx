@@ -1,25 +1,24 @@
 import {useRef} from 'react';
 
+import {useElement} from '~/utils/useElement';
+
 import {useInitWindow} from './utils';
-import {GitHub} from './applications/github';
-import * as applications from './applications';
-import type {ApplicationProps} from './components/Application';
 import {Footer} from './components/Footer';
-import {Application} from './components/Application';
+import * as applications from './applications';
 import css from './style.m.css';
 
-export const Main = () => {
-    const rootRef = useRef<HTMLDivElement>(null);
-    useInitWindow(rootRef);
+export const Page = () => {
+    const ref = useRef<HTMLDivElement>(null);
+    const root = useElement(ref);
+    useInitWindow(ref);
 
     return (
         <div className={css.root}>
-            <main className={css.main} ref={rootRef}>
+            <main className={css.main} ref={ref}>
                 <div className={css.grid}>
-                    {Object.values(applications).map((props: ApplicationProps) => (
-                        <Application key={props.id} {...props} />
-                    ))}
-                    <GitHub />
+                    {root && Object.entries(applications).map(
+                        ([key, Component]) => <Component key={key} root={root} />,
+                    )}
                 </div>
             </main>
             <Footer />
