@@ -1,5 +1,3 @@
-import {searchParams} from '~/utils/searchParams';
-
 import {DEFAULT_SIZE} from './constants';
 import type {Position, Size, WindowId, WindowsState} from './types';
 
@@ -34,5 +32,4 @@ export const updateActive = (state: WindowsState, windowId?: WindowId): void => 
     const previous = state.queue.at(-1);
     const id = windowId || previous || null;
     state.active = id;
-    searchParams.apply({window: id});
 };

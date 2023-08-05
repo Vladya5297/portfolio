@@ -9,11 +9,10 @@ import {
     selectQueueIndex,
     selectWindow,
     getDefaultRect,
+    selectWindowConstraints,
 } from '~/page/state/windows';
 import type {Position, Size, WindowId} from '~/page/state/windows';
 import type {State} from '~/page/state/types';
-
-import {useRootSize} from './utils';
 
 type Props = {
     id: WindowId;
@@ -32,6 +31,11 @@ export const DesktopWindow = ({id: windowId, root, content}: Props) => {
     const setActive = useAction(() => windowsActions.setActive(windowId));
     const setClosed = useAction(() => windowsActions.setClosed(windowId));
 
+    const onMouseDown = () => {
+        if (isActive) return;
+        setActive();
+    };
+
     const setupPosition = useAction(
         (position: Position) => windowsActions.setupPosition({id: windowId, position}),
     );
@@ -43,13 +47,13 @@ export const DesktopWindow = ({id: windowId, root, content}: Props) => {
         setupPosition(position);
     };
 
-    const rootSize = useRootSize(root);
-    const isFullWidth = window.size.width >= Math.floor(rootSize.width);
-    const isFullHeight = window.size.height >= Math.floor(rootSize.height);
+    const constraints = useSelector(selectWindowConstraints);
+    const isFullWidth = window.size.width >= Math.floor(constraints.width);
+    const isFullHeight = window.size.height >= Math.floor(constraints.height);
     const isFullScreen = isFullWidth && isFullHeight;
 
     const setFullScreen = () => {
-        setupSize(rootSize);
+        setupSize(constraints);
         setupPosition({x: 0, y: 0});
     };
     const setSmallScreen = () => {
@@ -66,7 +70,7 @@ export const DesktopWindow = ({id: windowId, root, content}: Props) => {
             image={window.image}
             root={root}
             active={isActive}
-            onMouseDown={setActive}
+            onMouseDown={onMouseDown}
             onMinimize={setMinimized}
             onClose={setClosed}
             draggable

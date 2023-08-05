@@ -1,5 +1,7 @@
-import type {WindowsState} from './windows/types';
+import type {ParamsState} from './params';
+import type {WindowsState} from './windows';
 
 export type State = {
+    params: ParamsState;
     windows: WindowsState;
 };

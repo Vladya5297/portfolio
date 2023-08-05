@@ -1,4 +1,4 @@
-import {isDefined} from '~/utils/isDefined';
+import {isDefined} from '~/utils/toolkit';
 
 import type {Position, Size, Bounds} from './types';
 

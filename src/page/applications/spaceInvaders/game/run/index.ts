@@ -1,4 +1,4 @@
-import {isDefined} from '~/utils/isDefined';
+import {isDefined} from '~/utils/toolkit';
 
 import {invaders} from '../modules/invaders';
 import {player} from '../modules/player';

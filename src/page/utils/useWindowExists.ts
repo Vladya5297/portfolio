@@ -1,6 +1,6 @@
 import {useSelector} from 'react-redux';
 
-import {selectIsWindowExists, type WindowId} from '../state/windows';
+import {selectWindowExists, type WindowId} from '../state/windows';
 import type {State} from '../state/types';
 
 type Options = Partial<{
@@ -9,11 +9,11 @@ type Options = Partial<{
 }>;
 
 export const useWindowExists = (windowId: WindowId, options: Options = {}) => {
-    const isExists = useSelector((state: State) => selectIsWindowExists(state, windowId));
+    const exists = useSelector((state: State) => selectWindowExists(state, windowId));
 
-    if (!isExists && options.throw) {
+    if (!exists && options.throw) {
         throw new Error(options.message || `Seems like you haven't call useSetup for windowId: ${windowId}`);
     }
 
-    return isExists;
+    return exists;
 };

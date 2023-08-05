@@ -1,8 +1,13 @@
-import {listener} from '../listener';
+import {isAnyOf} from '@reduxjs/toolkit';
 
-import {selectWindow, selectActiveWindowId} from './selectors';
+import {listener} from '../listener';
+import {paramsActions} from '../params';
+import {selectWindowIdParam} from '../params/selectors';
+
+import {selectWindow, selectActiveWindowId, selectWindowConstraints} from './selectors';
 import {windowsActions} from './actions';
 
+// Process window opening
 listener.startListening({
     actionCreator: windowsActions.open,
     effect: ({payload: windowId}, {getState, dispatch}) => {
@@ -23,6 +28,7 @@ listener.startListening({
     },
 });
 
+// Process window minimization
 listener.startListening({
     actionCreator: windowsActions.toggle,
     effect: ({payload: windowId}, {getState, dispatch}) => {
@@ -43,5 +49,39 @@ listener.startListening({
         }
 
         dispatch(windowsActions.setActive(windowId));
+    },
+});
+
+// Sync active windowId with url search params
+listener.startListening({
+    predicate: isAnyOf(
+        windowsActions.setActive,
+        windowsActions.setOpened,
+        windowsActions.setClosed,
+        windowsActions.setMaximized,
+        windowsActions.setMinimized,
+    ),
+    effect: (action, {getState, dispatch}) => {
+        const state = getState();
+        const activeWindowId = selectActiveWindowId(state);
+        dispatch(paramsActions.apply({windowId: activeWindowId}));
+    },
+});
+
+// Initialize active window
+listener.startListening({
+    actionCreator: windowsActions.addWindow,
+    effect: ({payload}, {getState, dispatch}) => {
+        const {id} = payload;
+        const state = getState();
+
+        const windowIdParam = selectWindowIdParam(state);
+        const constraints = selectWindowConstraints(state);
+
+        if (id === windowIdParam) {
+            dispatch(windowsActions.setOpened(id));
+            dispatch(windowsActions.setupPosition({id, position: {x: 0, y: 0}}));
+            dispatch(windowsActions.setupSize({id, size: constraints}));
+        }
     },
 });

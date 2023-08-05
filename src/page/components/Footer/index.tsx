@@ -11,7 +11,7 @@ import {
 import type {WindowId} from '~/page/state/windows';
 import type {State} from '~/page/state/types';
 import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
-import {pick} from '~/utils/pick';
+import {pick} from '~/utils/toolkit';
 
 import css from './style.m.css';
 

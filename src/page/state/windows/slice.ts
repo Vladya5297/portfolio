@@ -5,6 +5,7 @@ import type {
     AddWindowPayload,
     SetupPositionPayload,
     SetupSizePayload,
+    Size,
     Window,
     WindowId,
     WindowsState,
@@ -18,6 +19,10 @@ const collection = windowAdapter.getInitialState();
 const initialState: WindowsState = {
     active: null,
     queue: [],
+    constraints: {
+        width: 0,
+        height: 0,
+    },
     ...collection,
 };
 
@@ -108,6 +113,9 @@ export const windowsSlice = createSlice({
                 id: windowId,
                 changes: {size},
             });
+        },
+        setConstraints(state, action: PayloadAction<Size>) {
+            state.constraints = action.payload;
         },
     },
 });

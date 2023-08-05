@@ -8,7 +8,7 @@ import {windowAdapter} from './slice';
 
 const windowsSelectors = windowAdapter.getSelectors<State>(state => state.windows);
 
-export const selectIsWindowExists = (state: State, windowId: WindowId): boolean => {
+export const selectWindowExists = (state: State, windowId: WindowId): boolean => {
     const window = windowsSelectors.selectById(state, windowId);
 
     return Boolean(window);
@@ -36,3 +36,7 @@ export const selectOpenedWindows = createShallowSelector(
         .filter(window => window.isOpened)
         .map(window => window.id),
 );
+
+export const selectWindowConstraints = (state: State) => {
+    return state.windows.constraints;
+};

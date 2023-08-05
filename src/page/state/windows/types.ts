@@ -26,6 +26,7 @@ export type Window = {
 export type WindowsState = {
     active: WindowId | null;
     queue: WindowId[];
+    constraints: Size;
 } & EntityState<Window>;
 
 export type AddWindowPayload = {

@@ -6,8 +6,8 @@ import {useWindowExists} from '~/page/utils/useWindowExists';
 import {useAction} from '~/utils/redux/useAction';
 
 export const useSetup = ({id, title, image}: AddWindowPayload): boolean => {
-    const isExists = useWindowExists(id);
-    const [ready, setReady] = useState(isExists);
+    const exists = useWindowExists(id);
+    const [ready, setReady] = useState(exists);
 
     const setup = useAction(() => windowsActions.addWindow({id, title, image}));
 

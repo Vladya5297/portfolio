@@ -1,4 +1,4 @@
-import {pick} from '~/utils/pick';
+import {pick} from '~/utils/toolkit';
 import {useAction} from '~/utils/redux/useAction';
 import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
 import {selectWindow, windowsActions} from '~/page/state/windows';

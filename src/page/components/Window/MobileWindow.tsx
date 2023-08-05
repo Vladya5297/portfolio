@@ -3,11 +3,9 @@ import {useSelector} from 'react-redux';
 
 import {Window} from '~/components/Window';
 import {useAction} from '~/utils/redux/useAction';
-import {windowsActions, selectQueueIndex, selectWindow} from '~/page/state/windows';
+import {windowsActions, selectQueueIndex, selectWindow, selectWindowConstraints} from '~/page/state/windows';
 import type {WindowId} from '~/page/state/windows/types';
 import type {State} from '~/page/state/types';
-
-import {useRootSize} from './utils';
 
 type Props = {
     id: WindowId;
@@ -18,7 +16,7 @@ type Props = {
 export const MobileWindow = ({id: windowId, root, content}: Props) => {
     const window = useSelector((state: State) => selectWindow(state, windowId));
     const index = useSelector((state: State) => selectQueueIndex(state, windowId));
-    const rootSize = useRootSize(root);
+    const constraints = useSelector(selectWindowConstraints);
 
     const setClosed = useAction(() => windowsActions.setClosed(windowId));
 
@@ -31,7 +29,7 @@ export const MobileWindow = ({id: windowId, root, content}: Props) => {
             root={root}
             active
             onClose={setClosed}
-            initialSize={rootSize}
+            initialSize={constraints}
             style={{zIndex: index}}
         >
             {content}
