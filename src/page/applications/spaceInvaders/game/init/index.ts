@@ -30,6 +30,44 @@ export async function init(this: Game) {
     const canvas = this.canvas;
     const context = this.context;
 
+    const texts = [
+        new Text({
+            position: {
+                x: 80,
+                y: canvas.height / 2,
+            },
+            style: {
+                fontSize: 24,
+                textAlign: 'left',
+            },
+            value: '«Left» - Move left',
+        }),
+        new Text({
+            position: {
+                x: 80,
+                y: canvas.height / 2 + 30,
+            },
+            style: {
+                fontSize: 24,
+                textAlign: 'left',
+            },
+            value: '«Right» - Move right',
+        }),
+        new Text({
+            position: {
+                x: 80,
+                y: canvas.height / 2 + 60,
+            },
+            style: {
+                fontSize: 24,
+                textAlign: 'left',
+            },
+            value: '«Space» - Fire',
+        }),
+    ];
+
+    texts.forEach(text => text.draw(context));
+
     const button = new Button({
         canvas,
         position: {
@@ -61,7 +99,7 @@ export async function init(this: Game) {
     await imageLoaded && context.drawImage(
         image,
         imageOffset / 2,
-        canvas.height / 4,
+        canvas.height / 5,
         imageWidth,
         imageHeight,
     );

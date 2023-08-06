@@ -12,6 +12,7 @@ export type MovableProps = {
     resizable?: boolean;
     initialPosition?: Position;
     initialSize?: Size;
+    lockAspectRatio?: boolean;
     style?: CSSProperties;
     children: ReactNode;
     root: HTMLElement;
@@ -26,6 +27,7 @@ export const Movable = ({
     resizable = false,
     initialPosition = {x: 0, y: 0},
     initialSize = {width: 0, height: 0},
+    lockAspectRatio,
     style,
     children,
     root,
@@ -73,6 +75,7 @@ export const Movable = ({
                 left: {cursor: 'w-resize'},
                 right: {cursor: 'e-resize'},
             }}
+            lockAspectRatio={lockAspectRatio}
             className={cn(draggable && css.draggable)}
             onMouseDown={onMouseDown}
             onMouseUp={onMouseUp}

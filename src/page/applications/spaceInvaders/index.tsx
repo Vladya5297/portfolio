@@ -11,12 +11,24 @@ const title = 'Space Invaders';
 const image = logo.src;
 const Content = lazyContent(() => import('./Content'));
 
+const height = 600;
+const width = 345;
+
 export const SpaceInvaders = ({root}: ApplicationProps) => {
-    const ready = useSetup({id, title, image});
+    const rect = root.getBoundingClientRect();
+    const ready = useSetup({
+        id,
+        title,
+        image,
+        root,
+        defaultSize: {height, width},
+        defaultPosition: {
+            x: rect.width / 2 - width / 2,
+            y: rect.height / 2 - height / 2,
+        },
+    });
 
-    if (!ready) return null;
-
-    return (
+    return ready && (
         <Application
             id={id}
             root={root}
@@ -24,6 +36,8 @@ export const SpaceInvaders = ({root}: ApplicationProps) => {
                 column: 'last',
             }}
             window={{
+                lockAspectRatio: true,
+                disableFullscreen: true,
                 content: <Content />,
             }}
         />

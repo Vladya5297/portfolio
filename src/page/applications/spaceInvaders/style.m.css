@@ -9,10 +9,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #10102a;
+    background-image: url(./assets/background.svg);
+    background-size: 150px;
 }
 
 .canvas {
-    background-color: black;
     max-height: 100%;
     max-width: 100%;
+    background-color: black;
+    outline: 1px solid black;
 }

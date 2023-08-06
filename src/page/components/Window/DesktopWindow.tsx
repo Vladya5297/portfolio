@@ -1,4 +1,3 @@
-import type {ReactNode} from 'react';
 import {useSelector} from 'react-redux';
 
 import {Window} from '~/components/Window';
@@ -8,19 +7,22 @@ import {
     selectActiveWindowId,
     selectQueueIndex,
     selectWindow,
-    getDefaultRect,
     selectWindowConstraints,
 } from '~/page/state/windows';
-import type {Position, Size, WindowId} from '~/page/state/windows';
+import type {Position, Size} from '~/page/state/windows';
 import type {State} from '~/page/state/types';
 
-type Props = {
-    id: WindowId;
-    content: ReactNode;
-    root: HTMLElement;
-};
+import type {WindowProps} from './types';
 
-export const DesktopWindow = ({id: windowId, root, content}: Props) => {
+export const DesktopWindow = ({
+    id: windowId,
+    root,
+    content,
+    draggable,
+    resizeable,
+    lockAspectRatio,
+    disableFullscreen,
+}: WindowProps) => {
     const window = useSelector((state: State) => selectWindow(state, windowId));
     const activeWindowId = useSelector(selectActiveWindowId);
     const isActive = activeWindowId === windowId;
@@ -36,15 +38,15 @@ export const DesktopWindow = ({id: windowId, root, content}: Props) => {
         setActive();
     };
 
-    const setupPosition = useAction(
-        (position: Position) => windowsActions.setupPosition({id: windowId, position}),
+    const setPosition = useAction(
+        (position: Position) => windowsActions.setPosition({id: windowId, position}),
     );
-    const setupSize = useAction(
-        (size: Size) => windowsActions.setupSize({id: windowId, size}),
+    const setSize = useAction(
+        (size: Size) => windowsActions.setSize({id: windowId, size}),
     );
     const onResizeStop = (size: Size, position: Position) => {
-        setupSize(size);
-        setupPosition(position);
+        setSize(size);
+        setPosition(position);
     };
 
     const constraints = useSelector(selectWindowConstraints);
@@ -53,13 +55,12 @@ export const DesktopWindow = ({id: windowId, root, content}: Props) => {
     const isFullScreen = isFullWidth && isFullHeight;
 
     const setFullScreen = () => {
-        setupSize(constraints);
-        setupPosition({x: 0, y: 0});
+        setSize(constraints);
+        setPosition({x: 0, y: 0});
     };
     const setSmallScreen = () => {
-        const {size, position} = getDefaultRect();
-        setupSize(size);
-        setupPosition(position);
+        setSize(window.defaultSize);
+        setPosition(window.defaultPosition);
     };
 
     const showWindow = window.isOpened && !window.isMinimized;
@@ -73,15 +74,16 @@ export const DesktopWindow = ({id: windowId, root, content}: Props) => {
             onMouseDown={onMouseDown}
             onMinimize={setMinimized}
             onClose={setClosed}
-            draggable
+            draggable={draggable ?? true}
             initialPosition={window.position}
-            onDragStop={setupPosition}
-            resizable
+            onDragStop={setPosition}
+            resizable={resizeable ?? true}
             initialSize={window.size}
             onResizeStop={onResizeStop}
             fullscreen={isFullScreen}
-            onFullScreen={setFullScreen}
-            onSmallScreen={setSmallScreen}
+            onFullScreen={disableFullscreen ? undefined : setFullScreen}
+            onSmallScreen={disableFullscreen ? undefined : setSmallScreen}
+            lockAspectRatio={lockAspectRatio}
             style={{zIndex: index}}
         >
             {content}

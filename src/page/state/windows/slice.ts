@@ -10,7 +10,7 @@ import type {
     WindowId,
     WindowsState,
 } from './types';
-import {getDefaultRect, removeFromQueue, updateActive} from './utils';
+import {removeFromQueue, updateActive} from './utils';
 import {STATE_ID} from './constants';
 
 export const windowAdapter = createEntityAdapter<Window>();
@@ -31,7 +31,13 @@ export const windowsSlice = createSlice({
     initialState,
     reducers: {
         addWindow(state, action: PayloadAction<AddWindowPayload>) {
-            const {id: windowId, title, image} = action.payload;
+            const {
+                id: windowId,
+                title,
+                image,
+                defaultPosition,
+                defaultSize,
+            } = action.payload;
 
             windowAdapter.addOne(state, {
                 id: windowId,
@@ -39,7 +45,10 @@ export const windowsSlice = createSlice({
                 image,
                 isMinimized: false,
                 isOpened: false,
-                ...getDefaultRect(),
+                position: defaultPosition,
+                size: defaultSize,
+                defaultPosition,
+                defaultSize,
             });
         },
         setActive(state, action: PayloadAction<WindowId>) {
@@ -98,7 +107,7 @@ export const windowsSlice = createSlice({
             removeFromQueue(state, windowId);
             updateActive(state);
         },
-        setupPosition(state, action: PayloadAction<SetupPositionPayload>) {
+        setPosition(state, action: PayloadAction<SetupPositionPayload>) {
             const {id: windowId, position} = action.payload;
 
             windowAdapter.updateOne(state, {
@@ -106,7 +115,7 @@ export const windowsSlice = createSlice({
                 changes: {position},
             });
         },
-        setupSize(state, action: PayloadAction<SetupSizePayload>) {
+        setSize(state, action: PayloadAction<SetupSizePayload>) {
             const {id: windowId, size} = action.payload;
 
             windowAdapter.updateOne(state, {

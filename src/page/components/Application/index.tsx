@@ -1,3 +1,5 @@
+import type {ReactNode} from 'react';
+
 import {pick} from '~/utils/toolkit';
 import {useAction} from '~/utils/redux/useAction';
 import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
@@ -7,7 +9,6 @@ import {useWindowExists} from '~/page/utils/useWindowExists';
 
 import type {ShortcutProps} from '../Shortcut';
 import {Shortcut} from '../Shortcut';
-import type {WindowProps} from '../Window';
 import {Window} from '../Window';
 import {WindowContent} from '../WindowContent';
 
@@ -15,7 +16,13 @@ export * from './utils';
 
 export type ApplicationProps = {
     id: WindowId;
-    window: Pick<WindowProps, 'content'>;
+    window: {
+        lockAspectRatio?: boolean;
+        disableFullscreen?: boolean;
+        draggable?: boolean;
+        resizeable?: boolean;
+        content: ReactNode;
+    };
     root: HTMLElement;
     shortcut?: Pick<ShortcutProps, 'row' | 'column'>;
 };
@@ -36,6 +43,8 @@ export const Application = ({
 
     const openWindow = useAction(() => windowsActions.open(windowId));
 
+    const {content, ...windowProps} = window;
+
     return (
         <>
             <Shortcut
@@ -47,9 +56,10 @@ export const Application = ({
             <Window
                 id={windowId}
                 root={root}
+                {...windowProps}
                 content={(
                     <WindowContent>
-                        {window.content}
+                        {content}
                     </WindowContent>
                 )}
             />

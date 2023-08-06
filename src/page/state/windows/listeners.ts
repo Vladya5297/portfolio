@@ -4,7 +4,7 @@ import {listener} from '../listener';
 import {paramsActions} from '../params';
 import {selectWindowIdParam} from '../params/selectors';
 
-import {selectWindow, selectActiveWindowId, selectWindowConstraints} from './selectors';
+import {selectWindow, selectActiveWindowId} from './selectors';
 import {windowsActions} from './actions';
 
 // Process window opening
@@ -76,12 +76,9 @@ listener.startListening({
         const state = getState();
 
         const windowIdParam = selectWindowIdParam(state);
-        const constraints = selectWindowConstraints(state);
 
         if (id === windowIdParam) {
             dispatch(windowsActions.setOpened(id));
-            dispatch(windowsActions.setupPosition({id, position: {x: 0, y: 0}}));
-            dispatch(windowsActions.setupSize({id, size: constraints}));
         }
     },
 });

@@ -21,7 +21,7 @@ export class Text extends Entity {
      * @link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillText#parameters
      */
     width!: number;
-    /** Treats as `fontSize` */
+    /** Not applicable */
     height!: number;
 
     style: TextStyle = {

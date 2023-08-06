@@ -10,11 +10,9 @@ const image = '';
 const Content = lazyContent(() => import('./Content'));
 
 export const Wavelength = ({root}: ApplicationProps) => {
-    const ready = useSetup({id, title, image});
+    const ready = useSetup({id, title, image, root});
 
-    if (!ready) return null;
-
-    return (
+    return ready && (
         <Application
             id={id}
             root={root}

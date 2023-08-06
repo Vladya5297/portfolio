@@ -12,11 +12,9 @@ const image = logo.src;
 const Content = lazyContent(() => import('./Content'));
 
 export const Croc = ({root}: ApplicationProps) => {
-    const ready = useSetup({id, title, image});
+    const ready = useSetup({id, title, image, root});
 
-    if (!ready) return null;
-
-    return (
+    return ready && (
         <Application
             id={id}
             root={root}

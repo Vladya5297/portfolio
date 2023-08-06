@@ -21,6 +21,8 @@ export type Window = {
     isMinimized: boolean;
     position: Position;
     size: Size;
+    defaultPosition: Position;
+    defaultSize: Size;
 };
 
 export type WindowsState = {
@@ -33,6 +35,8 @@ export type AddWindowPayload = {
     id: WindowId;
     title: string;
     image: string;
+    defaultPosition: Position;
+    defaultSize: Size;
 };
 
 export type SetupPositionPayload = {
