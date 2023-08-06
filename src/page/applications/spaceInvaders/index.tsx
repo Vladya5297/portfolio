@@ -28,11 +28,12 @@ export const SpaceInvaders = ({root}: ApplicationProps) => {
         },
     });
 
-    return ready && (
+    return ready ? (
         <Application
             id={id}
             root={root}
             shortcut={{
+                row: 2,
                 column: 'last',
             }}
             window={{
@@ -43,5 +44,5 @@ export const SpaceInvaders = ({root}: ApplicationProps) => {
                 content: <Content />,
             }}
         />
-    );
+    ) : null;
 };

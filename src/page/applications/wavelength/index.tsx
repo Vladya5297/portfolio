@@ -4,21 +4,27 @@ import type {WindowId} from '~/page/state/windows';
 
 import type {ApplicationProps} from '../types';
 
+import logo from './assets/wavelength-logo.png';
+
 const id = 'wavelength' as WindowId;
 const title = 'Wavelength';
-const image = '';
+const image = logo.src;
 const Content = lazyContent(() => import('./Content'));
 
 export const Wavelength = ({root}: ApplicationProps) => {
     const ready = useSetup({id, title, image, root});
 
-    return ready && (
+    return ready ? (
         <Application
             id={id}
             root={root}
+            shortcut={{
+                row: 1,
+                column: 'last',
+            }}
             window={{
                 content: <Content />,
             }}
         />
-    );
+    ) : null;
 };

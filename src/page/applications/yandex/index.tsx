@@ -14,7 +14,7 @@ const Content = lazyContent(() => import('./Content'));
 export const Yandex = ({root}: ApplicationProps) => {
     const ready = useSetup({id, title, image, root});
 
-    return ready && (
+    return ready ? (
         <Application
             id={id}
             root={root}
@@ -22,5 +22,5 @@ export const Yandex = ({root}: ApplicationProps) => {
                 content: <Content />,
             }}
         />
-    );
+    ) : null;
 };
