@@ -22,6 +22,10 @@ export const DesktopWindow = ({
     resizeable,
     lockAspectRatio,
     disableFullscreen,
+    minWidth,
+    maxWidth,
+    minHeight,
+    maxHeight,
 }: WindowProps) => {
     const window = useSelector((state: State) => selectWindow(state, windowId));
     const activeWindowId = useSelector(selectActiveWindowId);
@@ -84,6 +88,10 @@ export const DesktopWindow = ({
             onFullScreen={disableFullscreen ? undefined : setFullScreen}
             onSmallScreen={disableFullscreen ? undefined : setSmallScreen}
             lockAspectRatio={lockAspectRatio}
+            minWidth={minWidth ?? 200}
+            maxWidth={maxWidth}
+            minHeight={minHeight ?? 100}
+            maxHeight={maxHeight}
             style={{zIndex: index}}
         >
             {content}

@@ -38,6 +38,8 @@ export const SpaceInvaders = ({root}: ApplicationProps) => {
             window={{
                 lockAspectRatio: true,
                 disableFullscreen: true,
+                maxWidth: 425,
+                maxHeight: 745,
                 content: <Content />,
             }}
         />

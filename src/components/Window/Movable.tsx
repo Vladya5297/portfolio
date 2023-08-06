@@ -12,6 +12,10 @@ export type MovableProps = {
     resizable?: boolean;
     initialPosition?: Position;
     initialSize?: Size;
+    minWidth?: number;
+    maxWidth?: number;
+    minHeight?: number;
+    maxHeight?: number;
     lockAspectRatio?: boolean;
     style?: CSSProperties;
     children: ReactNode;
@@ -27,6 +31,10 @@ export const Movable = ({
     resizable = false,
     initialPosition = {x: 0, y: 0},
     initialSize = {width: 0, height: 0},
+    minWidth,
+    maxWidth,
+    minHeight,
+    maxHeight,
     lockAspectRatio,
     style,
     children,
@@ -65,8 +73,10 @@ export const Movable = ({
             bounds={root}
             disableDragging={!draggable}
             enableResizing={resizable}
-            minWidth={200}
-            minHeight={100}
+            minWidth={minWidth}
+            maxWidth={maxWidth}
+            minHeight={minHeight}
+            maxHeight={maxHeight}
             default={{x, y, width, height}}
             dragHandleClassName={css.title}
             resizeHandleStyles={{

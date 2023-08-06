@@ -14,6 +14,10 @@ export const Window = ({
     resizable,
     initialSize,
     lockAspectRatio,
+    minWidth,
+    maxWidth,
+    minHeight,
+    maxHeight,
     style,
     children,
     onMouseDown,
@@ -29,6 +33,10 @@ export const Window = ({
             resizable={resizable}
             initialSize={initialSize}
             lockAspectRatio={lockAspectRatio}
+            minWidth={minWidth}
+            maxWidth={maxWidth}
+            minHeight={minHeight}
+            maxHeight={maxHeight}
             style={style}
             root={root}
             onDragStop={onDragStop}

@@ -10,4 +10,8 @@ export type WindowProps = {
     resizeable?: boolean;
     lockAspectRatio?: boolean;
     disableFullscreen?: boolean;
+    minWidth?: number;
+    maxWidth?: number;
+    minHeight?: number;
+    maxHeight?: number;
 };

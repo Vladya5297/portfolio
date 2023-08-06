@@ -21,6 +21,10 @@ export type ApplicationProps = {
         disableFullscreen?: boolean;
         draggable?: boolean;
         resizeable?: boolean;
+        minWidth?: number;
+        maxWidth?: number;
+        minHeight?: number;
+        maxHeight?: number;
         content: ReactNode;
     };
     root: HTMLElement;
