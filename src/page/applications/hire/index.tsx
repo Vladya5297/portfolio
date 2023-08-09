@@ -1,17 +1,17 @@
 import {Application, useSetup} from '~/page/components/Application';
-import {lazyContent} from '~/page/components/WindowContent';
 import type {WindowId} from '~/page/state/windows';
+import {lazyContent} from '~/page/components/WindowContent';
 
 import type {ApplicationProps} from '../types';
 
-import logo from './assets/kaspersky-logo.png';
+import logo from './assets/hire-logo.png';
 
-const id = 'kaspersky' as WindowId;
-const title = 'Kaspersky';
+const id = 'hire' as WindowId;
+const title = 'Hire';
 const image = logo.src;
 const Content = lazyContent(() => import('./Content'));
 
-export const Kaspersky = ({root}: ApplicationProps) => {
+export const Hire = ({root}: ApplicationProps) => {
     const ready = useSetup({id, title, image, root});
 
     return ready ? (
@@ -20,7 +20,7 @@ export const Kaspersky = ({root}: ApplicationProps) => {
             root={root}
             shortcut={{
                 column: 1,
-                row: 2,
+                row: 'last',
             }}
             window={{
                 content: <Content />,

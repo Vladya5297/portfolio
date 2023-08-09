@@ -18,6 +18,10 @@ export const Croc = ({root}: ApplicationProps) => {
         <Application
             id={id}
             root={root}
+            shortcut={{
+                column: 1,
+                row: 1,
+            }}
             window={{
                 content: <Content />,
             }}

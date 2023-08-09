@@ -33,8 +33,8 @@ export const SpaceInvaders = ({root}: ApplicationProps) => {
             id={id}
             root={root}
             shortcut={{
+                column: 2,
                 row: 2,
-                column: 'last',
             }}
             window={{
                 lockAspectRatio: true,

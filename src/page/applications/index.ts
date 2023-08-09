@@ -4,3 +4,4 @@ export * from './yandex';
 export * from './github';
 export * from './wavelength';
 export * from './spaceInvaders';
+export * from './hire';

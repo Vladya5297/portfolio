@@ -18,6 +18,10 @@ export const Yandex = ({root}: ApplicationProps) => {
         <Application
             id={id}
             root={root}
+            shortcut={{
+                column: 1,
+                row: 3,
+            }}
             window={{
                 content: <Content />,
             }}

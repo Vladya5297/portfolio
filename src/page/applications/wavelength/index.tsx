@@ -19,8 +19,8 @@ export const Wavelength = ({root}: ApplicationProps) => {
             id={id}
             root={root}
             shortcut={{
+                column: 2,
                 row: 1,
-                column: 'last',
             }}
             window={{
                 content: <Content />,
