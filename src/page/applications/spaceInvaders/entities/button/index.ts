@@ -1,4 +1,4 @@
-import {isTouchScreen} from '~/utils/isTouchScreen';
+import {isTouchScreen} from '~/utils/dom';
 
 import {Entity} from '..';
 import type {Position, Size} from '..';

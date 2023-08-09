@@ -1,7 +1,8 @@
+import {onKeyDown} from '~/utils/dom';
+
 import {Button} from '../../entities/button';
 import {Text} from '../../entities/text';
 import type {Game} from '..';
-import {onKeyDown} from '../../utils/onKeyDown';
 import {GAME_STATE, SPACE_KEY} from '../constants';
 
 import {

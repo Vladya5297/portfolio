@@ -1,6 +1,7 @@
+import {onKeyDown} from '~/utils/dom';
+
 import {SPACE_KEY} from '../../constants';
 import type {Setup} from '../../types';
-import {onKeyDown} from '../../../utils/onKeyDown';
 
 import {bulletColor, bulletHeight, bulletSpeed, bulletWidth} from './constants';
 

@@ -1,8 +1,8 @@
+import {onKeyDown, onKeyUp} from '~/utils/dom';
+
 import {Player} from '../../../entities/player';
 import {ARROW_LEFT_KEY, ARROW_RIGHT_KEY} from '../../constants';
 import type {Setup} from '../../types';
-import {onKeyDown} from '../../../utils/onKeyDown';
-import {onKeyUp} from '../../../utils/onKeyUp';
 
 import {playerHeight, playerSpeed, playerWidth} from './constants';
 import {sprites} from './sprites';
