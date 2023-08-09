@@ -5,3 +5,4 @@ export * from './github';
 export * from './wavelength';
 export * from './spaceInvaders';
 export * from './hire';
+export * from './intro';
