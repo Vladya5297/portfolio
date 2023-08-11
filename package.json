@@ -1,12 +1,15 @@
 {
+    "author": "Vladya5297",
     "name": "portfolio",
+    "homepage": "https://vladya5297.github.io/portfolio",
     "scripts": {
         "start": "webpack serve --config=./configs/webpack.dev.ts",
         "build": "webpack --config=./configs/webpack.prod.ts",
         "lint": "eslint ./src",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "tsc --noEmit",
+        "predeploy": "rm -rf build && npm run build",
+        "deploy": "gh-pages -d build"
     },
-    "author": "Vladya5297",
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.5",
         "classnames": "^2.3.2",
@@ -34,7 +37,7 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "favicons": "^7.1.0",
         "favicons-webpack-plugin": "^6.0.0",
-        "gh-pages": "^5.0.0",
+        "gh-pages": "^6.0.0",
         "html-loader": "^4.2.0",
         "html-webpack-plugin": "^5.5.0",
         "mini-css-extract-plugin": "^2.7.5",
