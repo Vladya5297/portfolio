@@ -9,7 +9,7 @@ export const images: Configuration = {
                 use: ['@svgr/webpack'],
             },
             {
-                test: /\.(jpeg|jpg|webp)$/,
+                test: /\.(jpeg|jpg|webp|gif)$/,
                 type: 'asset/resource',
             },
             {

@@ -1,8 +1,20 @@
-export * from './croc';
-export * from './kaspersky';
-export * from './yandex';
-export * from './github';
-export * from './wavelength';
-export * from './spaceInvaders';
-export * from './hire';
-export * from './intro';
+import {Croc} from './croc';
+import {GitHub} from './github';
+import {Hire} from './hire';
+import {Kaspersky} from './kaspersky';
+import {SpaceInvaders} from './spaceInvaders';
+import {Terminal} from './terminal';
+import {Wavelength} from './wavelength';
+import {Yandex} from './yandex';
+
+// Keep order for correct keyboard navigation!
+export const applications = [
+    Croc,
+    Kaspersky,
+    Yandex,
+    Wavelength,
+    SpaceInvaders,
+    GitHub,
+    Terminal,
+    Hire,
+];

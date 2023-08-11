@@ -1,7 +1,7 @@
 import {onKeyDown, onKeyUp} from '~/utils/dom';
+import {KEYBOARD_KEY} from '~/constants/keyboard';
 
 import {Player} from '../../../entities/player';
-import {ARROW_LEFT_KEY, ARROW_RIGHT_KEY} from '../../constants';
 import type {Setup} from '../../types';
 
 import {playerHeight, playerSpeed, playerWidth} from './constants';
@@ -29,19 +29,19 @@ export const setup: Setup = ({canvas}, runtime) => {
     runtime.controls.leftPressed = false;
 
     const clearKeyDownLeft = onKeyDown(
-        ARROW_LEFT_KEY,
+        KEYBOARD_KEY.ARROW_LEFT,
         () => {runtime.controls.leftPressed = true},
     );
     const clearKeyDownRight = onKeyDown(
-        ARROW_RIGHT_KEY,
+        KEYBOARD_KEY.ARROW_RIGHT,
         () => {runtime.controls.rightPressed = true},
     );
     const clearKeyUpLeft = onKeyUp(
-        ARROW_LEFT_KEY,
+        KEYBOARD_KEY.ARROW_LEFT,
         () => {runtime.controls.leftPressed = false},
     );
     const clearKeyUpRight = onKeyUp(
-        ARROW_RIGHT_KEY,
+        KEYBOARD_KEY.ARROW_RIGHT,
         () => {runtime.controls.rightPressed = false},
     );
 

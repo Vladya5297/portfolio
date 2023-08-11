@@ -1,9 +1,10 @@
 import {onKeyDown} from '~/utils/dom';
+import {KEYBOARD_KEY} from '~/constants/keyboard';
 
 import {Button} from '../../entities/button';
 import {Text} from '../../entities/text';
+import {GAME_STATE} from '../constants';
 import type {Game} from '..';
-import {GAME_STATE, SPACE_KEY} from '../constants';
 
 import {
     buttonFontSize,
@@ -65,7 +66,7 @@ export function end(this: Game, {score}: {score: number}) {
 
     // Setting delay for event listener to avoid accident press
     setTimeout(() => {
-        const unmount = onKeyDown(SPACE_KEY, () => {
+        const unmount = onKeyDown(KEYBOARD_KEY.SPACE, () => {
             this.changeState(GAME_STATE.INIT);
         });
 

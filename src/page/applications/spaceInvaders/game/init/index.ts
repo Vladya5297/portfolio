@@ -1,10 +1,11 @@
 import {onKeyDown} from '~/utils/dom';
+import {KEYBOARD_KEY} from '~/constants/keyboard';
 
 import {Button} from '../../entities/button';
 import {Text} from '../../entities/text';
 import logo from '../../assets/text-logo.png';
 import font from '../../assets/space-invaders.woff';
-import {GAME_FONT_NAME, GAME_STATE, SPACE_KEY} from '../constants';
+import {GAME_FONT_NAME, GAME_STATE} from '../constants';
 import type {Game} from '..';
 
 import {
@@ -85,7 +86,7 @@ export async function init(this: Game) {
         }),
         style: buttonStyle,
         onDown: () => {
-            const event = new KeyboardEvent('keydown', {key: SPACE_KEY});
+            const event = new KeyboardEvent('keydown', {key: KEYBOARD_KEY.SPACE});
             document.dispatchEvent(event);
         },
     });
@@ -105,7 +106,7 @@ export async function init(this: Game) {
         imageHeight,
     );
 
-    const unmount = onKeyDown(SPACE_KEY, () => {
+    const unmount = onKeyDown(KEYBOARD_KEY.SPACE, () => {
         this.changeState(GAME_STATE.RUN);
     });
 

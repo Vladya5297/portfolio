@@ -1,12 +1,12 @@
 import {onKeyDown} from '~/utils/dom';
+import {KEYBOARD_KEY} from '~/constants/keyboard';
 
-import {SPACE_KEY} from '../../constants';
 import type {Setup} from '../../types';
 
 import {bulletColor, bulletHeight, bulletSpeed, bulletWidth} from './constants';
 
 export const setup: Setup = (ctx, runtime) => {
-    const clear = onKeyDown(SPACE_KEY, () => {
+    const clear = onKeyDown(KEYBOARD_KEY.SPACE, () => {
         if (runtime.bullet) return;
 
         runtime.bullet = runtime.player.fire({

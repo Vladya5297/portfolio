@@ -8,6 +8,6 @@ body {
 }
 
 /* Provides correct scroll on low height devices */
-#app {
+#root {
     flex: 1;
 }
