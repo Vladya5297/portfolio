@@ -1,0 +1,71 @@
+:root {
+    --color-background-primary: silver;
+    --color-background-content: white;
+    --color-background-screen: #008080;
+
+    --color-border-primary: black;
+    --color-border-secondary: white;
+
+    --color-border-outset-outer-primary: white;
+    --color-border-outset-outer-secondary: black;
+    --color-border-outset-inner-primary: #dfdfdf;
+    --color-border-outset-inner-secondary: gray;
+
+    --color-border-inset-outer-primary: gray;
+    --color-border-inset-outer-secondary: white;
+    --color-border-inset-inner-primary: black;
+    --color-border-inset-inner-secondary: #dfdfdf;
+
+    --color-outline-primary: black;
+    --color-outline-secondary: white;
+
+    --color-accent-primary: navy;
+    --color-accent-secondary: #1084d0;
+    --color-accent-inactive-primary: #808080;
+    --color-accent-inactive-secondary: #c0c0c0;
+
+    --color-text-primary: black;
+    --color-text-secondary: white;
+
+    --color-blur-primary: rgba(0, 0, 0, 0.2);
+    --color-blur-secondary: rgba(255, 255, 255, 0.2);
+    --color-blur-accent: rgba(0, 0, 250, 0.5);
+}
+.border-outset {
+    border-width: 0.8px;
+    border-style: solid;
+    border-top-color: var(--color-border-outset-outer-primary);
+    border-left-color: var(--color-border-outset-outer-primary);
+    border-bottom-color: var(--color-border-outset-outer-secondary);
+    border-right-color: var(--color-border-outset-outer-secondary);
+    box-shadow:
+        inset -1px -1px 0 0 var(--color-border-outset-inner-secondary),
+        inset 1px 1px 0 0 var(--color-border-outset-inner-primary);
+}
+.border-inset {
+    border-width: 0.8px;
+    border-style: solid;
+    border-top-color: var(--color-border-inset-outer-primary);
+    border-left-color: var(--color-border-inset-outer-primary);
+    border-bottom-color: var(--color-border-inset-outer-secondary);
+    border-right-color: var(--color-border-inset-outer-secondary);
+    box-shadow:
+        inset -1px -1px 0 0 var(--color-border-inset-inner-secondary),
+        inset 1px 1px 0 0 var(--color-border-inset-inner-primary);
+}
+
+
+body {
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+}
+
+/* Provides correct scroll on low height devices */
+#root {
+    flex: 1;
+}
+
+
+/*# sourceMappingURL=main_6d82cfffe0251d76954e.css.map*/
