@@ -32,12 +32,12 @@ const Content = () => {
                     In my current team, I've also made significant contributions to various
                     projects. My experience helped me improve the internal UI system, and
                     I introduced many new reusable components with user-friendly APIs.
-                    I spent a lot of time optimizing the webpack configuration, which reduced
+                    I managed to optimize the webpack configuration, which reduced
                     the build time from 13 minutes to 1.5 minutes. Additionally, I participated
-                    in the implementation of Storybook and wrote pages for individual components.
+                    in the implementation of Storybook and wrote pages for some components.
                 </p>
                 <p>
-                    I was responsible for managing numerous projects of varying scale,
+                    I was responsible for leading numerous projects of varying scale,
                     including the creation of entirely new pages with their own architecture
                     and logic. As part of these projects, I improved the internal tool for
                     experiment verification, which allowed us to enable functionality for

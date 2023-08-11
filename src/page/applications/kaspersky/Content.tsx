@@ -40,7 +40,7 @@ const Content = () => {
                 The main UI library was Riot.js, and as application's state
                 management system there was an internal tool. However, collectively,
                 we were able to contribute to the migration of the application to React
-                with Redux. With my experience developing my own pet projects with React,
+                with Redux. With my experience developing my own pet projects,
                 I assisted my colleagues in quickly grasping the fundamentals of these new
                 tools and wrote documentation describing best practices.
             </p>
