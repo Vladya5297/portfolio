@@ -9,8 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #10102a;
-    background-image: url(./assets/background.svg);
+    background-color: silver;
     background-size: 150px;
 }
 

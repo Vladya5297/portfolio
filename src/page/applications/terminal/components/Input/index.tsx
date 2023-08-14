@@ -33,5 +33,5 @@ export const Input = ({onSubmit, _ref}: Props) => {
         return onKeyDown(KEYBOARD_KEY.ENTER, handler, {target: input});
     }, [input, onSubmit]);
 
-    return <input ref={_ref} type="text" className={css.input} />;
+    return <input ref={_ref} type="text" autoCapitalize="off" className={css.input} />;
 };

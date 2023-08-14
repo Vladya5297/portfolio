@@ -1,6 +1,7 @@
 import {Croc} from './croc';
 import {GitHub} from './github';
 import {Hire} from './hire';
+import {Intro} from './intro';
 import {Kaspersky} from './kaspersky';
 import {SpaceInvaders} from './spaceInvaders';
 import {Terminal} from './terminal';
@@ -17,4 +18,5 @@ export const applications = [
     GitHub,
     Terminal,
     Hire,
+    Intro,
 ];

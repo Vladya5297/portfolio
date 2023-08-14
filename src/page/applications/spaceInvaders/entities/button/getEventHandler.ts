@@ -6,6 +6,7 @@ export const getEventHandler = (
     bounds: Bounds,
     handler?: () => void,
 ) => (event: MouseEvent | TouchEvent) => {
+    event.preventDefault();
     const {x, y} = getEventCoords(event);
 
     if (

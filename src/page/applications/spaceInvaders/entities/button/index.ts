@@ -1,5 +1,3 @@
-import {isTouchScreen} from '~/utils/dom';
-
 import {Entity} from '..';
 import type {Position, Size} from '..';
 import type {Text} from '../text';
@@ -49,24 +47,18 @@ export class Button extends Entity {
         const downHandler = getEventHandler(this.bounds, onMouseDown);
         const upHandler = getEventHandler(this.bounds, onMouseUp);
 
-        const isTouchScreenDevice = isTouchScreen();
+        canvas.addEventListener('touchstart', downHandler);
+        canvas.addEventListener('touchend', upHandler);
 
-        if (isTouchScreenDevice) {
-            canvas.addEventListener('touchstart', downHandler);
-            canvas.addEventListener('touchend', upHandler);
-        } else {
-            canvas.addEventListener('mousedown', downHandler);
-            canvas.addEventListener('mouseup', upHandler);
-        }
+        canvas.addEventListener('mousedown', downHandler);
+        canvas.addEventListener('mouseup', upHandler);
 
         this.unmount = () => {
-            if (isTouchScreenDevice) {
-                canvas.removeEventListener('touchstart', downHandler);
-                canvas.removeEventListener('touchend', upHandler);
-            } else {
-                canvas.removeEventListener('mousedown', downHandler);
-                canvas.removeEventListener('mouseup', upHandler);
-            }
+            canvas.removeEventListener('touchstart', downHandler);
+            canvas.removeEventListener('touchend', upHandler);
+
+            canvas.removeEventListener('mousedown', downHandler);
+            canvas.removeEventListener('mouseup', upHandler);
         };
     }
 

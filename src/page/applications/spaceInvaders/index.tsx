@@ -12,7 +12,7 @@ const image = logo.src;
 const Content = lazyContent(() => import('./Content'));
 
 const height = 600;
-const width = 345;
+const width = 340;
 
 export const SpaceInvaders = ({root}: ApplicationProps) => {
     const rect = root.getBoundingClientRect();
@@ -39,7 +39,7 @@ export const SpaceInvaders = ({root}: ApplicationProps) => {
             window={{
                 lockAspectRatio: true,
                 disableFullscreen: true,
-                maxWidth: 425,
+                maxWidth: 420,
                 maxHeight: 745,
                 content: <Content />,
             }}

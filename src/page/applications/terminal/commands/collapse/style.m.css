@@ -23,6 +23,13 @@
     animation-fill-mode: forwards;
 }
 
+.content {
+    width: 90%;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .collapse h3 {
     background-color: white;
     color: blue;

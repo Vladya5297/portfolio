@@ -2,7 +2,6 @@
     background-color: unset;
     border: unset;
     
-    height: fit-content;
     padding: 4px;    
     display: flex;
     flex-direction: column;
@@ -42,7 +41,6 @@
     color: var(--color-text-secondary);
     text-align: center;
     font-size: 14px;
-    word-break: break-word;
 }
 
 .root:active .image::before,
