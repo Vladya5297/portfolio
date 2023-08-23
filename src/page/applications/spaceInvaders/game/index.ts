@@ -1,3 +1,5 @@
+import {noop} from '~/utils/toolkit';
+
 import {GAME_STATE} from './constants';
 import {end} from './end';
 import {run} from './run';
@@ -14,6 +16,7 @@ export class Game {
     init: (params?: any) => void;
     run: (params?: any) => void;
     end: (params?: any) => void;
+    pause = noop;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;

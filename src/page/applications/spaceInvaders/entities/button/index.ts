@@ -1,3 +1,5 @@
+import type {DeepPartial} from 'utility-types';
+
 import {Entity} from '..';
 import type {Position, Size} from '..';
 import type {Text} from '../text';
@@ -6,21 +8,28 @@ import {getEventHandler} from './getEventHandler';
 import type {ButtonStyle} from './types';
 
 export type ButtonParams = {
+    text: Text;
     canvas: HTMLCanvasElement;
+} & DeepPartial<{
     position: Position;
     size: Size;
     style: ButtonStyle;
-    text: Text;
-    onDown?: () => void;
-    onUp?: () => void;
-};
+    onDown: () => void;
+    onUp: () => void;
+}>;
 
 export class Button extends Entity {
-    x!: number;
-    y!: number;
+    x = 0;
+    y = 0;
     width!: number;
     height!: number;
-    style: ButtonStyle;
+    style: ButtonStyle = {
+        backgroundColor: 'black',
+        borderColor: 'white',
+        borderWidth: 2,
+        paddingX: 20,
+        paddingY: 10,
+    };
     text: Text;
     unmount: () => void;
 
@@ -35,9 +44,19 @@ export class Button extends Entity {
     }: ButtonParams) {
         super();
 
-        this.setPosition(position);
-        this.setSize(size);
-        this.style = style;
+        if (position) this.setPosition(position);
+        if (style) this.style = {...this.style, ...style};
+
+        if (size) {
+            this.setSize(size);
+        } else {
+            const context = canvas.getContext('2d')!;
+            const {width, height} = text.measure(context);
+            this.setSize({
+                width: width + this.style.paddingX * 2,
+                height: height + this.style.paddingY * 2,
+            });
+        }
 
         this.text = text;
         this.text.setPosition({x: this.centerX, y: this.centerY});

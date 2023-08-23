@@ -19,17 +19,12 @@ const height = 370;
 const width = 480;
 
 export const Intro = ({root}: ApplicationProps) => {
-    const rect = root.getBoundingClientRect();
     const ready = useSetup({
         id,
         title,
         image,
         root,
         defaultSize: {height, width},
-        defaultPosition: {
-            x: rect.width / 2 - width / 2,
-            y: rect.height / 2 - height / 2,
-        },
     });
 
     const open = useAction(() => windowsActions.open(id));

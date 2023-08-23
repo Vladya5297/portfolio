@@ -1,5 +1,6 @@
 import {onKeyDown, onKeyUp} from '~/utils/dom';
 import {KEYBOARD_KEY} from '~/constants/keyboard';
+import {getCenterCoordinate} from '~/utils/getCenterCoordinate';
 
 import {Player} from '../../../entities/player';
 import type {Setup} from '../../types';
@@ -9,7 +10,7 @@ import {sprites} from './sprites';
 
 export const setup: Setup = ({canvas}, runtime) => {
     const position = {
-        x: canvas.width / 2 - playerWidth / 2,
+        x: getCenterCoordinate(canvas.width, playerWidth),
         y: canvas.height - 90,
     };
 

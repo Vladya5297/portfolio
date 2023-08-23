@@ -16,12 +16,9 @@ export type TextParams = DeepPartial<{
 export class Text extends Entity {
     x = 0;
     y = 0;
-    /**
-     * States for `maxWidth` param of fillText
-     * @link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillText#parameters
-     */
+    /** Call `measure(context)` before accessing the property */
     width!: number;
-    /** Not applicable */
+    /** Call `measure(context)` before accessing the property */
     height!: number;
 
     style: TextStyle = {
@@ -50,12 +47,16 @@ export class Text extends Entity {
 
     measure(context: CanvasRenderingContext2D): Size {
         context.font = `${this.style.fontSize}px ${this.style.fontFamily}`;
+        context.textBaseline = this.style.textBaseline;
         const metrics = context.measureText(this.value);
 
-        const width = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
-        const height = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+        this.width = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+        this.height = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
 
-        return {width, height};
+        return {
+            width: this.width,
+            height: this.height,
+        };
     }
 
     draw(context: CanvasRenderingContext2D) {
@@ -63,6 +64,6 @@ export class Text extends Entity {
         context.font = `${this.style.fontSize}px ${this.style.fontFamily}`;
         context.textAlign = this.style.textAlign;
         context.textBaseline = this.style.textBaseline;
-        context.fillText(this.value, this.x, this.y, this.width);
+        context.fillText(this.value, this.x, this.y);
     }
 }

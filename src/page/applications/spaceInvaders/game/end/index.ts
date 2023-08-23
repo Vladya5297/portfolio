@@ -1,5 +1,6 @@
 import {onKeyDown} from '~/utils/dom';
 import {KEYBOARD_KEY} from '~/constants/keyboard';
+import {getCenterCoordinate} from '~/utils/getCenterCoordinate';
 
 import {Button} from '../../entities/button';
 import {Text} from '../../entities/text';
@@ -9,7 +10,6 @@ import type {Game} from '..';
 import {
     buttonFontSize,
     buttonHeight,
-    buttonStyle,
     buttonWidth,
     subtitleFontSize,
     titleFontSize,
@@ -20,7 +20,7 @@ export function end(this: Game, {score}: {score: number}) {
     const context = this.context;
 
     const title = new Text({
-        value: 'Game Over',
+        value: score > 0 ? 'Victory' : 'Game Over',
         position: {x: canvas.width / 2, y: canvas.height / 4},
         style: {
             fontSize: titleFontSize,
@@ -40,7 +40,7 @@ export function end(this: Game, {score}: {score: number}) {
     const button = new Button({
         canvas,
         position: {
-            x: canvas.width / 2 - buttonWidth / 2,
+            x: getCenterCoordinate(canvas.width, buttonWidth),
             y: canvas.height * (3 / 4) - buttonHeight,
         },
         size: {
@@ -51,7 +51,6 @@ export function end(this: Game, {score}: {score: number}) {
             value: 'Restart',
             style: {fontSize: buttonFontSize},
         }),
-        style: buttonStyle,
         onDown: () => {
             const event = new KeyboardEvent('keydown', {key: ' '});
             document.dispatchEvent(event);

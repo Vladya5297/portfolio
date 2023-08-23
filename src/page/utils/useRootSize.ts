@@ -1,7 +1,7 @@
 import {useLayoutEffect, useMemo} from 'react';
 
 import {useAction} from '~/utils/redux/useAction';
-import {debounce} from '~/utils/toolkit/debounce';
+import {debounce} from '~/utils/toolkit';
 
 import {windowsActions} from '../state/windows';
 

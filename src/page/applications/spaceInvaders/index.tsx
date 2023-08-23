@@ -15,17 +15,12 @@ const height = 600;
 const width = 340;
 
 export const SpaceInvaders = ({root}: ApplicationProps) => {
-    const rect = root.getBoundingClientRect();
     const ready = useSetup({
         id,
         title,
         image,
         root,
         defaultSize: {height, width},
-        defaultPosition: {
-            x: rect.width / 2 - width / 2,
-            y: rect.height / 2 - height / 2,
-        },
     });
 
     return ready ? (

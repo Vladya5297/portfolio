@@ -9,13 +9,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: silver;
+    background-color: black;
     background-size: 150px;
 }
 
 .canvas {
     max-height: 100%;
     max-width: 100%;
-    background-color: black;
     outline: 1px solid black;
 }

@@ -35,6 +35,7 @@ export type Runtime = {
     controls: Controls;
     score: Score;
     gameover: boolean;
+    paused: boolean;
 };
 
 export type RafHandler = (ctx: Context, runtime: Runtime) => void;

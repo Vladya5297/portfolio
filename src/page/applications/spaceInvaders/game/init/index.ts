@@ -1,5 +1,6 @@
 import {onKeyDown} from '~/utils/dom';
 import {KEYBOARD_KEY} from '~/constants/keyboard';
+import {getCenterCoordinate} from '~/utils/getCenterCoordinate';
 
 import {Button} from '../../entities/button';
 import {Text} from '../../entities/text';
@@ -73,7 +74,7 @@ export async function init(this: Game) {
     const button = new Button({
         canvas,
         position: {
-            x: canvas.width / 2 - buttonWidth / 2,
+            x: getCenterCoordinate(canvas.width, buttonWidth),
             y: canvas.height * (3 / 4) - buttonHeight,
         },
         size: {

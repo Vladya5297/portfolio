@@ -6,7 +6,6 @@ import {
     buttonFontSize,
     buttonGap,
     buttonHeight,
-    buttonStyle,
     buttonsConfig,
 } from './constants';
 
@@ -28,7 +27,6 @@ export const setup: Setup = ({canvas}, runtime) => {
                 y,
             },
             size: {width, height},
-            style: buttonStyle,
             text: new Text({
                 value: text,
                 style: {fontSize: buttonFontSize},
