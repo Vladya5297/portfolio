@@ -8,15 +8,14 @@ import {Terminal} from './terminal';
 import {Wavelength} from './wavelength';
 import {Yandex} from './yandex';
 
-// Keep order for correct keyboard navigation!
 export const applications = [
     Croc,
     Kaspersky,
     Yandex,
     Wavelength,
     SpaceInvaders,
-    GitHub,
     Terminal,
+    GitHub,
     Hire,
     Intro,
 ];

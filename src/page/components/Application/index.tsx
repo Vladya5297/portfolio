@@ -7,7 +7,6 @@ import {selectWindow, windowsActions} from '~/page/state/windows';
 import type {WindowId} from '~/page/state/windows';
 import {useWindowExists} from '~/page/utils/useWindowExists';
 
-import type {ShortcutProps} from '../Shortcut';
 import {Shortcut} from '../Shortcut';
 import {Window} from '../Window';
 import {WindowContent} from '../WindowContent';
@@ -28,7 +27,6 @@ export type ApplicationProps = {
         content: ReactNode;
     };
     root: HTMLElement;
-    shortcut?: Pick<ShortcutProps, 'row' | 'column'>;
 };
 
 /** Make sure to call `useSetup` before render! */
@@ -36,7 +34,6 @@ export const Application = ({
     id: windowId,
     root,
     window,
-    shortcut,
 }: ApplicationProps) => {
     useWindowExists(windowId, {throw: true});
 
@@ -55,7 +52,6 @@ export const Application = ({
                 title={title}
                 image={image}
                 onClick={openWindow}
-                {...shortcut}
             />
             <Window
                 id={windowId}

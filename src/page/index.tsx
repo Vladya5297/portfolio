@@ -12,7 +12,7 @@ export const Page = () => {
     const ref = useRef<HTMLDivElement>(null);
     const root = useElement(ref);
     // Subscribe to root size
-    useRootSize(root);
+    useRootSize(ref);
     // Provides windows keyboard control
     useWindowsControls();
 

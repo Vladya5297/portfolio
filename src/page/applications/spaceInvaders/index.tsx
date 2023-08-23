@@ -27,10 +27,6 @@ export const SpaceInvaders = ({root}: ApplicationProps) => {
         <Application
             id={id}
             root={root}
-            shortcut={{
-                column: 2,
-                row: 2,
-            }}
             window={{
                 lockAspectRatio: true,
                 disableFullscreen: true,

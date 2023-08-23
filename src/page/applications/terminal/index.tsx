@@ -18,10 +18,6 @@ export const Terminal = ({root}: ApplicationProps) => {
         <Application
             id={id}
             root={root}
-            shortcut={{
-                column: 3,
-                row: 1,
-            }}
             window={{
                 content: <Content />,
             }}

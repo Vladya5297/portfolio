@@ -54,19 +54,21 @@ export const useSetup = ({
     const exists = useWindowExists(id);
     const [ready, setReady] = useState(exists);
 
-    const defaults = getDefaultRect(root, defaultSize, defaultPosition);
-    const setup = useAction(() => windowsActions.addWindow({
-        id,
-        title,
-        image,
-        defaultSize: defaults.size,
-        defaultPosition: defaults.position,
-    }));
+    const setup = useAction(windowsActions.addWindow);
 
     useEffect(() => {
         if (ready) return;
 
-        setup();
+        const defaults = getDefaultRect(root, defaultSize, defaultPosition);
+
+        setup({
+            id,
+            title,
+            image,
+            defaultSize: defaults.size,
+            defaultPosition: defaults.position,
+        });
+
         setReady(true);
     }, []);
 

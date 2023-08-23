@@ -10,8 +10,6 @@ export const GitHub = () => {
             target="_blank"
             title="GitHub"
             image={logo.src}
-            column={2}
-            row={3}
         />
     );
 };

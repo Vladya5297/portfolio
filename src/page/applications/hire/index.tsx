@@ -18,10 +18,6 @@ export const Hire = ({root}: ApplicationProps) => {
         <Application
             id={id}
             root={root}
-            shortcut={{
-                column: 1,
-                row: 'last',
-            }}
             window={{
                 content: <Content />,
             }}

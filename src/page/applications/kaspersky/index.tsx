@@ -18,10 +18,6 @@ export const Kaspersky = ({root}: ApplicationProps) => {
         <Application
             id={id}
             root={root}
-            shortcut={{
-                column: 1,
-                row: 2,
-            }}
             window={{
                 content: <Content />,
             }}
