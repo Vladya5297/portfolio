@@ -1,0 +1,8 @@
+.clippy {
+    width: 110px;
+    height: 110px;
+    object-fit: scale-down;
+    object-position: bottom left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}

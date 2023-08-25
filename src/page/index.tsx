@@ -6,6 +6,7 @@ import {useRootSize} from './utils/useRootSize';
 import {useWindowsControls} from './utils/useWindowsControls';
 import {Footer} from './components/Footer';
 import {applications} from './applications';
+import {Clippy} from './applications/clippy';
 import css from './style.m.css';
 
 export const Page = () => {
@@ -23,6 +24,8 @@ export const Page = () => {
                     {root && applications.map(
                         Component => <Component key={Component.name} root={root} />,
                     )}
+
+                    <Clippy className={css.clippy} />
                 </div>
             </main>
             <Footer />

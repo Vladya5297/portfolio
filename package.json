@@ -11,6 +11,7 @@
         "deploy": "gh-pages -d build"
     },
     "dependencies": {
+        "@floating-ui/react": "^0.25.1",
         "@reduxjs/toolkit": "^1.9.5",
         "classnames": "^2.3.2",
         "nanoid": "^4.0.2",

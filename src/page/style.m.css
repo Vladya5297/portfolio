@@ -26,3 +26,9 @@
     column-gap: 12px;
     row-gap: 12px;
 }
+
+.clippy {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+}

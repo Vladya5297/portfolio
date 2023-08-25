@@ -1,0 +1,11 @@
+.message {
+    width: max-content;
+    max-width: 200px;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: #ffffb1;
+    cursor: pointer;
+}
