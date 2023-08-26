@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 import type {MutableRefObject} from 'react';
 
 import {onKeyDown} from '~/utils/dom';
-import {useElement} from '~/utils/useElement';
 import {KEYBOARD_KEY} from '~/constants/keyboard';
 
 import css from './style.m.css';
@@ -13,16 +12,16 @@ type Props = {
 };
 
 export const Input = ({onSubmit, _ref}: Props) => {
-    const input = useElement(_ref);
-
     // Autofocus
     useEffect(() => {
+        const input = _ref.current;
         if (!input) return;
         input.focus();
-    }, [input]);
+    }, []);
 
     // Submit handler
     useEffect(() => {
+        const input = _ref.current;
         if (!input) return;
 
         const handler = () => {
@@ -31,7 +30,7 @@ export const Input = ({onSubmit, _ref}: Props) => {
         };
 
         return onKeyDown(KEYBOARD_KEY.ENTER, handler, {target: input});
-    }, [input, onSubmit]);
+    }, [onSubmit]);
 
     return <input ref={_ref} type="text" autoCapitalize="off" className={css.input} />;
 };

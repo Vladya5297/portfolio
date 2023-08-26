@@ -3,18 +3,36 @@ import cn from 'classnames';
 import * as icons from './icons';
 import css from './style.m.css';
 
-export type IconProps = {
+type DefaultIconProps = {
     name: keyof typeof icons;
-    size?: 's' | 'm';
-    className?: string;
 };
 
-export const Icon = ({name, size = 'm', className}: IconProps) => {
+type CustomIconProps = {
+    name?: void;
+    src: string;
+    alt: string;
+};
+
+export type IconProps = {
+    size?: 's' | 'm' | 'l';
+    className?: string;
+} & (
+    DefaultIconProps | CustomIconProps
+);
+
+export const Icon = ({size, className, ...rest}: IconProps) => {
     const iconClassName = cn(
         css[`size-${size}`],
         className,
     );
 
+    if ('src' in rest) {
+        const {src, alt} = rest;
+
+        return <img src={src} alt={alt} className={iconClassName} />;
+    }
+
+    const {name} = rest;
     const Component = icons[name];
 
     return <Component className={iconClassName} />;

@@ -40,8 +40,8 @@ export const View = React.memo(function View(
     }: ViewProps,
 ) {
     const isMobile = useBreakpoint({to: 's'});
-
     const size = isMobile ? 'm' : 's';
+    const imageSize = isMobile ? 'l' : 'm';
 
     const rootClassName = cn(
         CSS_GLOBAL_CLASS.BORDER_OUTSET,
@@ -56,7 +56,7 @@ export const View = React.memo(function View(
         <div {...props} className={rootClassName}>
             <div className={headerClassName}>
                 <div className={css.title}>
-                    <img src={image} width={16} height={16} alt="" />
+                    <Icon src={image} size={imageSize} alt="logo" />
 
                     <span className={css.label}>{title}</span>
                 </div>
