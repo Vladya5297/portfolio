@@ -55,8 +55,11 @@
 }
 
 
+html, body {
+    height: 100%;
+}
+
 body {
-    height: 100svh;
     display: flex;
     flex-direction: column;
     font-family: Tahoma, Verdana, Segoe, sans-serif;
@@ -68,4 +71,4 @@ body {
 }
 
 
-/*# sourceMappingURL=main_6d82cfffe0251d76954e.css.map*/
+/*# sourceMappingURL=main_b01f67649d0a25db2bf0.css.map*/
