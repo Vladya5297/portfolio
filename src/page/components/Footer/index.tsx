@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 import {useBreakpoint} from '~/components/Breakpoint/useBreakpoint';
 import {selectOpenedWindows} from '~/page/state/windows';
+import {Clock} from '~/page/applications/clock';
 
 import {Item} from './components/Item';
 import css from './style.m.css';
@@ -22,6 +23,8 @@ export const Footer = () => {
                     isMobile={isMobile}
                 />
             ))}
+
+            <Clock className={cn(css.clock, css[`clock-size-${size}`])} />
         </footer>
     );
 };

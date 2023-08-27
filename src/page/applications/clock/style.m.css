@@ -1,0 +1,13 @@
+.clock {
+    position: relative;
+    padding: 4px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.clock:focus-visible {
+    outline: var(--color-outline-primary) dotted 2px;
+}

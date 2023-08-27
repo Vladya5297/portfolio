@@ -5,8 +5,14 @@
     display: flex;
     gap: 4px;
     background-color: var(--color-background-primary);
-    overflow-y: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
+
+.footer::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 
 .size-s {
     height: 26px;
@@ -14,4 +20,16 @@
 
 .size-m {
     height: 32px;
+}
+
+.clock {
+    margin-left: auto;
+}
+
+.clock-size-s {
+    font-size: 12px;
+}
+
+.clock-size-m {
+    font-size: 14px;
 }
