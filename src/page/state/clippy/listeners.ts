@@ -5,27 +5,24 @@ import {listener} from '../listener';
 import {clippyActions} from './actions';
 
 type Data = {
-    id: string;
-    joke: string;
-    status: number;
+    setup: string;
+    delivery: string;
 };
 
 listener.startListening({
     actionCreator: clippyActions.getMessageInit,
-    effect: async (_, {dispatch, signal}) => {
-        const headers = new Headers({
-            'user-agent': 'My Library (https://vladya5297.github.io/portfolio/)',
-            accept: 'application/json',
-        });
+    effect: async (_, {dispatch, signal, delay, cancelActiveListeners}) => {
+        cancelActiveListeners();
 
-        await fetcher<Data>('https://icanhazdadjoke.com/', {
+        await delay(1000);
+
+        await fetcher<Data>('https://v2.jokeapi.dev/joke/Any?safe-mode&type=twopart&lang=en', {
             format: 'json',
             method: 'GET',
-            headers,
             signal,
         })
-            .then(({joke}) => {
-                dispatch(clippyActions.getMessageDone(joke));
+            .then(({setup, delivery}) => {
+                dispatch(clippyActions.getMessageDone(`${setup} ${delivery}`));
             })
             .catch(error => {
                 dispatch(clippyActions.getMessageFail(error));
