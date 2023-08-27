@@ -50,14 +50,17 @@ export const Clippy = ({className, style}: Props) => {
                 onClick={onMessageClick}
             />
 
-            <img
-                src={src}
-                alt="clippy"
-                className={css.clippy}
-                style={style}
+            <button
                 onClick={onClick}
                 ref={setAnchor}
-            />
+                className={css.clippy}
+            >
+                <img
+                    src={src}
+                    alt="clippy"
+                    style={style}
+                />
+            </button>
         </div>
     );
 };
