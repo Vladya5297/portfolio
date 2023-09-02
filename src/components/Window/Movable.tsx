@@ -86,11 +86,11 @@ export const Movable = ({
                 right: {cursor: 'e-resize'},
             }}
             lockAspectRatio={lockAspectRatio}
-            className={cn(draggable && css.draggable)}
             onMouseDown={onMouseDown}
             onMouseUp={onMouseUp}
             onDragStop={onDragStopHandler}
             onResizeStop={onResizeStopHandler}
+            className={cn(draggable && css.draggable)}
             style={style}
         >
             {children}

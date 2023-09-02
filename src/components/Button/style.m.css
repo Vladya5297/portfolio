@@ -3,12 +3,9 @@
     align-items: center;
 
     background-color: var(--color-background-primary);
-    
+    color: var(--color-text-primary);
     user-select: none;
     cursor: pointer;
-
-    font-size: 12px;
-    font-weight: 400;
 }
 
 .root:focus {
@@ -30,4 +27,8 @@
 
 .size-m {
     padding: 4px;
+}
+
+.size-l {
+    padding: 8px;
 }

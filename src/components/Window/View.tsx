@@ -2,10 +2,13 @@ import React from 'react';
 import type {ReactNode, HTMLAttributes} from 'react';
 import cn from 'classnames';
 
+import {SIZE} from '~/constants/size';
+
 import {Button} from '../Button';
 import {Icon} from '../Icon';
+import {Text} from '../Text';
+import {useBreakpoint} from '../Breakpoint';
 import {CSS_GLOBAL_CLASS} from '../styles';
-import {useBreakpoint} from '../Breakpoint/useBreakpoint';
 
 import css from './style.m.css';
 
@@ -40,12 +43,11 @@ export const View = React.memo(function View(
     }: ViewProps,
 ) {
     const isMobile = useBreakpoint({to: 's'});
-    const size = isMobile ? 'm' : 's';
-    const imageSize = isMobile ? 'l' : 'm';
+    let size = SIZE.S;
+    size = isMobile ? size.next() : size;
 
     const rootClassName = cn(
         CSS_GLOBAL_CLASS.BORDER_OUTSET,
-        css[`size-${size}`],
         css.root,
         className,
     );
@@ -56,9 +58,16 @@ export const View = React.memo(function View(
         <div {...props} className={rootClassName}>
             <div className={headerClassName}>
                 <div className={css.title}>
-                    <Icon src={image} size={imageSize} alt="logo" />
+                    <Icon src={image} size={size.next()} alt="logo" />
 
-                    <span className={css.label}>{title}</span>
+                    <Text
+                        className={css.label}
+                        size={size}
+                        color="secondary"
+                        weight="bold"
+                    >
+                        {title}
+                    </Text>
                 </div>
 
                 {onMinimize && (

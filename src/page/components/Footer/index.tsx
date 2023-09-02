@@ -1,9 +1,10 @@
 import {useSelector} from 'react-redux';
 import cn from 'classnames';
 
-import {useBreakpoint} from '~/components/Breakpoint/useBreakpoint';
+import {useBreakpoint} from '~/components/Breakpoint';
+import {SIZE} from '~/constants/size';
 import {selectOpenedWindows} from '~/page/state/windows';
-import {Clock} from '~/page/applications/clock';
+import {Clock} from '~/page/components/Clock';
 
 import {Item} from './components/Item';
 import css from './style.m.css';
@@ -12,7 +13,8 @@ export const Footer = () => {
     const windowIds = useSelector(selectOpenedWindows);
 
     const isMobile = useBreakpoint({to: 's'});
-    const size = isMobile ? 'm' : 's';
+    let size = SIZE.S;
+    size = isMobile ? size.next() : size;
 
     return (
         <footer className={cn(css.footer, css[`size-${size}`])}>
@@ -24,7 +26,7 @@ export const Footer = () => {
                 />
             ))}
 
-            <Clock className={cn(css.clock, css[`clock-size-${size}`])} />
+            <Clock className={css.clock} />
         </footer>
     );
 };

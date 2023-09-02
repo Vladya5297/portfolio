@@ -45,20 +45,9 @@
 }
 
 .label {
-    color: var(--color-text-secondary);
-    font-weight: 700;
-
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.size-s .label {
-    font-size: 12px;
-}
-
-.size-m .label {
-    font-size: 14px;
 }
 
 .content {

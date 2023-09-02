@@ -4,9 +4,12 @@ import cn from 'classnames';
 
 import {useInterval} from '~/utils/useInterval';
 import {useClickOutside} from '~/utils/useClickOutside';
+import {SIZE} from '~/constants/size';
 import {CSS_GLOBAL_CLASS} from '~/components/styles';
+import {Text} from '~/components/Text';
+import {useBreakpoint} from '~/components/Breakpoint';
 
-import {Tooltip} from './components/Tooltip';
+import {Tooltip} from './Tooltip';
 import css from './style.m.css';
 
 type Props = {
@@ -14,6 +17,10 @@ type Props = {
 };
 
 export const Clock = ({className}: Props) => {
+    const isMobile = useBreakpoint({to: 's'});
+    let size = SIZE.S;
+    size = isMobile ? size.next() : size;
+
     const [date, setDate] = useState(dayjs);
 
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
@@ -38,18 +45,23 @@ export const Clock = ({className}: Props) => {
     );
 
     return (
-        <button
-            className={clockClassName}
-            ref={setAnchor}
-            onClick={onClick}
-        >
+        <>
+            <button
+                className={clockClassName}
+                ref={setAnchor}
+                onClick={onClick}
+            >
+                <Text size={size}>
+                    {date.format('HH:mm')}
+                </Text>
+            </button>
+
             <Tooltip
                 date={date}
                 anchor={anchor}
                 isOpen={isTooltipOpen}
+                size={size}
             />
-
-            {date.format('HH:mm')}
-        </button>
+        </>
     );
 };

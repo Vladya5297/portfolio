@@ -1,9 +1,12 @@
 import {useSelector} from 'react-redux';
-import cn from 'classnames';
 
 import {Button} from '~/components/Button';
 import {Icon} from '~/components/Icon';
+import {Text} from '~/components/Text';
 import {useAction} from '~/utils/redux/useAction';
+import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
+import {pick} from '~/utils/toolkit';
+import {SIZE} from '~/constants/size';
 import {
     windowsActions,
     selectActiveWindowId,
@@ -11,8 +14,6 @@ import {
 } from '~/page/state/windows';
 import type {WindowId} from '~/page/state/windows';
 import type {State} from '~/page/state/types';
-import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
-import {pick} from '~/utils/toolkit';
 
 import css from './style.m.css';
 
@@ -22,8 +23,8 @@ type Props = {
 };
 
 export const Item = ({windowId, isMobile}: Props) => {
-    const size = isMobile ? 'm' : 's';
-    const imageSize = isMobile ? 'l' : 'm';
+    let size = SIZE.S;
+    size = isMobile ? size.next() : size;
 
     const window = useSelectorMapper(
         (state: State) => selectWindow(state, windowId),
@@ -36,13 +37,13 @@ export const Item = ({windowId, isMobile}: Props) => {
 
     return (
         <Button
-            className={cn(css.item, css[`size-${size}`])}
+            className={css.item}
             active={isActive}
             onClick={toggleWindow}
         >
-            <Icon src={window.image} alt="logo" size={imageSize} />
+            <Icon src={window.image} alt="logo" size={size.next()} />
 
-            <span className={css.label}>{window.title}</span>
+            <Text size={size} className={css.label}>{window.title}</Text>
         </Button>
     );
 };

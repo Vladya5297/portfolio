@@ -1,11 +1,13 @@
 import type {ReactNode} from 'react';
 
-import type {Size} from './types';
+import type {Breakpoint as BreakpointType} from './types';
 import {useBreakpoint} from './useBreakpoint';
 
+export * from './useBreakpoint';
+
 type Props = {
-    from?: Size;
-    to?: Size;
+    from?: BreakpointType;
+    to?: BreakpointType;
     children: ReactNode;
 };
 

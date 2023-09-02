@@ -1,3 +1,3 @@
-import type {size} from './constants';
+import type {breakpoint} from './constants';
 
-export type Size = keyof typeof size;
+export type Breakpoint = keyof typeof breakpoint;

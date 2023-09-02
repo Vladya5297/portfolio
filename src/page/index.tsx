@@ -21,9 +21,9 @@ export const Page = () => {
                     {root && applications.map(
                         Component => <Component key={Component.name} root={root} />,
                     )}
-
-                    <Clippy className={css.clippy} />
                 </div>
+
+                <Clippy className={css.clippy} />
             </main>
             <Footer />
         </div>

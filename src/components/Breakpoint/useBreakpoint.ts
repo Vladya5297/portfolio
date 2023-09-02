@@ -1,17 +1,17 @@
 import {useEffect, useMemo, useState} from 'react';
 
-import {size} from './constants';
-import type {Size} from './types';
+import {breakpoint} from './constants';
+import type {Breakpoint} from './types';
 
 type Params = {
-    from?: Size;
-    to?: Size;
+    from?: Breakpoint;
+    to?: Breakpoint;
 };
 
 export const useBreakpoint = ({from, to}: Params): boolean => {
     const query = [
-        from && `(min-width: ${size[from] + 1}px)`,
-        to && `(max-width: ${size[to]}px)`,
+        from && `(min-width: ${breakpoint[from] + 1}px)`,
+        to && `(max-width: ${breakpoint[to]}px)`,
     ]
         .filter(Boolean)
         .join(' and ');

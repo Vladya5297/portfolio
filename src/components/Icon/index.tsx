@@ -1,5 +1,7 @@
 import cn from 'classnames';
 
+import type {Size} from '~/constants/size';
+
 import * as icons from './icons';
 import css from './style.m.css';
 
@@ -14,7 +16,7 @@ type CustomIconProps = {
 };
 
 export type IconProps = {
-    size?: 's' | 'm' | 'l';
+    size?: 's' | 'm' | 'l' | Size;
     className?: string;
 } & (
     DefaultIconProps | CustomIconProps

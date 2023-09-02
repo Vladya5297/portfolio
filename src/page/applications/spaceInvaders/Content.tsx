@@ -20,7 +20,7 @@ const Content = () => {
         game.current.init();
 
         return () => {
-            game.current.clear();
+            game.current.unmount();
         };
     }, []);
 

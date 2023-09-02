@@ -1,4 +1,4 @@
-import {useBreakpoint} from '~/components/Breakpoint/useBreakpoint';
+import {useBreakpoint} from '~/components/Breakpoint';
 
 import {DesktopWindow} from './DesktopWindow';
 import {MobileWindow} from './MobileWindow';

@@ -11,3 +11,11 @@
 .clock:focus-visible {
     outline: var(--color-outline-primary) dotted 2px;
 }
+
+.tooltip {
+    display: flex;
+    width: max-content;
+    padding: 8px;
+    color: var(--color-text-secondary);
+    background-color: #3c3c3c;
+}

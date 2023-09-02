@@ -15,7 +15,7 @@
   }
 
 .size-s {
-    height: 26px;
+    height: 28px;
 }
 
 .size-m {
@@ -24,12 +24,4 @@
 
 .clock {
     margin-left: auto;
-}
-
-.clock-size-s {
-    font-size: 12px;
-}
-
-.clock-size-m {
-    font-size: 14px;
 }

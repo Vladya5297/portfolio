@@ -11,11 +11,3 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-.size-s .label {
-    font-size: 12px;
-}
-
-.size-m .label {
-    font-size: 14px;
-}

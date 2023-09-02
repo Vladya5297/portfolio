@@ -1,4 +1,4 @@
-export const size = {
+export const breakpoint = {
     xs: 320,
     s: 540,
     m: 720,
