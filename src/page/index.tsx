@@ -3,12 +3,12 @@ import {useSelector} from 'react-redux';
 
 import {useRootSize} from './utils/useRootSize';
 import {useWindowsControls} from './utils/useWindowsControls';
+import {selectIsClippyVisible} from './state/clippy';
+import {Grid} from './components/Grid';
+import {Clippy} from './components/Clippy';
 import {Footer} from './components/Footer';
-import {Clippy} from './applications/clippy';
 import {RootContext} from './RootContext';
 import css from './style.m.css';
-import {Grid} from './components/Grid';
-import {selectIsClippyVisible} from './state/clippy';
 
 export const Page = () => {
     const [root, setRoot] = useState<HTMLElement | null>(null);
