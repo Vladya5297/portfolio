@@ -33,6 +33,19 @@ export async function init(this: Game) {
     const canvas = this.canvas;
     const context = this.context;
 
+    const imageOffset = 40;
+    const imageWidth = canvas.width - imageOffset;
+    const imageScale = logo.width / imageWidth;
+    const imageHeight = logo.height / imageScale;
+
+    await imageLoaded && context.drawImage(
+        image,
+        imageOffset / 2,
+        canvas.height / 5,
+        imageWidth,
+        imageHeight,
+    );
+
     const texts = [
         new Text({
             position: {
@@ -69,7 +82,7 @@ export async function init(this: Game) {
         }),
     ];
 
-    texts.forEach(text => text.draw(context));
+    await fontLoaded && texts.forEach(text => text.draw(context));
 
     const button = new Button({
         canvas,
@@ -92,25 +105,12 @@ export async function init(this: Game) {
         },
     });
 
-    await fontLoaded && button.draw(context);
-
-    const imageOffset = 40;
-    const imageWidth = canvas.width - imageOffset;
-    const imageScale = logo.width / imageWidth;
-    const imageHeight = logo.height / imageScale;
-
-    await imageLoaded && context.drawImage(
-        image,
-        imageOffset / 2,
-        canvas.height / 5,
-        imageWidth,
-        imageHeight,
-    );
+    button.draw(context);
+    this.garbage.add(button.unmount);
 
     const unmount = onKeyDown(KEYBOARD_KEY.SPACE, () => {
         this.changeState(GAME_STATE.RUN);
     });
 
-    this.garbage.add(button.unmount);
     this.garbage.add(unmount);
 }
