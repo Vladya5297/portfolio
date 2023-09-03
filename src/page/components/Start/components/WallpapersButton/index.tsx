@@ -9,10 +9,10 @@ type Props = {
 };
 
 export const WallpapersButton = ({size}: Props) => {
-    const setIsOpened = useAction(wallpapersActions.setIsOpened);
+    const setIsOpen = useAction(wallpapersActions.setIsOpen);
 
     const onClick = () => {
-        setIsOpened(true);
+        setIsOpen(true);
     };
 
     return (

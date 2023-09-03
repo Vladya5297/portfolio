@@ -56,9 +56,14 @@ const Content = () => {
             </p>
             <p>
                 Another interesting task was creating a Docker container to run tests for
-                each branch merge into the master branch. As part of the transition
-                to a modern stack, we introduced styled-components and Ant Design.
-                I actively participated in adapting these tools to suit our project's needs.
+                each branch merge. Thanks to this, I have improved the stability of the
+                application and enhanced the developer experience.
+            </p>
+            <p>
+                As part of the transition to a modern stack, we introduced styled-components
+                and Ant Design. I actively participated in adapting these tools to suit
+                our project's needs. We managed to quickly rebuild existing components
+                and begin creating interfaces from them based on updated designs.
             </p>
             <Image {...photo2} maxWidth={400} alt="souvenir" />
             <h2>

@@ -32,7 +32,7 @@ export const Popup = ({anchor, size, close}: Props) => {
         ],
     });
 
-    useClickOutside(refs.floating.current, close);
+    useClickOutside(refs.floating, close);
 
     const className = cn(
         CSS_GLOBAL_CLASS.BORDER_OUTSET,

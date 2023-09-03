@@ -44,7 +44,7 @@ export const windowsSlice = createSlice({
                 title,
                 image,
                 isMinimized: false,
-                isOpened: false,
+                isOpen: false,
                 position: defaultPosition,
                 size: defaultSize,
                 defaultPosition,
@@ -87,7 +87,7 @@ export const windowsSlice = createSlice({
                 id: windowId,
                 changes: {
                     isMinimized: false,
-                    isOpened: true,
+                    isOpen: true,
                 },
             });
 
@@ -100,7 +100,7 @@ export const windowsSlice = createSlice({
             windowAdapter.updateOne(state, {
                 id: windowId,
                 changes: {
-                    isOpened: false,
+                    isOpen: false,
                 },
             });
 

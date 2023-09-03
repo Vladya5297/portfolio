@@ -4,7 +4,7 @@ import {listener} from '../listener';
 import {paramsActions} from '../params';
 import {selectWindowIdParam} from '../params/selectors';
 
-import {selectWindow, selectActiveWindowId} from './selectors';
+import {selectWindow, selectActiveWindowId, selectIsWindowActive} from './selectors';
 import {windowsActions} from './actions';
 
 // Process window opening
@@ -19,7 +19,7 @@ listener.startListening({
             return;
         }
 
-        if (window.isOpened) {
+        if (window.isOpen) {
             dispatch(windowsActions.setActive(windowId));
             return;
         }
@@ -35,8 +35,7 @@ listener.startListening({
         const state = getState();
 
         const window = selectWindow(state, windowId);
-        const activeWindowId = selectActiveWindowId(state);
-        const isActive = activeWindowId === windowId;
+        const isActive = selectIsWindowActive(state, windowId);
 
         if (isActive) {
             dispatch(windowsActions.setMinimized(windowId));

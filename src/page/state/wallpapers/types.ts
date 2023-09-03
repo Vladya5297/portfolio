@@ -5,6 +5,6 @@ export type WallpapersValue = {
 };
 
 export type WallpapersState = {
-    isOpened: boolean;
+    isOpen: boolean;
     value: WallpapersValue;
 };

@@ -1,3 +1,4 @@
+import type {RefObject} from 'react';
 import {
     useFloating,
     shift,
@@ -8,6 +9,7 @@ import type dayjs from 'dayjs';
 
 import type {TextProps} from '~/components/Text';
 import {Text} from '~/components/Text';
+import {useClickOutside} from '~/utils/useClickOutside';
 
 import css from './style.m.css';
 
@@ -15,12 +17,14 @@ type Props = {
     anchor: HTMLElement | null;
     date: dayjs.Dayjs;
     size: TextProps['size'];
+    close: () => void;
 };
 
 export const Tooltip = ({
     anchor,
     date,
     size,
+    close,
 }: Props) => {
     const {refs, x, y, strategy} = useFloating({
         elements: {reference: anchor},
@@ -33,6 +37,8 @@ export const Tooltip = ({
             offset({mainAxis: 6, crossAxis: -2}),
         ],
     });
+
+    useClickOutside(refs.reference as RefObject<HTMLElement>, close);
 
     return (
         <div

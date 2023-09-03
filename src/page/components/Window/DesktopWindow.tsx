@@ -4,10 +4,10 @@ import {Window} from '~/components/Window';
 import {useAction} from '~/utils/redux/useAction';
 import {
     windowsActions,
-    selectActiveWindowId,
     selectQueueIndex,
     selectWindow,
     selectWindowConstraints,
+    selectIsWindowActive,
 } from '~/page/state/windows';
 import type {Position, Size} from '~/page/state/windows';
 import type {State} from '~/page/state/types';
@@ -28,8 +28,7 @@ export const DesktopWindow = ({
     maxHeight,
 }: WindowProps) => {
     const window = useSelector((state: State) => selectWindow(state, windowId));
-    const activeWindowId = useSelector(selectActiveWindowId);
-    const isActive = activeWindowId === windowId;
+    const isActive = useSelector((state: State) => selectIsWindowActive(state, windowId));
 
     const index = useSelector((state: State) => selectQueueIndex(state, windowId));
 
@@ -67,7 +66,7 @@ export const DesktopWindow = ({
         setPosition(window.defaultPosition);
     };
 
-    const showWindow = window.isOpened && !window.isMinimized;
+    const showWindow = window.isOpen && !window.isMinimized;
 
     return showWindow ? (
         <Window

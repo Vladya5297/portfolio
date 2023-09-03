@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 
 import {random} from '~/utils/random';
 import {useInterval} from '~/utils/useInterval';
@@ -9,13 +9,15 @@ import css from './style.m.css';
 export const Loader = () => {
     const [progress, setProgress] = useState(0);
 
-    useInterval(() => {
+    const update = useCallback(() => {
         const delta = random.int({min: 5, max: 10});
         setProgress(value => {
             const result = value + delta;
             return result > 100 ? 100 : result;
         });
-    }, progress === 100 ? null : 200);
+    }, []);
+
+    useInterval(update, progress === 100 ? null : 200);
 
     return (
         <div className={css.loader}>

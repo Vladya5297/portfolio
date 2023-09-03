@@ -1,5 +1,5 @@
 import type {MutableRefObject} from 'react';
-import {useEffect, useRef} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 
 import {resetFocus} from '~/utils/dom';
 import {useClickOutside} from '~/utils/useClickOutside';
@@ -24,9 +24,8 @@ const Content = () => {
         };
     }, []);
 
-    useClickOutside(root.current, () => {
-        game.current.pause();
-    });
+    const pause = useCallback(() => game.current.pause(), []);
+    useClickOutside(root, pause);
 
     // Capture focus
     const onClick = () => {

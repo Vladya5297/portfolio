@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import {useBreakpoint} from '~/components/Breakpoint';
 import {SIZE} from '~/constants/size';
-import {selectOpenedWindows} from '~/page/state/windows';
+import {selectOpenWindows} from '~/page/state/windows';
 import {Clock} from '~/page/components/Clock';
 
 import {Start} from '../Start';
@@ -12,7 +12,7 @@ import {Item} from './components/Item';
 import css from './style.m.css';
 
 export const Footer = () => {
-    const windowIds = useSelector(selectOpenedWindows);
+    const windowIds = useSelector(selectOpenWindows);
 
     const isMobile = useBreakpoint({to: 's'});
     const size = isMobile ? SIZE.M : SIZE.S;

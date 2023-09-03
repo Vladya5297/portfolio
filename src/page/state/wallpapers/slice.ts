@@ -9,7 +9,7 @@ const initialValue = getInitialValue();
 setBackground(initialValue);
 
 const initialState: WallpapersState = {
-    isOpened: false,
+    isOpen: false,
     value: initialValue,
 };
 
@@ -17,8 +17,8 @@ export const wallpapersSlice = createSlice({
     name: STATE_ID,
     initialState,
     reducers: {
-        setIsOpened(state, action: PayloadAction<boolean>) {
-            state.isOpened = action.payload;
+        setIsOpen(state, action: PayloadAction<boolean>) {
+            state.isOpen = action.payload;
         },
         setValue(state, action: PayloadAction<WallpapersValue>) {
             state.value = action.payload;

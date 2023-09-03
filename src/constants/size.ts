@@ -1,4 +1,4 @@
-import {getValidIndex} from '~/utils/getValidIndex';
+import {getClosestIndex} from '~/utils/getClosestIndex';
 
 const sizes = ['s', 'm', 'l'] as const;
 type SizeType = typeof sizes[number];
@@ -13,14 +13,14 @@ export class Size {
     }
 
     next() {
-        const index = getValidIndex(this.index + 1, sizes);
+        const index = getClosestIndex(this.index + 1, sizes);
         const value = sizes[index];
 
         return new Size(value);
     }
 
     prev() {
-        const index = getValidIndex(this.index - 1, sizes);
+        const index = getClosestIndex(this.index - 1, sizes);
         const value = sizes[index];
 
         return new Size(value);

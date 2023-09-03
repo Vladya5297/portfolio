@@ -9,8 +9,8 @@ import {pick} from '~/utils/toolkit';
 import {SIZE} from '~/constants/size';
 import {
     windowsActions,
-    selectActiveWindowId,
     selectWindow,
+    selectIsWindowActive,
 } from '~/page/state/windows';
 import type {WindowId} from '~/page/state/windows';
 import type {State} from '~/page/state/types';
@@ -29,8 +29,7 @@ export const Item = ({windowId, isMobile}: Props) => {
         (state: State) => selectWindow(state, windowId),
         value => pick(value, ['image', 'title']),
     );
-    const activeWindowId = useSelector(selectActiveWindowId);
-    const isActive = activeWindowId === windowId;
+    const isActive = useSelector((state: State) => selectIsWindowActive(state, windowId));
 
     const toggleWindow = useAction(() => windowsActions.toggle(windowId));
 

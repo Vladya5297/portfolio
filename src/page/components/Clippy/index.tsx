@@ -1,8 +1,9 @@
 import {useRef, useState} from 'react';
 import type {CSSProperties} from 'react';
+import {useSelector} from 'react-redux';
 
 import {useAction} from '~/utils/redux/useAction';
-import {clippyActions} from '~/page/state/clippy';
+import {clippyActions, selectIsClippyVisible} from '~/page/state/clippy';
 
 import {getNewAnimation, useAnimations} from './utils';
 import {Tooltip} from './components/Tooltip';
@@ -20,14 +21,14 @@ export const Clippy = ({className, style}: Props) => {
     const tid = useRef<ReturnType<typeof setTimeout>>();
     const [src, setSrc] = useState(image.src);
 
-    const [isMessageOpen, setIsMessageOpen] = useState(true);
+    const [isTooltipOpen, setIsTooltipOpen] = useState(true);
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
     const getMessageInit = useAction(clippyActions.getMessageInit);
 
     const onClick = () => {
         getMessageInit();
-        setIsMessageOpen(true);
+        setIsTooltipOpen(true);
 
         const newAnimation = getNewAnimation(src, animations);
         setSrc(newAnimation.src);
@@ -38,16 +39,18 @@ export const Clippy = ({className, style}: Props) => {
         }, newAnimation.duration);
     };
 
-    const onMessageClick = () => {
-        setIsMessageOpen(false);
+    const onTooltipClick = () => {
+        setIsTooltipOpen(false);
     };
 
-    return (
+    const isVisible = useSelector(selectIsClippyVisible);
+
+    return isVisible ? (
         <div className={className}>
             <Tooltip
                 anchor={anchor}
-                isOpen={isMessageOpen}
-                onClick={onMessageClick}
+                isOpen={isTooltipOpen}
+                onClick={onTooltipClick}
             />
 
             <button
@@ -62,5 +65,5 @@ export const Clippy = ({className, style}: Props) => {
                 />
             </button>
         </div>
-    );
+    ) : null;
 };

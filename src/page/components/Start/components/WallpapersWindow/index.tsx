@@ -2,7 +2,7 @@ import {useSelector} from 'react-redux';
 
 import {Window} from '~/components/Window';
 import {getDefaultRect} from '~/page/components/Application';
-import {selectWallpapersIsOpened, wallpapersActions} from '~/page/state/wallpapers';
+import {selectWallpapersIsOpen, wallpapersActions} from '~/page/state/wallpapers';
 import {useAction} from '~/utils/redux/useAction';
 
 import {WallpapersContent} from '../WallpapersContent';
@@ -12,13 +12,13 @@ type Props = {
 };
 
 export const WallpapersWindow = ({root}: Props) => {
-    const isOpened = useSelector(selectWallpapersIsOpened);
-    const onClose = useAction(() => wallpapersActions.setIsOpened(false));
+    const isOpen = useSelector(selectWallpapersIsOpen);
+    const onClose = useAction(() => wallpapersActions.setIsOpen(false));
 
     const rect = getDefaultRect(root, {width: 200, height: 80});
 
     return (
-        isOpened ? (
+        isOpen ? (
             <Window
                 root={root}
                 title="Wallpapers"

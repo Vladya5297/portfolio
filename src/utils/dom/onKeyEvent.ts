@@ -14,7 +14,9 @@ export const onKeyEvent = (
     const element = (target ?? document) as HTMLElement;
 
     const callback = (event: KeyboardEvent) => {
-        if (event.key === key) handler(event);
+        if (event.key === key) {
+            handler(event);
+        }
     };
 
     element.addEventListener(eventName, callback);

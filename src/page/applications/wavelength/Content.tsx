@@ -30,7 +30,11 @@ const Content = () => {
                     You can check it out at the link below.
                 </p>
                 <p>
-                    (P.S. The game is hosted on a free hosting platform,
+                    (P.S. It is a multiplayer game, so it's better to open
+                    it in multiple tabs for a complete experience.)
+                </p>
+                <p>
+                    (P.S.S. The game is hosted on a free hosting platform,
                     so it may take some time to load.)
                 </p>
 

@@ -17,7 +17,7 @@ export type Window = {
     id: WindowId;
     title: string;
     image: string;
-    isOpened: boolean;
+    isOpen: boolean;
     isMinimized: boolean;
     position: Position;
     size: Size;

@@ -40,7 +40,7 @@ const Content = () => {
                 and organized the necessary tools.
             </p>
             <p>
-                Thanks to a well-planned architecture, we could quickly implement customer feedback
+                Thanks to my well-planned architecture, we could quickly implement customer feedback
                 without compromising the product's quality. We used libraries like
                 react-dnd and d3-zoom for interactive interaction with the virtual board.
             </p>

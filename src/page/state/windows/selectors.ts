@@ -1,9 +1,8 @@
 import {createShallowSelector} from '~/utils/redux/createShallowSelector';
-import {paramSelector} from '~/utils/redux/paramSelector';
 
 import type {State} from '../types';
 
-import type {Window, WindowId} from './types';
+import type {Size, Window, WindowId} from './types';
 import {windowAdapter} from './slice';
 
 const windowsSelectors = windowAdapter.getSelectors<State>(state => state.windows);
@@ -14,29 +13,31 @@ export const selectWindowExists = (state: State, windowId: WindowId): boolean =>
     return Boolean(window);
 };
 
-export const selectWindow = createShallowSelector(
-    [
-        (state: State) => state.windows.entities,
-        paramSelector<WindowId>,
-    ],
-    (windows, windowId) => windows[windowId] as Window,
-);
+export const selectWindow = (state: State, windowId: WindowId): Window => {
+    return windowsSelectors.selectById(state, windowId) as Window;
+};
 
 export const selectActiveWindowId = (state: State): WindowId | null => {
     return state.windows.active;
+};
+
+export const selectIsWindowActive = (state: State, windowId: WindowId): boolean => {
+    const activeWindowId = selectActiveWindowId(state);
+
+    return activeWindowId === windowId;
 };
 
 export const selectQueueIndex = (state: State, windowId: WindowId): number => {
     return state.windows.queue.indexOf(windowId);
 };
 
-export const selectOpenedWindows = createShallowSelector(
+export const selectOpenWindows = createShallowSelector(
     [windowsSelectors.selectAll],
     (windows: Window[]): WindowId[] => windows
-        .filter(window => window.isOpened)
+        .filter(window => window.isOpen)
         .map(window => window.id),
 );
 
-export const selectWindowConstraints = (state: State) => {
+export const selectWindowConstraints = (state: State): Size => {
     return state.windows.constraints;
 };

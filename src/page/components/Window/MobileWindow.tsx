@@ -14,7 +14,7 @@ export const MobileWindow = ({id: windowId, root, content}: WindowProps) => {
 
     const setClosed = useAction(() => windowsActions.setClosed(windowId));
 
-    const showWindow = window.isOpened && !window.isMinimized;
+    const showWindow = window.isOpen && !window.isMinimized;
 
     return showWindow ? (
         <Window

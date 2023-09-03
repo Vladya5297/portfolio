@@ -1,13 +1,14 @@
+import type {RefObject} from 'react';
 import {useEffect} from 'react';
 
 import {debounce} from '../toolkit';
 
 export const useResizeObserver = (
-    element: HTMLElement | null,
+    ref: RefObject<HTMLElement>,
     callback: (rect: DOMRect) => void,
 ): void => {
     useEffect(() => {
-        if (!element) return;
+        if (!ref.current) return;
 
         const handler = debounce((entries: ResizeObserverEntry[]) => {
             const [entry] = entries;
@@ -15,8 +16,8 @@ export const useResizeObserver = (
         }, 100);
 
         const observer = new ResizeObserver(handler);
-        observer.observe(element);
+        observer.observe(ref.current);
 
         return () => observer.disconnect();
-    }, [element]);
+    }, [ref, callback]);
 };

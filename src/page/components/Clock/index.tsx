@@ -1,9 +1,8 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import dayjs from 'dayjs';
 import cn from 'classnames';
 
 import {useInterval} from '~/utils/useInterval';
-import {useClickOutside} from '~/utils/useClickOutside';
 import {SIZE} from '~/constants/size';
 import {CSS_GLOBAL_CLASS} from '~/components/styles';
 import {Text} from '~/components/Text';
@@ -25,13 +24,12 @@ export const Clock = ({className}: Props) => {
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
     const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
-    useInterval(() => {
-        setDate(dayjs());
-    }, 1000);
+    const update = useCallback(() => setDate(dayjs()), []);
+    useInterval(update, 1000);
 
-    useClickOutside(anchor, () => {
+    const close = useCallback(() => {
         setIsTooltipOpen(false);
-    });
+    }, []);
 
     const onClick = () => {
         setIsTooltipOpen(value => !value);
@@ -47,8 +45,8 @@ export const Clock = ({className}: Props) => {
         <>
             <button
                 className={clockClassName}
-                ref={setAnchor}
                 onClick={onClick}
+                ref={setAnchor}
             >
                 <Text size={size}>
                     {date.format('HH:mm')}
@@ -59,6 +57,7 @@ export const Clock = ({className}: Props) => {
                 <Tooltip
                     date={date}
                     anchor={anchor}
+                    close={close}
                     size={size}
                 />
             ) : null}

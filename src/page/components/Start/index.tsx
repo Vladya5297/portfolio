@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useCallback, useContext, useState} from 'react';
 import cn from 'classnames';
 
 import {SIZE} from '~/constants/size';
@@ -30,9 +30,9 @@ export const Start = ({className}: Props) => {
         setIsPopupOpen(value => !value);
     };
 
-    const close = () => {
+    const close = useCallback(() => {
         setIsPopupOpen(false);
-    };
+    }, []);
 
     return (
         <>
