@@ -1,6 +1,7 @@
 export type WallpapersValue = {
     name: string;
-    src: string | null;
+    src: string | undefined;
+    placeholder: string | undefined;
 };
 
 export type WallpapersState = {

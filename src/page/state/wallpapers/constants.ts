@@ -12,7 +12,8 @@ export const LS_KEY = 'wallpapers';
 
 export const DEFAULT_WALLPAPER: WallpapersValue = {
     name: 'default',
-    src: null,
+    src: undefined,
+    placeholder: undefined,
 };
 
 export const wallpapers: WallpapersValue[] = [
@@ -20,21 +21,26 @@ export const wallpapers: WallpapersValue[] = [
     {
         name: 'field',
         src: field.src,
+        placeholder: field.placeholder,
     },
     {
         name: 'mountains',
         src: mountains.src,
+        placeholder: mountains.placeholder,
     },
     {
         name: 'night',
         src: night.src,
+        placeholder: night.placeholder,
     },
     {
         name: 'retrowave',
         src: retrowave.src,
+        placeholder: retrowave.placeholder,
     },
     {
         name: 'sunset',
         src: sunset.src,
+        placeholder: sunset.placeholder,
     },
 ];
