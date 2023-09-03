@@ -1,27 +1,26 @@
 import {
     useFloating,
-    shift,
-    offset,
     autoUpdate,
+    shift,
 } from '@floating-ui/react';
-import type dayjs from 'dayjs';
+import cn from 'classnames';
 
+import {CSS_GLOBAL_CLASS} from '~/components/styles';
 import type {TextProps} from '~/components/Text';
-import {Text} from '~/components/Text';
+import {useClickOutside} from '~/utils/useClickOutside';
+
+import {ClippyButton} from '../ClippyButton';
+import {WallpapersButton} from '../WallpapersButton';
 
 import css from './style.m.css';
 
 type Props = {
     anchor: HTMLElement | null;
-    date: dayjs.Dayjs;
     size: TextProps['size'];
+    close: () => void;
 };
 
-export const Tooltip = ({
-    anchor,
-    date,
-    size,
-}: Props) => {
+export const Popup = ({anchor, size, close}: Props) => {
     const {refs, x, y, strategy} = useFloating({
         elements: {reference: anchor},
         placement: 'top',
@@ -30,26 +29,32 @@ export const Tooltip = ({
         whileElementsMounted: autoUpdate,
         middleware: [
             shift(),
-            offset({mainAxis: 6, crossAxis: -2}),
         ],
     });
+
+    useClickOutside(refs.floating.current, close);
+
+    const className = cn(
+        CSS_GLOBAL_CLASS.BORDER_OUTSET,
+        css.popup,
+    );
 
     return (
         <div
             ref={refs.setFloating}
-            className={css.tooltip}
+            className={className}
             style={{
                 position: strategy,
                 left: x,
                 top: y,
             }}
         >
-            <Text
-                color="secondary"
-                size={size}
-            >
-                {date.format('ddd, D MMM YYYY, HH:mm')}
-            </Text>
+            <div className={css.side} />
+
+            <div className={css.list}>
+                <WallpapersButton size={size} />
+                <ClippyButton size={size} />
+            </div>
         </div>
     );
 };

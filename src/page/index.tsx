@@ -1,11 +1,14 @@
 import {useState} from 'react';
+import {useSelector} from 'react-redux';
 
 import {useRootSize} from './utils/useRootSize';
 import {useWindowsControls} from './utils/useWindowsControls';
 import {Footer} from './components/Footer';
-import {applications} from './applications';
 import {Clippy} from './applications/clippy';
+import {RootContext} from './RootContext';
 import css from './style.m.css';
+import {Grid} from './components/Grid';
+import {selectIsClippyVisible} from './state/clippy';
 
 export const Page = () => {
     const [root, setRoot] = useState<HTMLElement | null>(null);
@@ -14,18 +17,20 @@ export const Page = () => {
     // Provides windows keyboard control
     useWindowsControls();
 
-    return (
-        <div className={css.root}>
-            <main className={css.main} ref={setRoot}>
-                <div className={css.grid}>
-                    {root && applications.map(
-                        Component => <Component key={Component.name} root={root} />,
-                    )}
-                </div>
+    const showClippy = useSelector(selectIsClippyVisible);
 
-                <Clippy className={css.clippy} />
-            </main>
-            <Footer />
-        </div>
+    return (
+        <RootContext.Provider value={root}>
+            <div className={css.root}>
+                <main className={css.main} ref={setRoot}>
+                    <Grid />
+
+                    {showClippy ? (
+                        <Clippy className={css.clippy} />
+                    ) : null}
+                </main>
+                <Footer />
+            </div>
+        </RootContext.Provider>
     );
 };

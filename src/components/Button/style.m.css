@@ -12,11 +12,15 @@
     outline: var(--color-outline-primary) dotted 2px;
 }
 
-.root:hover {
+.root:disabled>* {
+    opacity: 0.3;
+}
+
+.root:not(:disabled):hover {
     filter: brightness(1.1);
 }
 
-.root:active {
+.root:not(:disabled):active {
     border-color: var(--color-border-outset-outer-secondary);
     box-shadow: inset 0 0 0 1px var(--color-border-outset-inner-secondary);
 }

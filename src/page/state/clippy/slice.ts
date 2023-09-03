@@ -29,5 +29,8 @@ export const clippySlice = createSlice({
             state.message.status = STATUS.FAILED;
             state.message.value = ERROR_MESSAGE;
         },
+        setIsVisible(state, action: PayloadAction<boolean>) {
+            state.visible = action.payload;
+        },
     },
 });

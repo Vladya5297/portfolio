@@ -18,8 +18,7 @@ type Props = {
 
 export const Clock = ({className}: Props) => {
     const isMobile = useBreakpoint({to: 's'});
-    let size = SIZE.S;
-    size = isMobile ? size.next() : size;
+    const size = isMobile ? SIZE.M : SIZE.S;
 
     const [date, setDate] = useState(dayjs);
 
@@ -30,7 +29,7 @@ export const Clock = ({className}: Props) => {
         setDate(dayjs());
     }, 1000);
 
-    useClickOutside({current: anchor}, () => {
+    useClickOutside(anchor, () => {
         setIsTooltipOpen(false);
     });
 
@@ -56,12 +55,13 @@ export const Clock = ({className}: Props) => {
                 </Text>
             </button>
 
-            <Tooltip
-                date={date}
-                anchor={anchor}
-                isOpen={isTooltipOpen}
-                size={size}
-            />
+            {isTooltipOpen ? (
+                <Tooltip
+                    date={date}
+                    anchor={anchor}
+                    size={size}
+                />
+            ) : null}
         </>
     );
 };

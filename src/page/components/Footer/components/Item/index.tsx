@@ -23,8 +23,7 @@ type Props = {
 };
 
 export const Item = ({windowId, isMobile}: Props) => {
-    let size = SIZE.S;
-    size = isMobile ? size.next() : size;
+    const size = isMobile ? SIZE.M : SIZE.S;
 
     const window = useSelectorMapper(
         (state: State) => selectWindow(state, windowId),

@@ -6,6 +6,8 @@ import {SIZE} from '~/constants/size';
 import {selectOpenedWindows} from '~/page/state/windows';
 import {Clock} from '~/page/components/Clock';
 
+import {Start} from '../Start';
+
 import {Item} from './components/Item';
 import css from './style.m.css';
 
@@ -13,11 +15,12 @@ export const Footer = () => {
     const windowIds = useSelector(selectOpenedWindows);
 
     const isMobile = useBreakpoint({to: 's'});
-    let size = SIZE.S;
-    size = isMobile ? size.next() : size;
+    const size = isMobile ? SIZE.M : SIZE.S;
 
     return (
         <footer className={cn(css.footer, css[`size-${size}`])}>
+            <Start />
+
             {windowIds.map(windowId => (
                 <Item
                     key={windowId}

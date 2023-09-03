@@ -14,7 +14,7 @@ import css from './style.m.css';
 
 type CustomProps = {
     title: ReactNode;
-    image: string;
+    image?: string;
     active?: boolean;
     fullscreen?: boolean;
     onClose?: () => void;
@@ -43,8 +43,7 @@ export const View = React.memo(function View(
     }: ViewProps,
 ) {
     const isMobile = useBreakpoint({to: 's'});
-    let size = SIZE.S;
-    size = isMobile ? size.next() : size;
+    const size = isMobile ? SIZE.M : SIZE.S;
 
     const rootClassName = cn(
         CSS_GLOBAL_CLASS.BORDER_OUTSET,
@@ -58,7 +57,13 @@ export const View = React.memo(function View(
         <div {...props} className={rootClassName}>
             <div className={headerClassName}>
                 <div className={css.title}>
-                    <Icon src={image} size={size.next()} alt="logo" />
+                    {image ? (
+                        <Icon
+                            src={image}
+                            size={size.next()}
+                            alt="logo"
+                        />
+                    ) : null}
 
                     <Text
                         className={css.label}

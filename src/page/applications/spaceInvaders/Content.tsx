@@ -24,7 +24,7 @@ const Content = () => {
         };
     }, []);
 
-    useClickOutside(root, () => {
+    useClickOutside(root.current, () => {
         game.current.pause();
     });
 

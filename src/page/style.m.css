@@ -10,21 +10,9 @@
     position: relative;
     z-index: 0;
     background-color: var(--color-background-screen);
-}
-
-.grid {
-    width: 100%;
-    height: 100%;
-    padding: 12px;
-    box-sizing: border-box;
-
-    display: grid;
-    align-items: start;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    grid-template-rows: repeat(auto-fill, minmax(80px, 1fr));
-    grid-auto-flow: column;
-    column-gap: 12px;
-    row-gap: 12px;
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
 }
 
 .clippy {

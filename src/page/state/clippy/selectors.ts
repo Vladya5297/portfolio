@@ -9,3 +9,7 @@ export const selectClippyMessageStatus = (state: State): Status => {
 export const selectClippyMessage = (state: State): string => {
     return state.clippy.message.value;
 };
+
+export const selectIsClippyVisible = (state: State): boolean => {
+    return state.clippy.visible;
+};
