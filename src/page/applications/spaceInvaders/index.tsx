@@ -6,26 +6,25 @@ import type {ApplicationProps} from '../types';
 
 import logo from './assets/space-invaders-logo.png';
 
-const id = 'spaceInvaders' as WindowId;
-const title = 'Space Invaders';
-const image = logo.src;
-const Content = lazyContent(() => import('./Content'));
+export const SPACE_INVADERS_ID = 'spaceInvaders' as WindowId;
 
-const height = 600;
-const width = 340;
+const Content = lazyContent(() => import('./Content'));
 
 export const SpaceInvaders = ({root}: ApplicationProps) => {
     const ready = useSetup({
-        id,
-        title,
-        image,
+        id: SPACE_INVADERS_ID,
+        title: 'Space Invaders',
+        image: logo.src,
         root,
-        defaultSize: {height, width},
+        defaultSize: {
+            height: 600,
+            width: 340,
+        },
     });
 
     return ready ? (
         <Application
-            id={id}
+            id={SPACE_INVADERS_ID}
             root={root}
             window={{
                 lockAspectRatio: true,

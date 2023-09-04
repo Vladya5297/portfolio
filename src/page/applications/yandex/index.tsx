@@ -6,17 +6,21 @@ import type {ApplicationProps} from '../types';
 
 import logo from './assets/yandex-logo.png';
 
-const id = 'yandex' as WindowId;
-const title = 'Yandex';
-const image = logo.src;
+export const YANDEX_ID = 'yandex' as WindowId;
+
 const Content = lazyContent(() => import('./Content'));
 
 export const Yandex = ({root}: ApplicationProps) => {
-    const ready = useSetup({id, title, image, root});
+    const ready = useSetup({
+        id: YANDEX_ID,
+        title: 'Yandex',
+        image: logo.src,
+        root,
+    });
 
     return ready ? (
         <Application
-            id={id}
+            id={YANDEX_ID}
             root={root}
             window={{
                 content: <Content />,

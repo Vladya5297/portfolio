@@ -10,24 +10,23 @@ import type {ApplicationProps} from '../types';
 
 import logo from './assets/intro-logo.png';
 
-const id = 'intro' as WindowId;
-const title = 'Introduction';
-const image = logo.src;
-const Content = lazyContent(() => import('./Content'));
+export const INTRO_ID = 'intro' as WindowId;
 
-const height = 370;
-const width = 480;
+const Content = lazyContent(() => import('./Content'));
 
 export const Intro = ({root}: ApplicationProps) => {
     const ready = useSetup({
-        id,
-        title,
-        image,
+        id: INTRO_ID,
+        title: 'Introduction',
+        image: logo.src,
         root,
-        defaultSize: {height, width},
+        defaultSize: {
+            height: 370,
+            width: 480,
+        },
     });
 
-    const open = useAction(() => windowsActions.open(id));
+    const open = useAction(() => windowsActions.open(INTRO_ID));
 
     useEffect(() => {
         const shown = window.localStorage.getItem('intro');
@@ -39,7 +38,7 @@ export const Intro = ({root}: ApplicationProps) => {
 
     return ready ? (
         <Window
-            id={id}
+            id={INTRO_ID}
             root={root}
             resizeable={false}
             disableFullscreen

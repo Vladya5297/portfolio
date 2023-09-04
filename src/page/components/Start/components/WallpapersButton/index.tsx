@@ -17,7 +17,7 @@ export const WallpapersButton = ({size}: Props) => {
 
     return (
         <Button size="l" onClick={onClick}>
-            <Text size={size}>
+            <Text size={size} color="inherit">
                 Change wallpapers
             </Text>
         </Button>

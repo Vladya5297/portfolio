@@ -3,7 +3,9 @@ import type {CSSProperties} from 'react';
 import {useSelector} from 'react-redux';
 
 import {useAction} from '~/utils/redux/useAction';
-import {clippyActions, selectIsClippyVisible} from '~/page/state/clippy';
+import {clippyActions, selectClippyMessage, selectIsClippyVisible} from '~/page/state/clippy';
+import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
+import {pick} from '~/utils/toolkit';
 
 import {getNewAnimation, useAnimations} from './utils';
 import {Tooltip} from './components/Tooltip';
@@ -21,14 +23,12 @@ export const Clippy = ({className, style}: Props) => {
     const tid = useRef<ReturnType<typeof setTimeout>>();
     const [src, setSrc] = useState(image.src);
 
-    const [isTooltipOpen, setIsTooltipOpen] = useState(true);
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
     const getMessageInit = useAction(clippyActions.getMessageInit);
 
     const onClick = () => {
         getMessageInit();
-        setIsTooltipOpen(true);
 
         const newAnimation = getNewAnimation(src, animations);
         setSrc(newAnimation.src);
@@ -39,20 +39,16 @@ export const Clippy = ({className, style}: Props) => {
         }, newAnimation.duration);
     };
 
-    const onTooltipClick = () => {
-        setIsTooltipOpen(false);
-    };
+    const closeTooltip = useAction(() => clippyActions.setMessage({visible: false}));
 
     const isVisible = useSelector(selectIsClippyVisible);
+    const {visible: isTooltipVisible} = useSelectorMapper(
+        selectClippyMessage,
+        message => pick(message, ['visible']),
+    );
 
     return isVisible ? (
         <div className={className}>
-            <Tooltip
-                anchor={anchor}
-                isOpen={isTooltipOpen}
-                onClick={onTooltipClick}
-            />
-
             <button
                 onClick={onClick}
                 ref={setAnchor}
@@ -64,6 +60,13 @@ export const Clippy = ({className, style}: Props) => {
                     style={style}
                 />
             </button>
+
+            {isTooltipVisible ? (
+                <Tooltip
+                    anchor={anchor}
+                    onClick={closeTooltip}
+                />
+            ) : null}
         </div>
     ) : null;
 };

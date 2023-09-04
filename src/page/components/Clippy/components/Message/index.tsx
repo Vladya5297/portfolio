@@ -1,11 +1,13 @@
-import {useSelector} from 'react-redux';
-
 import {STATUS} from '~/constants/status';
-import {selectClippyMessage, selectClippyMessageStatus} from '~/page/state/clippy';
+import {selectClippyMessage} from '~/page/state/clippy';
+import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
+import {pick} from '~/utils/toolkit';
 
 export const Message = () => {
-    const message = useSelector(selectClippyMessage);
-    const status = useSelector(selectClippyMessageStatus);
+    const {value, status} = useSelectorMapper(
+        selectClippyMessage,
+        message => pick(message, ['value', 'status']),
+    );
 
-    return <>{status === STATUS.PENDING ? '...' : message}</>;
+    return <>{status === STATUS.PENDING ? '...' : value}</>;
 };

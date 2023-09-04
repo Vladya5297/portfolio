@@ -1,13 +1,9 @@
-import type {Status} from '~/constants/status';
-
 import type {State} from '../types';
 
-export const selectClippyMessageStatus = (state: State): Status => {
-    return state.clippy.message.status;
-};
+import type {ClippyMessage} from './types';
 
-export const selectClippyMessage = (state: State): string => {
-    return state.clippy.message.value;
+export const selectClippyMessage = (state: State): ClippyMessage => {
+    return state.clippy.message;
 };
 
 export const selectIsClippyVisible = (state: State): boolean => {

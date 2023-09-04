@@ -8,7 +8,7 @@ import css from './style.m.css';
 export type TextProps = {
     size?: 's' | 'm' | 'l' | Size;
     weight?: 'bold' | 'normal';
-    color?: 'primary' | 'secondary';
+    color?: 'primary' | 'secondary' | 'inherit';
     className?: string;
     style?: CSSProperties;
     children: ReactNode;
@@ -28,13 +28,17 @@ export const Text = ({
         className,
     );
 
+    const textColor = color === 'inherit'
+        ? color
+        : `var(--color-text-${color})`;
+
     return (
         <span
             className={textClassname}
             style={{
                 ...style,
                 fontWeight: weight,
-                color: `var(--color-text-${color})`,
+                color: textColor,
             }}
         >
             {children}

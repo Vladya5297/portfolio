@@ -6,17 +6,21 @@ import type {ApplicationProps} from '../types';
 
 import logo from './assets/kaspersky-logo.png';
 
-const id = 'kaspersky' as WindowId;
-const title = 'Kaspersky';
-const image = logo.src;
+export const KASPERSKY_ID = 'kaspersky' as WindowId;
+
 const Content = lazyContent(() => import('./Content'));
 
 export const Kaspersky = ({root}: ApplicationProps) => {
-    const ready = useSetup({id, title, image, root});
+    const ready = useSetup({
+        id: KASPERSKY_ID,
+        title: 'Kaspersky',
+        image: logo.src,
+        root,
+    });
 
     return ready ? (
         <Application
-            id={id}
+            id={KASPERSKY_ID}
             root={root}
             window={{
                 content: <Content />,

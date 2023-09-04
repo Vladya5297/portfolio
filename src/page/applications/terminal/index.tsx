@@ -6,17 +6,21 @@ import type {ApplicationProps} from '../types';
 
 import logo from './assets/terminal-logo.png';
 
-const id = 'terminal' as WindowId;
-const title = 'Terminal';
-const image = logo.src;
+export const TERMINAL_ID = 'terminal' as WindowId;
+
 const Content = lazyContent(() => import('./Content'));
 
 export const Terminal = ({root}: ApplicationProps) => {
-    const ready = useSetup({id, title, image, root});
+    const ready = useSetup({
+        id: TERMINAL_ID,
+        title: 'Terminal',
+        image: logo.src,
+        root,
+    });
 
     return ready ? (
         <Application
-            id={id}
+            id={TERMINAL_ID}
             root={root}
             window={{
                 content: <Content />,

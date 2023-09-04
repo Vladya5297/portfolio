@@ -4,13 +4,14 @@ import {createSlice} from '@reduxjs/toolkit';
 import {STATUS} from '~/constants/status';
 
 import {DEFAULT_MESSAGE, ERROR_MESSAGE, STATE_ID} from './constants';
-import type {ClippyState} from './types';
+import type {ClippyMessage, ClippyState} from './types';
 
 const initialState: ClippyState = {
     visible: true,
     message: {
         value: DEFAULT_MESSAGE,
         status: STATUS.DONE,
+        visible: true,
     },
 };
 
@@ -20,6 +21,7 @@ export const clippySlice = createSlice({
     reducers: {
         getMessageInit(state) {
             state.message.status = STATUS.PENDING;
+            state.message.visible = true;
         },
         getMessageDone(state, action: PayloadAction<string>) {
             state.message.status = STATUS.DONE;
@@ -31,6 +33,9 @@ export const clippySlice = createSlice({
         },
         setIsVisible(state, action: PayloadAction<boolean>) {
             state.visible = action.payload;
+        },
+        setMessage(state, action: PayloadAction<Partial<ClippyMessage>>) {
+            state.message = {...state.message, ...action.payload};
         },
     },
 });

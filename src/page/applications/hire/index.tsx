@@ -6,17 +6,21 @@ import type {ApplicationProps} from '../types';
 
 import logo from './assets/hire-logo.png';
 
-const id = 'hire' as WindowId;
-const title = 'Hire';
-const image = logo.src;
+export const HIRE_ID = 'hire' as WindowId;
+
 const Content = lazyContent(() => import('./Content'));
 
 export const Hire = ({root}: ApplicationProps) => {
-    const ready = useSetup({id, title, image, root});
+    const ready = useSetup({
+        id: HIRE_ID,
+        title: 'Hire',
+        image: logo.src,
+        root,
+    });
 
     return ready ? (
         <Application
-            id={id}
+            id={HIRE_ID}
             root={root}
             window={{
                 content: <Content />,

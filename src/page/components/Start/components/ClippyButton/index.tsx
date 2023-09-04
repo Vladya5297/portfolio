@@ -20,7 +20,7 @@ export const ClippyButton = ({size}: Props) => {
 
     return (
         <Button size="l" onClick={onClick}>
-            <Text size={size}>
+            <Text size={size} color="inherit">
                 {isVisible ? 'Hide Clippy' : 'Show Clippy'}
             </Text>
         </Button>

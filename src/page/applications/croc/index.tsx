@@ -6,17 +6,21 @@ import type {ApplicationProps} from '../types';
 
 import logo from './assets/croc-logo.png';
 
-const id = 'croc' as WindowId;
-const title = 'Croc';
-const image = logo.src;
+export const CROC_ID = 'croc' as WindowId;
+
 const Content = lazyContent(() => import('./Content'));
 
 export const Croc = ({root}: ApplicationProps) => {
-    const ready = useSetup({id, title, image, root});
+    const ready = useSetup({
+        id: CROC_ID,
+        title: 'Croc',
+        image: logo.src,
+        root,
+    });
 
     return ready ? (
         <Application
-            id={id}
+            id={CROC_ID}
             root={root}
             window={{
                 content: <Content />,

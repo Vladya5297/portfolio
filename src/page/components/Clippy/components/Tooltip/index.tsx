@@ -15,13 +15,11 @@ import css from './style.m.css';
 
 type Props = {
     anchor: HTMLElement | null;
-    isOpen: boolean;
     onClick: () => void;
 };
 
 export const Tooltip = ({
     anchor,
-    isOpen,
     onClick,
 }: Props) => {
     const arrowRef = useRef(null);
@@ -30,7 +28,6 @@ export const Tooltip = ({
         elements: {reference: anchor},
         placement: 'top',
         transform: false,
-        open: isOpen,
         whileElementsMounted: autoUpdate,
         middleware: [
             flip({fallbackPlacements: ['left'], crossAxis: false}),
@@ -40,7 +37,7 @@ export const Tooltip = ({
         ],
     });
 
-    return isOpen ? (
+    return (
         <div
             ref={refs.setFloating}
             className={css.message}
@@ -61,5 +58,5 @@ export const Tooltip = ({
                 strokeWidth={1}
             />
         </div>
-    ) : null;
+    );
 };

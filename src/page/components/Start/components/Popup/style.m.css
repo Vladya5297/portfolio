@@ -22,3 +22,8 @@
 .list button {
     border: none;
 }
+
+.list button:hover {
+    color: var(--color-text-secondary);
+    background-color: var(--color-accent-primary);
+}
