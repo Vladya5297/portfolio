@@ -6,7 +6,13 @@ export type ClippyMessage = {
     visible: boolean;
 };
 
+export type ClippyAnimation = {
+    src: string;
+    duration: number;
+};
+
 export type ClippyState = {
     visible: boolean;
     message: ClippyMessage;
+    animation: ClippyAnimation;
 };

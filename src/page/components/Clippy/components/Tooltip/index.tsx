@@ -1,4 +1,5 @@
 import {useRef} from 'react';
+import {useSelector} from 'react-redux';
 import {
     FloatingArrow,
     useFloating,
@@ -8,6 +9,8 @@ import {
     offset,
     arrow,
 } from '@floating-ui/react';
+
+import {selectClippyMessage} from '~/page/state/clippy';
 
 import {Message} from '../Message';
 
@@ -22,6 +25,8 @@ export const Tooltip = ({
     anchor,
     onClick,
 }: Props) => {
+    const message = useSelector(selectClippyMessage);
+
     const arrowRef = useRef(null);
 
     const {refs, x, y, strategy, context} = useFloating({
@@ -37,7 +42,7 @@ export const Tooltip = ({
         ],
     });
 
-    return (
+    return message.visible ? (
         <div
             ref={refs.setFloating}
             className={css.message}
@@ -48,7 +53,7 @@ export const Tooltip = ({
             }}
             onClick={onClick}
         >
-            <Message />
+            <Message {...message} />
 
             <FloatingArrow
                 ref={arrowRef}
@@ -58,5 +63,5 @@ export const Tooltip = ({
                 strokeWidth={1}
             />
         </div>
-    );
+    ) : null;
 };

@@ -4,7 +4,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {STATUS} from '~/constants/status';
 
 import {DEFAULT_MESSAGE, ERROR_MESSAGE, STATE_ID} from './constants';
-import type {ClippyMessage, ClippyState} from './types';
+import type {ClippyAnimation, ClippyMessage, ClippyState} from './types';
 
 const initialState: ClippyState = {
     visible: true,
@@ -12,6 +12,10 @@ const initialState: ClippyState = {
         value: DEFAULT_MESSAGE,
         status: STATUS.DONE,
         visible: true,
+    },
+    animation: {
+        src: '',
+        duration: 0,
     },
 };
 
@@ -23,19 +27,22 @@ export const clippySlice = createSlice({
             state.message.status = STATUS.PENDING;
             state.message.visible = true;
         },
-        getMessageDone(state, action: PayloadAction<string>) {
+        getMessageDone(state, {payload}: PayloadAction<string>) {
             state.message.status = STATUS.DONE;
-            state.message.value = action.payload;
+            state.message.value = payload;
         },
         getMessageFail(state) {
             state.message.status = STATUS.FAILED;
             state.message.value = ERROR_MESSAGE;
         },
-        setIsVisible(state, action: PayloadAction<boolean>) {
-            state.visible = action.payload;
+        setIsVisible(state, {payload}: PayloadAction<boolean>) {
+            state.visible = payload;
         },
-        setMessage(state, action: PayloadAction<Partial<ClippyMessage>>) {
-            state.message = {...state.message, ...action.payload};
+        setMessage(state, {payload}: PayloadAction<Partial<ClippyMessage>>) {
+            state.message = {...state.message, ...payload};
+        },
+        setAnimation(state, {payload}: PayloadAction<ClippyAnimation>) {
+            state.animation = payload;
         },
     },
 });

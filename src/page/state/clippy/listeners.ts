@@ -8,6 +8,7 @@ import {windowsActions} from '../windows';
 
 import {clippyActions} from './actions';
 import {WINDOWS_MESSAGES} from './constants';
+import {getNewAnimation} from './utils';
 
 type Data = {
     setup: string;
@@ -18,18 +19,26 @@ listener.startListening({
     matcher: isAnyOf(clippyActions.getMessageInit, windowsActions.open),
     effect: async (
         action,
-        {dispatch, signal, delay, cancelActiveListeners},
+        {getState, dispatch, signal, delay, cancelActiveListeners},
     ) => {
+        // Debounce
         cancelActiveListeners();
+
+        // Setting new animation
+        const state = getState();
+        const animation = await getNewAnimation(state.clippy.animation);
+        dispatch(clippyActions.setAnimation(animation));
 
         // If window is opened - show related message
         if (windowsActions.open.match(action)) {
             const windowId = action.payload;
+
             dispatch(clippyActions.setMessage({
                 status: STATUS.DONE,
                 visible: true,
                 value: WINDOWS_MESSAGES[windowId],
             }));
+
             return;
         }
 

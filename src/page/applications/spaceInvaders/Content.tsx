@@ -29,18 +29,21 @@ const Content = () => {
 
     // Capture focus
     const onClick = () => {
-        root.current?.focus();
+        canvas.current?.focus();
     };
 
     return (
-        <div className={css.root} ref={root}>
+        <div
+            className={css.root}
+            ref={root}
+            onClick={onClick}
+        >
             <canvas
                 ref={canvas}
                 width={400}
                 height={700}
                 className={css.canvas}
                 tabIndex={0}
-                onClick={onClick}
             />
         </div>
     );

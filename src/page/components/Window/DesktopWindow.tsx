@@ -66,9 +66,7 @@ export const DesktopWindow = ({
         setPosition(window.defaultPosition);
     };
 
-    const showWindow = window.isOpen && !window.isMinimized;
-
-    return showWindow ? (
+    return window.isOpen ? (
         <Window
             title={window.title}
             image={window.image}
@@ -91,7 +89,10 @@ export const DesktopWindow = ({
             maxWidth={maxWidth}
             minHeight={minHeight ?? 100}
             maxHeight={maxHeight}
-            style={{zIndex: index}}
+            style={{
+                zIndex: index,
+                visibility: window.isMinimized ? 'hidden' : 'visible',
+            }}
         >
             {content}
         </Window>

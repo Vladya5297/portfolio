@@ -63,21 +63,30 @@ export class Button extends Entity {
         this.text.style.textAlign = 'center';
         this.text.style.textBaseline = 'middle';
 
-        const downHandler = getEventHandler(this.bounds, onMouseDown);
-        const upHandler = getEventHandler(this.bounds, onMouseUp);
+        const garbage: Array<(() => void)> = [];
 
-        canvas.addEventListener('touchstart', downHandler);
-        canvas.addEventListener('touchend', upHandler);
+        if (onMouseDown) {
+            const downHandler = getEventHandler(this.bounds, onMouseDown);
+            const events = ['touchstart', 'mousedown'] as const;
+            const unmounts = events.map(event => {
+                canvas.addEventListener(event, downHandler);
+                return () => canvas.removeEventListener(event, downHandler);
+            });
+            garbage.push(...unmounts);
+        }
 
-        canvas.addEventListener('mousedown', downHandler);
-        canvas.addEventListener('mouseup', upHandler);
+        if (onMouseUp) {
+            const upHandler = getEventHandler(this.bounds, onMouseUp);
+            const events = ['touchend', 'mouseup'] as const;
+            const unmounts = events.map(event => {
+                canvas.addEventListener(event, upHandler);
+                return () => canvas.removeEventListener(event, upHandler);
+            });
+            garbage.push(...unmounts);
+        }
 
         this.unmount = () => {
-            canvas.removeEventListener('touchstart', downHandler);
-            canvas.removeEventListener('touchend', upHandler);
-
-            canvas.removeEventListener('mousedown', downHandler);
-            canvas.removeEventListener('mouseup', upHandler);
+            garbage.forEach(cb => cb());
         };
     }
 

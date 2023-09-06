@@ -14,9 +14,7 @@ export const MobileWindow = ({id: windowId, root, content}: WindowProps) => {
 
     const setClosed = useAction(() => windowsActions.setClosed(windowId));
 
-    const showWindow = window.isOpen && !window.isMinimized;
-
-    return showWindow ? (
+    return window.isOpen ? (
         <Window
             title={window.title}
             image={window.image}
@@ -26,7 +24,10 @@ export const MobileWindow = ({id: windowId, root, content}: WindowProps) => {
             resizable={false}
             onClose={setClosed}
             initialSize={constraints}
-            style={{zIndex: index}}
+            style={{
+                zIndex: index,
+                visibility: window.isMinimized ? 'hidden' : 'visible',
+            }}
         >
             {content}
         </Window>

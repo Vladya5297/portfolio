@@ -7,11 +7,7 @@
 
 .side {
     width: 16px;
-    background: linear-gradient(
-        180deg,
-        var(--color-accent-primary),
-        var(--color-accent-secondary)
-    );
+    background-color: var(--color-accent-primary);
 }
 
 .list {
