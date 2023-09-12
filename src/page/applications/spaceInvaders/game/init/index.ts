@@ -1,6 +1,7 @@
 import {onKeyDown} from '~/utils/dom';
 import {KEYBOARD_KEY} from '~/constants/keyboard';
 import {getCenterCoordinate} from '~/utils/getCenterCoordinate';
+import {loadImage} from '~/utils/loadImage';
 
 import {Button} from '../../entities/button';
 import {Text} from '../../entities/text';
@@ -16,18 +17,13 @@ import {
     textStyle,
 } from './constants';
 
-const image = new Image();
-const imageLoaded = new Promise<boolean>(resolve => {
-    image.onload = () => resolve(true);
-    image.onerror = () => resolve(false);
-});
-image.src = logo.src;
+const imagePromise = loadImage(logo.src).catch(() => null);
 
-const fontFace = new FontFace(GAME_FONT_NAME, `url(${font})`);
-const fontLoaded = fontFace.load().then(result => {
-    document.fonts.add(result);
-    return true;
-});
+const fontPromise = new FontFace(GAME_FONT_NAME, `url(${font})`).load()
+    .then(result => {
+        document.fonts.add(result);
+        return result;
+    }).catch(() => null);
 
 export async function init(this: Game) {
     const canvas = this.canvas;
@@ -38,7 +34,8 @@ export async function init(this: Game) {
     const imageScale = logo.width / imageWidth;
     const imageHeight = logo.height / imageScale;
 
-    await imageLoaded && context.drawImage(
+    const image = await imagePromise;
+    image && context.drawImage(
         image,
         imageOffset / 2,
         canvas.height / 5,
@@ -82,7 +79,8 @@ export async function init(this: Game) {
         }),
     ];
 
-    await fontLoaded && texts.forEach(text => text.draw(context));
+    await fontPromise;
+    texts.forEach(text => text.draw(context));
 
     const button = new Button({
         canvas,

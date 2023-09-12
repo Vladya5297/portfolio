@@ -1,10 +1,26 @@
 import {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 
-import {windowsActions} from '~/page/state/windows';
+import type {State} from '~/page/state/types';
+import {selectWindowExists, windowsActions} from '~/page/state/windows';
 import type {Position, Size, WindowId} from '~/page/state/windows';
-import {useWindowExists} from '~/page/utils/useWindowExists';
 import {getCenterCoordinate} from '~/utils/getCenterCoordinate';
 import {useAction} from '~/utils/redux/useAction';
+
+type Options = Partial<{
+    throw: boolean;
+    message: string;
+}>;
+
+export const useWindowExists = (windowId: WindowId, options: Options = {}) => {
+    const exists = useSelector((state: State) => selectWindowExists(state, windowId));
+
+    if (!exists && options.throw) {
+        throw new Error(options.message || `Seems like you haven't call useSetup for windowId: ${windowId}`);
+    }
+
+    return exists;
+};
 
 const DEFAULT_SIZE: Size = {
     width: 600,

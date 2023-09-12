@@ -5,11 +5,12 @@ import {useAction} from '~/utils/redux/useAction';
 import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
 import {selectWindow, windowsActions} from '~/page/state/windows';
 import type {WindowId} from '~/page/state/windows';
-import {useWindowExists} from '~/page/utils/useWindowExists';
 
 import {Shortcut} from '../Shortcut';
 import {Window} from '../Window';
 import {WindowContent} from '../WindowContent';
+
+import {useWindowExists} from './utils';
 
 export * from './utils';
 

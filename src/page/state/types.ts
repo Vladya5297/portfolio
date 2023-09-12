@@ -1,3 +1,5 @@
+import type {Dispatch, ListenerEffectAPI} from '@reduxjs/toolkit';
+
 import type {ClippyState} from './clippy';
 import type {ParamsState} from './params';
 import type {WallpapersState} from './wallpapers';
@@ -9,3 +11,5 @@ export type State = {
     clippy: ClippyState;
     wallpapers: WallpapersState;
 };
+
+export type ListenerApi = ListenerEffectAPI<State, Dispatch>;

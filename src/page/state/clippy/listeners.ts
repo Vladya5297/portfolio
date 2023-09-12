@@ -5,6 +5,7 @@ import {STATUS} from '~/constants/status';
 
 import {listener} from '../listener';
 import {windowsActions} from '../windows';
+import type {ListenerApi} from '../types';
 
 import {clippyActions} from './actions';
 import {WINDOWS_MESSAGES} from './constants';
@@ -15,46 +16,63 @@ type Data = {
     delivery: string;
 };
 
+const showJoke = async ({delay, dispatch, signal}: ListenerApi) => {
+    // https://jokeapi.dev/#rate-limiting
+    await delay(1000);
+
+    await fetcher<Data>('https://v2.jokeapi.dev/joke/Any?safe-mode&type=twopart&lang=en', {
+        format: 'json',
+        method: 'GET',
+        signal,
+    })
+        .then(({setup, delivery}) => {
+            dispatch(clippyActions.getMessageDone(`${setup} ${delivery}`));
+        })
+        .catch(error => {
+            if (error.aborted) return;
+            dispatch(clippyActions.getMessageFail());
+        });
+};
+
+const showWindowMessage = (
+    action: ReturnType<typeof windowsActions.open>,
+    {dispatch}: ListenerApi,
+) => {
+    const windowId = action.payload;
+    const message = WINDOWS_MESSAGES[windowId];
+
+    if (message) {
+        dispatch(clippyActions.setMessage({
+            status: STATUS.DONE,
+            visible: true,
+            value: message,
+        }));
+    }
+};
+
+const setNewAnimation = async ({getState, dispatch}: ListenerApi) => {
+    const state = getState();
+    const animation = await getNewAnimation(state.clippy.animation);
+    dispatch(clippyActions.setAnimation(animation));
+};
+
 listener.startListening({
     matcher: isAnyOf(clippyActions.getMessageInit, windowsActions.open),
     effect: async (
         action,
-        {getState, dispatch, signal, delay, cancelActiveListeners},
+        api,
     ) => {
         // Debounce
-        cancelActiveListeners();
+        api.cancelActiveListeners();
 
         // Setting new animation
-        const state = getState();
-        const animation = await getNewAnimation(state.clippy.animation);
-        dispatch(clippyActions.setAnimation(animation));
+        await setNewAnimation(api);
 
         // If window is opened - show related message
         if (windowsActions.open.match(action)) {
-            const windowId = action.payload;
-
-            dispatch(clippyActions.setMessage({
-                status: STATUS.DONE,
-                visible: true,
-                value: WINDOWS_MESSAGES[windowId],
-            }));
-
-            return;
+            return showWindowMessage(action, api);
         }
 
-        // https://jokeapi.dev/#rate-limiting
-        await delay(1000);
-
-        await fetcher<Data>('https://v2.jokeapi.dev/joke/Any?safe-mode&type=twopart&lang=en', {
-            format: 'json',
-            method: 'GET',
-            signal,
-        })
-            .then(({setup, delivery}) => {
-                dispatch(clippyActions.getMessageDone(`${setup} ${delivery}`));
-            })
-            .catch(error => {
-                dispatch(clippyActions.getMessageFail(error));
-            });
+        await showJoke(api);
     },
 });

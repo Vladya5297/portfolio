@@ -1,3 +1,5 @@
+import {loadImage} from '~/utils/loadImage';
+
 import {DEFAULT_WALLPAPER, LS_KEY} from './constants';
 import type {WallpapersValue} from './types';
 
@@ -31,10 +33,10 @@ export const setBackground = (value: WallpapersValue): void => {
 
     // Loading image and showing placeholder
     style.setProperty('--background-image', `url(${value.placeholder})`);
-    const image = new Image();
-    image.onload = () => {
+    loadImage(value.src).then(() => {
         style.setProperty('--background-image', `url(${value.src})`);
         images.add(value.name);
-    };
-    image.src = value.src;
+    }).catch(() => {
+        style.removeProperty('--background-image');
+    });
 };

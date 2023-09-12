@@ -1,18 +1,16 @@
 import {random} from '~/utils/random';
 import {isNotNil} from '~/utils/toolkit';
+import {loadImage} from '~/utils/loadImage';
 
 import {animations as assets} from './constants';
 import type {ClippyAnimation} from './types';
 
 const animationPromises = Promise.all<ClippyAnimation | null>(
-    assets.map(asset => new Promise(
-        resolve => {
-            const image = new Image();
-            image.onload = () => resolve(asset);
-            image.onerror = () => resolve(null);
-            image.src = asset.src;
-        },
-    )),
+    assets.map(asset => {
+        return loadImage(asset.src)
+            .then(() => asset)
+            .catch(() => null);
+    }),
 ).then(
     values => values.filter(isNotNil),
 );

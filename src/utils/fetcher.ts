@@ -51,6 +51,12 @@ export async function fetcher(
 
         return response.json();
     } catch (error: any) {
-        throw new Error(`Network request error: ${error.message}`);
+        if (error.name === 'AbortError') {
+            error.aborted = true;
+        } else {
+            error.aborted = false;
+        }
+
+        throw error;
     }
 }
