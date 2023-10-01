@@ -15,28 +15,36 @@ export const getInitialValue = (): WallpapersValue => {
 };
 
 const images = new Set<string>();
+const BG_IMAGE = '--background-image';
 
 export const setBackground = (value: WallpapersValue): void => {
     const style = document.body.style;
 
     // Default background
     if (!value.src) {
-        style.removeProperty('--background-image');
+        style.removeProperty(BG_IMAGE);
         return;
     }
+
+    const placeholder = `url(${value.placeholder})`;
+    const image = `url(${value.src})`;
 
     // Already loaded image
     if (images.has(value.name)) {
-        style.setProperty('--background-image', `url(${value.src})`);
+        style.setProperty(BG_IMAGE, image);
         return;
     }
 
-    // Loading image and showing placeholder
-    style.setProperty('--background-image', `url(${value.placeholder})`);
+    // Show placeholder
+    style.setProperty(BG_IMAGE, placeholder);
+
     loadImage(value.src).then(() => {
-        style.setProperty('--background-image', `url(${value.src})`);
-        images.add(value.name);
+        // If still the same placeholder - change image
+        if (style.getPropertyValue(BG_IMAGE) === placeholder) {
+            style.setProperty(BG_IMAGE, image);
+            images.add(value.name);
+        }
     }).catch(() => {
-        style.removeProperty('--background-image');
+        style.removeProperty(BG_IMAGE);
     });
 };
