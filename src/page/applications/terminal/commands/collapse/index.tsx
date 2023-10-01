@@ -1,7 +1,8 @@
 import {createPortal} from 'react-dom';
 import {useEffect} from 'react';
 
-import {ROOT_ID} from '~/constants/root';
+import {APP_ID} from '~/constants/app';
+import {CONTACTS} from '~/constants/contacts';
 import {resetFocus} from '~/utils/dom';
 
 import type {Command} from '../types';
@@ -20,10 +21,12 @@ const Collapse = () => {
                 <p>You've broke everything, now you unable to continue to use the system.</p>
                 <p>It's all your fault. There is no way to fix it.</p>
                 <p>The only thing you can do - contact the administrator:</p>
-                <a href="mailto:1257dobro@gmail.com">1257dobro@gmail.com</a>
+                <a href={CONTACTS.TELEGRAM} target="_blank" rel="noreferrer">
+                    {CONTACTS.TELEGRAM}
+                </a>
             </div>
         </div>,
-        document.getElementById(ROOT_ID)!,
+        document.getElementById(APP_ID)!,
     );
 };
 
