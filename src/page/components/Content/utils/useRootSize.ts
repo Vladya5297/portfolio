@@ -2,8 +2,7 @@ import {useMemo} from 'react';
 
 import {useAction} from '~/utils/redux/useAction';
 import {useResizeObserver} from '~/utils/dom/useResizeObserver';
-
-import {windowsActions} from '../state/windows';
+import {windowsActions} from '~/page/state/windows';
 
 export const useRootSize = (root: HTMLElement | null): void => {
     const setConstraints = useAction(

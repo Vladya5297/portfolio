@@ -1,13 +1,11 @@
-import {useContext} from 'react';
-
-import {RootContext} from '~/page/RootContext';
+import {useGetRoot} from '~/page/RootContext';
 
 import {applications} from '../../applications';
 
 import css from './style.m.css';
 
 export const Grid = () => {
-    const root = useContext(RootContext);
+    const root = useGetRoot();
 
     return (
         <div className={css.grid}>

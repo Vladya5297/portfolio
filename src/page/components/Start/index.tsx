@@ -1,4 +1,4 @@
-import {useCallback, useContext, useState} from 'react';
+import {useCallback, useState} from 'react';
 import cn from 'classnames';
 
 import {SIZE} from '~/constants/size';
@@ -6,7 +6,7 @@ import {Button} from '~/components/Button';
 import {Icon} from '~/components/Icon';
 import {Text} from '~/components/Text';
 import {useBreakpoint} from '~/components/Breakpoint';
-import {RootContext} from '~/page/RootContext';
+import {useGetRoot} from '~/page/RootContext';
 
 import {Popup} from './components/Popup';
 import {WallpapersWindow} from './components/WallpapersWindow';
@@ -24,7 +24,7 @@ export const Start = ({className}: Props) => {
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    const root = useContext(RootContext);
+    const root = useGetRoot();
 
     const onClick = () => {
         setIsPopupOpen(value => !value);
