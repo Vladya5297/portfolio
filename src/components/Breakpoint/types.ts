@@ -1,3 +1,3 @@
-import type {breakpoint} from './constants';
+import type {BREAKPOINTS_RANGES} from './constants';
 
-export type Breakpoint = keyof typeof breakpoint;
+export type BreakpointLabel = keyof typeof BREAKPOINTS_RANGES;

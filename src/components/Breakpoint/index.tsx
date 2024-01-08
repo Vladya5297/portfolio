@@ -1,18 +1,8 @@
-import type {ReactNode} from 'react';
+import {Breakpoints, createBreakpointsHook} from '~/utils/breakpoints';
 
-import type {Breakpoint as BreakpointType} from './types';
-import {useBreakpoint} from './useBreakpoint';
+import {BREAKPOINTS_RANGES} from './constants';
 
-export * from './useBreakpoint';
+const breakpoints = new Breakpoints(BREAKPOINTS_RANGES);
+breakpoints.observe();
 
-type Props = {
-    from?: BreakpointType;
-    to?: BreakpointType;
-    children: ReactNode;
-};
-
-export const Breakpoint = ({from, to, children}: Props) => {
-    const matches = useBreakpoint({from, to});
-
-    return matches ? <>{children}</> : null;
-};
+export const useBreakpoint = createBreakpointsHook(breakpoints);

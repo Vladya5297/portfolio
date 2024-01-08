@@ -73,6 +73,7 @@
         "no-plusplus": "off",
         "no-useless-return": "off",
         "lines-between-class-members": "off",
+        "no-underscore-dangle": ["error", {"allowAfterThis": true}],
         
         "indent": "off",
         "@typescript-eslint/indent": ["error", 4],

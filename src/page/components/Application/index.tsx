@@ -1,10 +1,9 @@
 import type {ReactNode} from 'react';
 
-import {pick} from '~/utils/toolkit';
 import {useAction} from '~/utils/redux/useAction';
-import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
 import {selectWindow, windowsActions} from '~/page/state/windows';
 import type {WindowId} from '~/page/state/windows';
+import {useProxySelector} from '~/utils/redux/useProxySelector';
 
 import {Shortcut} from '../Shortcut';
 import {Window} from '../Window';
@@ -38,10 +37,7 @@ export const Application = ({
 }: ApplicationProps) => {
     useWindowExists(windowId, {throw: true});
 
-    const {title, image} = useSelectorMapper(
-        state => selectWindow(state, windowId),
-        value => pick(value, ['title', 'image']),
-    );
+    const {title, image} = useProxySelector(state => selectWindow(state, windowId));
 
     const openWindow = useAction(() => windowsActions.open(windowId));
 

@@ -13,20 +13,20 @@ import {getNewAnimation} from './utils';
 
 type Data = {
     setup: string;
-    delivery: string;
+    punchline: string;
 };
 
 const showJoke = async ({delay, dispatch, signal}: ListenerApi) => {
-    // https://jokeapi.dev/#rate-limiting
+    // Rate limit
     await delay(1000);
 
-    await fetcher<Data>('https://v2.jokeapi.dev/joke/Any?safe-mode&type=twopart&lang=en', {
+    await fetcher<Data>('https://joke.deno.dev/', {
         format: 'json',
         method: 'GET',
         signal,
     })
-        .then(({setup, delivery}) => {
-            dispatch(clippyActions.getMessageDone(`${setup} ${delivery}`));
+        .then(({setup, punchline}) => {
+            dispatch(clippyActions.getMessageDone(`${setup} ${punchline}`));
         })
         .catch(error => {
             if (error.aborted) return;

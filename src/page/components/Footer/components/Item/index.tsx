@@ -4,8 +4,7 @@ import {Button} from '~/components/Button';
 import {Icon} from '~/components/Icon';
 import {Text} from '~/components/Text';
 import {useAction} from '~/utils/redux/useAction';
-import {useSelectorMapper} from '~/utils/redux/useSelectorMapper';
-import {pick} from '~/utils/toolkit';
+import {useProxySelector} from '~/utils/redux/useProxySelector';
 import {SIZE} from '~/constants/size';
 import {
     windowsActions,
@@ -25,10 +24,7 @@ type Props = {
 export const Item = ({windowId, isMobile}: Props) => {
     const size = isMobile ? SIZE.M : SIZE.S;
 
-    const window = useSelectorMapper(
-        (state: State) => selectWindow(state, windowId),
-        value => pick(value, ['image', 'title']),
-    );
+    const window = useProxySelector((state: State) => selectWindow(state, windowId));
     const isActive = useSelector((state: State) => selectIsWindowActive(state, windowId));
 
     const toggleWindow = useAction(() => windowsActions.toggle(windowId));
