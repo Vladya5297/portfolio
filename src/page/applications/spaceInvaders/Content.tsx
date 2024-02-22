@@ -1,26 +1,24 @@
 import type {MutableRefObject} from 'react';
 import {useCallback, useEffect, useRef} from 'react';
 
-import {resetFocus} from '~/utils/dom';
 import {useClickOutside} from '~/utils/useClickOutside';
 
-import {Game} from './game';
 import css from './style.m.css';
+import {SpaceInvaders} from './game';
 
 const Content = () => {
     const root = useRef<HTMLDivElement>(null);
     const canvas = useRef<HTMLCanvasElement>(null);
-    const game = useRef() as MutableRefObject<Game>;
+    const game = useRef() as MutableRefObject<SpaceInvaders>;
 
     useEffect(() => {
         if (!canvas.current) return;
 
-        resetFocus();
-        game.current = new Game(canvas.current);
-        game.current.init();
+        game.current = new SpaceInvaders(canvas.current);
+        game.current.start();
 
         return () => {
-            game.current.unmount();
+            game.current.destroy();
         };
     }, []);
 
@@ -43,7 +41,6 @@ const Content = () => {
                 width={400}
                 height={700}
                 className={css.canvas}
-                tabIndex={0}
             />
         </div>
     );

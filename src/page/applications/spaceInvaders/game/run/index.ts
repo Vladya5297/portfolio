@@ -1,96 +1,47 @@
-import {isDefined} from '~/utils/toolkit';
-import {getCenterCoordinate} from '~/utils/getCenterCoordinate';
+import {KEYBOARD_KEY} from '~/constants/keyboard';
 
-import {Button} from '../../entities/button';
-import {Text} from '../../entities/text';
-import {invaders} from '../modules/invaders';
-import {player} from '../modules/player';
-import {bullet} from '../modules/bullet';
-import {score} from '../modules/score';
-import {controls} from '../modules/controls';
-import {GAME_STATE} from '../constants';
-import type {Context, Runtime} from '../types';
-import type {Game} from '..';
+import type {Game} from '../../engine';
 
-import {buttonFontSize, buttonHeight, buttonWidth} from './constants';
+import {makeControls} from './controls';
+import {makeInvaders} from './invaders';
+import {makePlayer} from './player';
+import {makeScore} from './score';
+import {makeBullet} from './bullet';
+import {makeBorders} from './borders';
 
-const modules = [
-    invaders,
-    player,
-    bullet,
-    score,
-    controls,
-];
+export const runScene = (game: Game): void => {
+    const borders = makeBorders(game);
+    const invaders = makeInvaders(game);
+    const player = makePlayer(game);
+    const controls = makeControls(game);
+    const score = makeScore();
 
-export function run(this: Game) {
-    const canvas = this.canvas;
-    const context = this.context;
-    const ctx: Context = {context, canvas};
+    game.addElements(borders);
+    game.addElements(invaders);
+    game.addElements(player);
+    game.addElements(controls);
+    game.addElements(score);
 
-    const runtime = {
-        invaders: new Set(),
-        bullet: null,
-        player: {},
-        controls: {},
-        score: {},
-        gameover: false,
-        paused: false,
-    } as Runtime;
+    game.onKeyDown(KEYBOARD_KEY.ARROW_LEFT, () => {
+        player.goLeft();
+    });
+    game.onKeyUp(KEYBOARD_KEY.ARROW_LEFT, () => {
+        player.stop();
+    });
 
-    modules
-        .map(({setup}) => setup?.(ctx, runtime))
-        .filter(isDefined)
-        .forEach(cb => this.garbage.add(cb));
+    game.onKeyDown(KEYBOARD_KEY.ARROW_RIGHT, () => {
+        player.goRight();
+    });
+    game.onKeyUp(KEYBOARD_KEY.ARROW_RIGHT, () => {
+        player.stop();
+    });
 
-    const draw = () => {
-        this.clear();
+    game.onKeyDown(KEYBOARD_KEY.SPACE, () => {
+        const current = game.getElement('bullet');
+        if (current) return;
 
-        modules.forEach(({raf}) => {
-            raf.forEach(handler => handler(ctx, runtime));
-        });
-
-        if (runtime.gameover) {
-            this.changeState(GAME_STATE.END, {score: runtime.score.value});
-            return;
-        }
-
-        if (runtime.paused) {
-            const button = new Button({
-                canvas,
-                position: {
-                    x: getCenterCoordinate(canvas.width, buttonWidth),
-                    y: getCenterCoordinate(canvas.height, buttonHeight),
-                },
-                size: {
-                    height: buttonHeight,
-                    width: buttonWidth,
-                },
-                style: {
-                    backgroundColor: 'black',
-                    borderColor: 'white',
-                    borderWidth: 2,
-                },
-                text: new Text({
-                    value: 'Continue',
-                    style: {fontSize: buttonFontSize},
-                }),
-                onDown: () => {
-                    runtime.paused = false;
-                    button.unmount();
-                    draw();
-                },
-            });
-            button.draw(context);
-            this.garbage.add(button.unmount);
-            return;
-        }
-
-        this.rafId = requestAnimationFrame(draw);
-    };
-
-    this.pause = () => {
-        runtime.paused = true;
-    };
-
-    draw();
-}
+        const bullet = makeBullet(game);
+        player.fire(bullet);
+        game.addElements(bullet);
+    });
+};

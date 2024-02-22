@@ -1,74 +1,28 @@
-import {onKeyDown} from '~/utils/dom';
 import {KEYBOARD_KEY} from '~/constants/keyboard';
-import {getCenterCoordinate} from '~/utils/getCenterCoordinate';
 
-import {Button} from '../../entities/button';
-import {Text} from '../../entities/text';
-import {GAME_STATE} from '../constants';
-import type {Game} from '..';
+import {GAME_SCENE} from '../constants';
+import type {Game} from '../../engine';
 
-import {
-    buttonFontSize,
-    buttonHeight,
-    buttonWidth,
-    subtitleFontSize,
-    titleFontSize,
-} from './constants';
+import {makeButton, makeSubtitle, makeTitle} from './utils';
 
-export function end(this: Game, {score}: {score: number}) {
-    const canvas = this.canvas;
-    const context = this.context;
+type Params = {
+    score: number;
+};
 
-    const title = new Text({
-        value: score > 0 ? 'Victory' : 'Game Over',
-        position: {x: canvas.width / 2, y: canvas.height / 4},
-        style: {
-            fontSize: titleFontSize,
-            textAlign: 'center',
-        },
-    });
+export const endScene = (game: Game, {score}: Params) => {
+    const title = makeTitle(game, score);
+    const subtitle = makeSubtitle(game, score);
+    const button = makeButton(game);
 
-    const subtitle = new Text({
-        value: `score: ${score}`,
-        position: {x: canvas.width / 2, y: canvas.height / 3},
-        style: {
-            fontSize: subtitleFontSize,
-            textAlign: 'center',
-        },
-    });
+    game.addElements(title);
+    game.addElements(subtitle);
+    game.addElements(button);
 
-    const button = new Button({
-        canvas,
-        position: {
-            x: getCenterCoordinate(canvas.width, buttonWidth),
-            y: canvas.height * (3 / 4) - buttonHeight,
-        },
-        size: {
-            width: buttonWidth,
-            height: buttonHeight,
-        },
-        text: new Text({
-            value: 'Restart',
-            style: {fontSize: buttonFontSize},
-        }),
-        onDown: () => {
-            const event = new KeyboardEvent('keydown', {key: ' '});
-            document.dispatchEvent(event);
-        },
-    });
-
-    title.draw(context);
-    subtitle.draw(context);
-    button.draw(context);
-
-    this.garbage.add(button.unmount);
-
-    // Setting delay for event listener to avoid accident press
+    // Delay for event listener to avoid accident key press.
     setTimeout(() => {
-        const unmount = onKeyDown(KEYBOARD_KEY.SPACE, () => {
-            this.changeState(GAME_STATE.INIT);
-        });
-
-        this.garbage.add(unmount);
+        game.onKeyDown(KEYBOARD_KEY.SPACE, () => {
+            game.clear();
+            game.applyScene(GAME_SCENE.INIT);
+        }, {once: true});
     }, 300);
-}
+};

@@ -1,17 +1,18 @@
-type Unsubscribe = () => void;
+export type OnKeyEventUnsubscribe = () => void;
 
-type Options = {
+export type OnKeyEventOptions = {
     target?: HTMLElement;
+    once?: boolean;
 };
 
 export const onKeyEvent = (
     eventName: 'keydown' | 'keyup',
     key: string,
     handler: (event: KeyboardEvent) => void,
-    options: Options = {},
-): Unsubscribe => {
-    const {target} = options;
-    const element = (target ?? document) as HTMLElement;
+    options: OnKeyEventOptions = {},
+): OnKeyEventUnsubscribe => {
+    const {target, once = false} = options;
+    const element = (target ?? window) as HTMLElement;
 
     const callback = (event: KeyboardEvent) => {
         if (event.key === key) {
@@ -19,7 +20,7 @@ export const onKeyEvent = (
         }
     };
 
-    element.addEventListener(eventName, callback);
+    element.addEventListener(eventName, callback, {once});
 
     return () => {
         element.removeEventListener(eventName, callback);

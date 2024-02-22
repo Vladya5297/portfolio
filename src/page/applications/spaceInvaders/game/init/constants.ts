@@ -1,14 +1,4 @@
-import type {ButtonStyle} from '../../entities/button/types';
-import type {TextStyle} from '../../entities/text/types';
+import logo from '../../assets/text-logo.png';
 
-export const buttonWidth = 120;
-export const buttonHeight = 60;
-export const buttonStyle: Partial<ButtonStyle> = {
-    backgroundColor: 'transparent',
-    borderColor: 'red',
-};
-
-export const textStyle: Partial<TextStyle> = {
-    color: 'yellow',
-    fontSize: 30,
-};
+export const logoElement = new Image();
+logoElement.src = logo.src;

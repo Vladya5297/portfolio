@@ -1,63 +1,28 @@
-import {noop} from '~/utils/toolkit';
+import {Game} from '../engine';
 
-import {GAME_STATE} from './constants';
-import {end} from './end';
-import {run} from './run';
-import {init} from './init';
-import type {GameState} from './types';
+import {GAME_SCENE} from './constants';
+import {endScene} from './end';
+import {initScene} from './init';
+import {pauseScene} from './pause';
+import {runScene} from './run';
 
-export class Game {
-    canvas: HTMLCanvasElement;
-    context: CanvasRenderingContext2D;
-
-    rafId!: number;
-    garbage: Set<() => void> = new Set();
-
-    init: (params?: any) => void;
-    run: (params?: any) => void;
-    end: (params?: any) => void;
-    pause = noop;
-
+export class SpaceInvaders extends Game {
     constructor(canvas: HTMLCanvasElement) {
-        this.canvas = canvas;
-        this.context = canvas.getContext('2d')!;
+        super(canvas);
 
-        this.init = init;
-        this.run = run;
-        this.end = end;
+        this.addScene(GAME_SCENE.INIT, initScene);
+        this.addScene(GAME_SCENE.RUN, runScene);
+        this.addScene(GAME_SCENE.PAUSE, pauseScene);
+        this.addScene(GAME_SCENE.END, endScene);
     }
 
-    clear() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    start(): void {
+        super.start(GAME_SCENE.INIT);
     }
 
-    changeState(state: GameState, params?: Record<string, any>) {
-        this.unmount();
-        this.clear();
-
-        switch (state) {
-            case GAME_STATE.INIT: {
-                this.init(params);
-                break;
-            }
-            case GAME_STATE.RUN: {
-                this.run(params);
-                break;
-            }
-            case GAME_STATE.END: {
-                this.end(params);
-                break;
-            }
-            default: {
-                break;
-            }
+    pause() {
+        if (this.scene === GAME_SCENE.RUN) {
+            this.applyScene(GAME_SCENE.PAUSE);
         }
-    }
-
-    unmount() {
-        this.garbage.forEach(cb => cb());
-        this.garbage.clear();
-
-        cancelAnimationFrame(this.rafId);
     }
 }

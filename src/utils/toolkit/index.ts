@@ -7,3 +7,4 @@ export * from './noop';
 export * from './tail';
 export * from './head';
 export * from './inRange';
+export * from './invoke';
