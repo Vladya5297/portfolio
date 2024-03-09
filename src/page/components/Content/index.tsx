@@ -1,19 +1,21 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
-import {useSetRoot} from '~/page/RootContext';
+import {windowsRootAtom} from '~/constants/atoms';
 
 import {Clippy} from '../Clippy';
 import {Footer} from '../Footer';
 import {Grid} from '../Grid';
 
-import css from './style.m.css';
 import {useRootSize} from './utils/useRootSize';
+import css from './style.m.css';
 
 export const Content = () => {
     const [root, setRoot] = useState<HTMLElement | null>(null);
-    useSetRoot(root, [root]);
-    // Subscribe to root size
     useRootSize(root);
+
+    useEffect(() => {
+        windowsRootAtom.setValue(root);
+    }, [root]);
 
     return (
         <div className={css.root}>

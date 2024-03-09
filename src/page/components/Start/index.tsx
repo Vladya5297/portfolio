@@ -6,7 +6,8 @@ import {Button} from '~/components/Button';
 import {Icon} from '~/components/Icon';
 import {Text} from '~/components/Text';
 import {useBreakpoint} from '~/components/Breakpoint';
-import {useGetRoot} from '~/page/RootContext';
+import {useAtom} from '~/utils/atom';
+import {windowsRootAtom} from '~/constants/atoms';
 
 import {Popup} from './components/Popup';
 import {WallpapersWindow} from './components/WallpapersWindow';
@@ -24,7 +25,7 @@ export const Start = ({className}: Props) => {
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    const root = useGetRoot();
+    const root = useAtom(windowsRootAtom);
 
     const onClick = () => {
         setIsPopupOpen(value => !value);

@@ -12,7 +12,7 @@ type Options = Partial<{
     message: string;
 }>;
 
-export const useWindowExists = (windowId: WindowId, options: Options = {}) => {
+export const useWindowExists = (windowId: WindowId, options: Options = {}): boolean => {
     const exists = useSelector((state: State) => selectWindowExists(state, windowId));
 
     if (!exists && options.throw) {

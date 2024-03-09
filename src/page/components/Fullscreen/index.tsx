@@ -1,14 +1,10 @@
-import type {ReactNode} from 'react';
+import {fullscreenAtom} from '~/constants/atoms';
+import {useAtom} from '~/utils/atom';
 
-import {createStateContext} from '~/utils/createStateContext';
-
-const {Provider, useGet, useSet} = createStateContext<ReactNode>(null);
-
-export const FullscreenProvider = Provider;
-export const useFullscreen = useSet;
+import css from './style.m.css';
 
 export const Fullscreen = () => {
-    const component = useGet();
+    const component = useAtom(fullscreenAtom);
 
-    return <>{component}</>;
+    return component ? <div className={css.fullscreen}>{component}</div> : null;
 };

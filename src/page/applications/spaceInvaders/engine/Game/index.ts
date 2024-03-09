@@ -138,7 +138,7 @@ export class Game {
         const diff = currentFrameTime - this.lastFrameTime;
 
         // Lock fps.
-        if (diff >= 16) {
+        if (diff >= 10) {
             this.tick();
             this.lastFrameTime = currentFrameTime;
         }

@@ -12,21 +12,21 @@ export class Size {
         this.index = sizes.indexOf(value);
     }
 
-    next() {
+    next(): Size {
         const index = getClosestIndex(this.index + 1, sizes);
         const value = sizes[index];
 
         return new Size(value);
     }
 
-    prev() {
+    prev(): Size {
         const index = getClosestIndex(this.index - 1, sizes);
         const value = sizes[index];
 
         return new Size(value);
     }
 
-    [Symbol.toPrimitive]() {
+    [Symbol.toPrimitive](): SizeType {
         return this.value;
     }
 }

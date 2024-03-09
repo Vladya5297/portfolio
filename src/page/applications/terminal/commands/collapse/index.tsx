@@ -1,12 +1,16 @@
-import {useFullscreen} from '~/page/components/Fullscreen';
+import {useEffect} from 'react';
 
-import type {Command} from '../types';
+import {fullscreenAtom} from '~/constants/atoms';
+
 import {key} from '../../utils/key';
+import type {Command} from '../types';
 
 import {Collapse} from './Collapse';
 
 const Answer = () => {
-    useFullscreen(<Collapse />);
+    useEffect(() => {
+        fullscreenAtom.setValue(<Collapse />);
+    }, []);
 
     return <span>What have you done...</span>;
 };

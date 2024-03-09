@@ -1,9 +1,8 @@
 .header {
     height: 70px;
     width: 100%;
+    padding-left: 20px;
     background-color: var(--color-accent-primary);
-    background-image: url(../../assets/header-logo.svg);
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    background-position: 20px center;
+    display: flex;
+    align-items: center;
 }

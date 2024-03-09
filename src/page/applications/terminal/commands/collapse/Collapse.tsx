@@ -9,7 +9,7 @@ export const Collapse = () => {
     useEffect(resetFocus, []);
 
     return (
-        <div className={css.collapse} onClick={event => {event.stopPropagation()}}>
+        <div className={css.collapse}>
             <h3>Blue screen of death</h3>
             <div className={css.content}>
                 <p>A fatal exception 0E has occurred at 0028:C1101AC7 in UXD ctpc19x(05)</p>

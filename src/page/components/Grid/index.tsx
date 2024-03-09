@@ -1,11 +1,12 @@
-import {useGetRoot} from '~/page/RootContext';
+import {useAtom} from '~/utils/atom';
+import {windowsRootAtom} from '~/constants/atoms';
 
 import {applications} from '../../applications';
 
 import css from './style.m.css';
 
 export const Grid = () => {
-    const root = useGetRoot();
+    const root = useAtom(windowsRootAtom);
 
     return (
         <div className={css.grid}>

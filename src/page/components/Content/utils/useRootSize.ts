@@ -10,5 +10,5 @@ export const useRootSize = (root: HTMLElement | null): void => {
     );
 
     const rootRef = useMemo(() => ({current: root}), [root]);
-    useResizeObserver(rootRef, setConstraints);
+    useResizeObserver(rootRef, setConstraints, {debounce: 100});
 };
