@@ -1,7 +1,7 @@
 import {useSelector} from 'react-redux';
 
 import {Window} from '~/components/Window';
-import {getDefaultRect} from '~/page/components/Application';
+import {getDefaultRect} from '~/page/components/Application/utils';
 import {selectWallpapersIsOpen, wallpapersActions} from '~/page/state/wallpapers';
 import {useAction} from '~/utils/redux/useAction';
 

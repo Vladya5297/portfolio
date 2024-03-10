@@ -1,26 +1,10 @@
-import {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-
-import type {State} from '~/page/state/types';
-import {selectWindowExists, windowsActions} from '~/page/state/windows';
-import type {Position, Size, WindowId} from '~/page/state/windows';
+import {windowsRootAtom} from '~/constants/atoms';
+import {windowsActions} from '~/page/state/windows';
+import type {Position, Size} from '~/page/state/windows';
 import {getCenterCoordinate} from '~/utils/getCenterCoordinate';
-import {useAction} from '~/utils/redux/useAction';
+import {state} from '~/page/state';
 
-type Options = Partial<{
-    throw: boolean;
-    message: string;
-}>;
-
-export const useWindowExists = (windowId: WindowId, options: Options = {}): boolean => {
-    const exists = useSelector((state: State) => selectWindowExists(state, windowId));
-
-    if (!exists && options.throw) {
-        throw new Error(options.message || `Seems like you haven't call useSetup for windowId: ${windowId}`);
-    }
-
-    return exists;
-};
+import type {ApplicationParams} from './types';
 
 const DEFAULT_SIZE: Size = {
     width: 600,
@@ -50,43 +34,27 @@ export const getDefaultRect = (
     };
 };
 
-type Params = {
-    root: HTMLElement;
-    id: WindowId;
-    title: string;
-    image: string;
-    defaultSize?: Size;
-    defaultPosition?: Position;
-};
+export const setupWindow = (params: ApplicationParams): void => {
+    const {id, image, title, window} = params;
+    if (window === false) return;
 
-export const useSetup = ({
-    id,
-    title,
-    image,
-    root,
-    defaultSize,
-    defaultPosition,
-}: Params): boolean => {
-    const exists = useWindowExists(id);
-    const [ready, setReady] = useState(exists);
+    const {defaultSize, defaultPosition} = window ?? {};
 
-    const setup = useAction(windowsActions.addWindow);
-
-    useEffect(() => {
-        if (ready) return;
+    const callback = (root: HTMLElement | null) => {
+        if (!root) return;
 
         const defaults = getDefaultRect(root, defaultSize, defaultPosition);
 
-        setup({
+        state.dispatch(windowsActions.addWindow({
             id,
-            title,
             image,
+            title,
             defaultSize: defaults.size,
             defaultPosition: defaults.position,
-        });
+        }));
 
-        setReady(true);
-    }, []);
+        windowsRootAtom.unsubscribe(callback);
+    };
 
-    return ready;
+    windowsRootAtom.subscribe(callback);
 };

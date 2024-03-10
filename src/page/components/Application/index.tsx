@@ -1,65 +1,41 @@
-import type {ReactNode} from 'react';
+import {windowsRootAtom} from '~/constants/atoms';
+import {useAtom} from '~/utils/atom';
 
-import {useAction} from '~/utils/redux/useAction';
-import {selectWindow, windowsActions} from '~/page/state/windows';
-import type {WindowId} from '~/page/state/windows';
-import {useProxySelector} from '~/utils/redux/useProxySelector';
+import {Window} from './Window';
+import {Shortcut} from './Shortcut';
+import type {ApplicationParams} from './types';
+import {setupWindow} from './utils';
 
-import {Shortcut} from '../Shortcut';
-import {Window} from '../Window';
-import {WindowContent} from '../WindowContent';
+export const createApplication = (params: ApplicationParams) => {
+    const {id, image, title, window, shortcut} = params;
 
-import {useWindowExists} from './utils';
+    setupWindow(params);
 
-export * from './utils';
+    const Application = () => {
+        const root = useAtom(windowsRootAtom);
 
-export type ApplicationProps = {
-    id: WindowId;
-    window: {
-        lockAspectRatio?: boolean;
-        disableFullscreen?: boolean;
-        draggable?: boolean;
-        resizeable?: boolean;
-        minWidth?: number;
-        maxWidth?: number;
-        minHeight?: number;
-        maxHeight?: number;
-        content: ReactNode;
-    };
-    root: HTMLElement;
-};
-
-/** Make sure to call `useSetup` before render! */
-export const Application = ({
-    id: windowId,
-    root,
-    window,
-}: ApplicationProps) => {
-    useWindowExists(windowId, {throw: true});
-
-    const {title, image} = useProxySelector(state => selectWindow(state, windowId));
-
-    const openWindow = useAction(() => windowsActions.open(windowId));
-
-    const {content, ...windowProps} = window;
-
-    return (
-        <>
-            <Shortcut
-                title={title}
-                image={image}
-                onClick={openWindow}
-            />
-            <Window
-                id={windowId}
-                root={root}
-                {...windowProps}
-                content={(
-                    <WindowContent>
-                        {content}
-                    </WindowContent>
+        return root ? (
+            <>
+                {shortcut === false ? null : (
+                    <Shortcut
+                        id={id}
+                        image={image}
+                        title={title}
+                        {...shortcut}
+                    />
                 )}
-            />
-        </>
-    );
+
+                {window === false ? null : (
+                    <Window
+                        id={id}
+                        root={root}
+                        {...window}
+                    />
+                )}
+            </>
+        ) : null;
+    };
+    Application.id = id;
+
+    return Application;
 };

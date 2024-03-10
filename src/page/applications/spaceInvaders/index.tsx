@@ -1,38 +1,21 @@
-import {Application, useSetup} from '~/page/components/Application';
-import {lazyContent} from '~/page/components/WindowContent';
-import type {WindowId} from '~/page/state/windows';
+import {createApplication} from '~/page/components/Application';
 
-import type {ApplicationProps} from '../types';
-
+import {SPACE_INVADERS_ID} from './constants';
 import logo from './assets/space-invaders-logo.png';
 
-export const SPACE_INVADERS_ID = 'spaceInvaders' as WindowId;
-
-const Content = lazyContent(() => import('./Content'));
-
-export const SpaceInvaders = ({root}: ApplicationProps) => {
-    const ready = useSetup({
-        id: SPACE_INVADERS_ID,
-        title: 'Space Invaders',
-        image: logo.src,
-        root,
+export const SpaceInvaders = createApplication({
+    id: SPACE_INVADERS_ID,
+    title: 'Space Invaders',
+    image: logo.src,
+    window: {
+        content: () => import('./Content'),
+        lockAspectRatio: true,
+        disableFullscreen: true,
+        maxWidth: 420,
+        maxHeight: 745,
         defaultSize: {
             height: 600,
             width: 340,
         },
-    });
-
-    return ready ? (
-        <Application
-            id={SPACE_INVADERS_ID}
-            root={root}
-            window={{
-                lockAspectRatio: true,
-                disableFullscreen: true,
-                maxWidth: 420,
-                maxHeight: 745,
-                content: <Content />,
-            }}
-        />
-    ) : null;
-};
+    },
+});

@@ -1,18 +1,15 @@
-import {useAtom} from '~/utils/atom';
-import {windowsRootAtom} from '~/constants/atoms';
+import {memo} from 'react';
 
 import {applications} from '../../applications';
 
 import css from './style.m.css';
 
-export const Grid = () => {
-    const root = useAtom(windowsRootAtom);
-
+export const Grid = memo(function Grid() {
     return (
         <div className={css.grid}>
-            {root && applications.map(
-                Component => <Component key={Component.name} root={root} />,
+            {applications.map(
+                Component => <Component key={Component.id} />,
             )}
         </div>
     );
-};
+});

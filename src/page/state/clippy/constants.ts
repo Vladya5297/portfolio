@@ -1,10 +1,10 @@
-import {CROC_ID} from '~/page/applications/croc';
-import {HIRE_ID} from '~/page/applications/hire';
-import {KASPERSKY_ID} from '~/page/applications/kaspersky';
-import {SPACE_INVADERS_ID} from '~/page/applications/spaceInvaders';
-import {TERMINAL_ID} from '~/page/applications/terminal';
-import {WAVELENGTH_ID} from '~/page/applications/wavelength';
-import {YANDEX_ID} from '~/page/applications/yandex';
+import {CROC_ID} from '~/page/applications/croc/constants';
+import {HIRE_ID} from '~/page/applications/hire/constants';
+import {KASPERSKY_ID} from '~/page/applications/kaspersky/constants';
+import {SPACE_INVADERS_ID} from '~/page/applications/spaceInvaders/constants';
+import {TERMINAL_ID} from '~/page/applications/terminal/constants';
+import {WAVELENGTH_ID} from '~/page/applications/wavelength/constants';
+import {YANDEX_ID} from '~/page/applications/yandex/constants';
 
 import type {ClippyAnimation} from './types';
 import image1 from './assets/clippy_1.gif';

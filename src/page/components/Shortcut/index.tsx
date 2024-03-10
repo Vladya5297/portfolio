@@ -1,39 +1,27 @@
-import type {HTMLAttributeAnchorTarget} from 'react';
-
+import type {ShortcutProps} from './types';
 import css from './style.m.css';
 
-type ButtonProps = {
-    tag?: 'button';
-    onClick: () => void;
-};
-
-type LinkProps = {
-    tag: 'a';
-    href: string;
-    target?: HTMLAttributeAnchorTarget;
-};
-
-export type ShortcutProps = {
-    image: string;
-    title: string;
-} & (
-    ButtonProps | LinkProps
-);
-
 export const Shortcut = ({
-    tag: Tag = 'button',
+    tag = 'button',
     image,
     title,
-    ...rest
+    href,
+    target,
+    onClick,
 }: ShortcutProps) => {
+    const Component = tag;
+    const props = tag === 'a'
+        ? {href, target}
+        : {onClick};
+
     return (
-        <Tag
+        <Component
             className={css.root}
-            {...rest}
+            {...props}
         >
             <div className={css.image} style={{backgroundImage: `url(${image})`}} />
 
             <span className={css.label}>{title}</span>
-        </Tag>
+        </Component>
     );
 };

@@ -1,5 +1,7 @@
 import {isAnyOf} from '@reduxjs/toolkit';
 
+import {INTRO_ID} from '~/page/applications/intro/constants';
+
 import {listener} from '../listener';
 import {paramsActions} from '../params';
 import {selectWindowIdParam} from '../params/selectors';
@@ -78,6 +80,20 @@ listener.startListening({
 
         if (id === windowIdParam) {
             dispatch(windowsActions.setOpened(id));
+        }
+    },
+});
+
+// Show introduction window
+listener.startListening({
+    actionCreator: windowsActions.addWindow,
+    effect: ({payload}, {dispatch}) => {
+        const {id} = payload;
+        const wasShown = window.localStorage.getItem('intro');
+
+        if (id === INTRO_ID && !wasShown) {
+            dispatch(windowsActions.setOpened(id));
+            window.localStorage.setItem('intro', 'true');
         }
     },
 });

@@ -1,11 +1,12 @@
 import {useCallback, useSyncExternalStore} from 'react';
 
 import type {Lambda} from './types';
-import {invoke} from './toolkit';
+
+type Callback<T> = (value: T) => void;
 
 class Atom<T> {
     private value: T;
-    private subscribers: Set<Lambda> = new Set();
+    private subscribers: Set<Callback<T>> = new Set();
 
     constructor(initial: T) {
         this.value = initial;
@@ -17,16 +18,16 @@ class Atom<T> {
 
     setValue(value: T): void {
         this.value = value;
-        this.subscribers.forEach(invoke);
+        this.subscribers.forEach(callback => callback(value));
     }
 
-    subscribe(callback: Lambda): Lambda {
+    subscribe(callback: Callback<T>): Lambda {
         this.subscribers.add(callback);
 
         return () => this.unsubscribe(callback);
     }
 
-    unsubscribe(callback: Lambda): void {
+    unsubscribe(callback: Callback<T>): void {
         this.subscribers.delete(callback);
     }
 }
