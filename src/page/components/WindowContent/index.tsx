@@ -33,11 +33,9 @@ export const WindowContent = React.memo(
 
         return (
             <div className={className}>
-                <div className={css.content}>
-                    <Suspense fallback={<Loader />}>
-                        {children}
-                    </Suspense>
-                </div>
+                <Suspense fallback={<Loader />}>
+                    {children}
+                </Suspense>
             </div>
         );
     },
