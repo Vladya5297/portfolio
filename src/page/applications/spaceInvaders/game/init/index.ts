@@ -14,11 +14,8 @@ export const initScene = (game: Game) => {
     game.addElements(texts);
     game.addElements(button);
 
-    // Delay for event listener to avoid accident key press.
-    setTimeout(() => {
-        game.onKeyDown(KEYBOARD_KEY.SPACE, () => {
-            game.clear();
-            game.applyScene(GAME_SCENE.RUN);
-        }, {once: true});
-    }, 300);
+    game.onKeyDown(KEYBOARD_KEY.SPACE, () => {
+        game.clear();
+        game.applyScene(GAME_SCENE.RUN);
+    }, {once: true});
 };

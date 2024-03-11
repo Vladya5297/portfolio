@@ -38,6 +38,10 @@ export class Invader extends GameElement {
         });
     }
 
+    get direction(): 'left' | 'right' {
+        return this.speedX < 0 ? 'left' : 'right';
+    }
+
     toggleImage(): void {
         // eslint-disable-next-line no-bitwise
         this.spriteIndex ^= 1;

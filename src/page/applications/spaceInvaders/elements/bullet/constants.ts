@@ -12,5 +12,5 @@ export const BULLET_STYLE: Partial<Style> = {
 
 export const BULLET_SPEED: Speed = {
     speedX: 0,
-    speedY: -5,
+    speedY: -300,
 };

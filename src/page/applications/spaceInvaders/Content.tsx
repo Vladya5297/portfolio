@@ -15,7 +15,7 @@ const Content = () => {
         if (!canvas.current) return;
 
         game.current = new SpaceInvaders(canvas.current);
-        game.current.start();
+        game.current.begin();
 
         return () => {
             game.current.destroy();

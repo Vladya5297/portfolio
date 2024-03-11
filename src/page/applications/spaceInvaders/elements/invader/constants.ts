@@ -1,10 +1,10 @@
 import type {Speed, Style} from '../../engine';
 import {makeSvgImage} from '../../engine/utils';
 
-export const ACCELERATION = 0.15;
+export const ACCELERATION = 10;
 
 export const INVADER_SPEED: Speed = {
-    speedX: 0.5,
+    speedX: 20,
     speedY: 0,
 };
 

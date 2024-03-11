@@ -5,7 +5,15 @@ import type {Lambda} from '~/utils/types';
 
 import type {Game} from '../Game';
 
-import type {Position, Size, Bounds, Speed, Style, Rect} from './types';
+import type {
+    Position,
+    Size,
+    Bounds,
+    Speed,
+    Style,
+    Rect,
+    CollisionCallback,
+} from './types';
 import {DEFAULT_STYLE} from './constants';
 import {checkCollision} from './utils';
 
@@ -76,7 +84,7 @@ export class GameElement {
     /** Image filling the element. */
     image: HTMLImageElement | null = null;
 
-    private collisions: Map<GameElement | string, Lambda[]> = new Map();
+    private collisions: Map<GameElement | string, CollisionCallback<any>[]> = new Map();
     private destructors: Set<Lambda> = new Set();
 
     /* constructor */
@@ -156,9 +164,9 @@ export class GameElement {
     }
 
     /** Shift the element by the speed value. */
-    move(): void {
-        this._x += this._speedX;
-        this._y += this._speedY;
+    move(delta: number): void {
+        this._x += this._speedX * delta;
+        this._y += this._speedY * delta;
     }
 
     private drawRect(context: CanvasRenderingContext2D): void {
@@ -202,7 +210,10 @@ export class GameElement {
      * When the element collides other, the callback will be invoked.
      * Returns unsubscribe function.
      */
-    addOnCollision(value: GameElement | string, callback: Lambda): Lambda {
+    addOnCollision(
+        value: GameElement | string,
+        callback: CollisionCallback<this>,
+    ): Lambda {
         const array = this.collisions.get(value) ?? [];
         array.push(callback);
         this.collisions.set(value, array);
@@ -211,7 +222,10 @@ export class GameElement {
     }
 
     /** Remove collision callback. */
-    removeOnCollision(value: GameElement | string, callback: Lambda): void {
+    removeOnCollision(
+        value: GameElement | string,
+        callback: CollisionCallback<this>,
+    ): void {
         const array = this.collisions.get(value) ?? [];
         const result = array.filter(val => val !== callback);
         this.collisions.set(value, result);

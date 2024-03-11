@@ -16,8 +16,9 @@ export class SpaceInvaders extends Game {
         this.addScene(GAME_SCENE.END, endScene);
     }
 
-    start(): void {
-        super.start(GAME_SCENE.INIT);
+    begin(): void {
+        this.applyScene(GAME_SCENE.INIT);
+        this.start();
     }
 
     pause() {

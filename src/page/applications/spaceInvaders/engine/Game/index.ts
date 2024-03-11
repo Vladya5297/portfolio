@@ -53,6 +53,11 @@ export class Game {
         return this.canvas.height;
     }
 
+    /** Difference between current and last frame in seconds. */
+    get delta(): number {
+        return (performance.now() - this.lastFrameTime) / 1000;
+    }
+
     /* methods */
 
     /** Register game scene with its initialization function. */
@@ -125,25 +130,16 @@ export class Game {
     }
 
     /** Start game. */
-    start(scene: string) {
-        this.applyScene(scene);
+    start() {
+        this.lastFrameTime = performance.now();
         this.run();
     }
 
     /** Process game ticks. */
     run(): void {
-        const run = this.run.bind(this);
-
-        const currentFrameTime = performance.now();
-        const diff = currentFrameTime - this.lastFrameTime;
-
-        // Lock fps.
-        if (diff >= 10) {
-            this.tick();
-            this.lastFrameTime = currentFrameTime;
-        }
-
-        this.rafId = requestAnimationFrame(run);
+        this.tick();
+        this.lastFrameTime = performance.now();
+        this.rafId = requestAnimationFrame(() => this.run());
     }
 
     /** Performs unit of work in game. */
@@ -155,7 +151,7 @@ export class Game {
         );
 
         this.elements.forEach(
-            element => element.move(),
+            element => element.move(this.delta),
         );
 
         this.elements.forEach(

@@ -35,6 +35,40 @@ const generateInvaders = (): Invader[] => {
     });
 };
 
+const addBordersCollision = (invader: Invader, game: Game): void => {
+    const decreaseScore = () => {
+        const score = game.getElement<Score>('score')!;
+        score.decrease(1);
+    };
+
+    const processInvader = (element: Invader) => {
+        if (element.direction === 'left') {
+            element.setPosition({x: element.x + 1});
+        }
+        if (element.direction === 'right') {
+            element.setPosition({x: element.x - 1});
+        }
+        element.toggleDirection();
+        element.shiftY();
+    };
+
+    invader.addOnCollision('border_left', () => {
+        const invaders = game.getElements<Invader>('invader');
+        if (invaders.some(element => element.direction === 'left')) {
+            invaders.forEach(processInvader);
+            decreaseScore();
+        }
+    });
+
+    invader.addOnCollision('border_right', () => {
+        const invaders = game.getElements<Invader>('invader');
+        if (invaders.some(element => element.direction === 'right')) {
+            invaders.forEach(processInvader);
+            decreaseScore();
+        }
+    });
+};
+
 const addFatalCollision = (invader: Invader, game: Game): void => {
     const callback = () => {
         game.clear();
@@ -74,6 +108,7 @@ export const makeInvaders = (game: Game): Invader[] => {
     invaders.forEach(invader => {
         addFatalCollision(invader, game);
         addBulletCollision(invader, game);
+        addBordersCollision(invader, game);
     });
 
     return invaders;

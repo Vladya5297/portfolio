@@ -1,22 +1,5 @@
-import type {Invader} from '../../../elements/invader';
-import type {Score} from '../../../elements/score';
 import type {Game, Rect} from '../../../engine';
 import {GameElement} from '../../../engine';
-
-const addInvadersCollision = (border: GameElement, game: Game): void => {
-    const callback = () => {
-        const invaders = game.getElements<Invader>('invader');
-        invaders.forEach(value => {
-            value.toggleDirection();
-            value.shiftY();
-        });
-
-        const score = game.getElement<Score>('score')!;
-        score.decrease(1);
-    };
-
-    border.addOnCollision('invader', callback);
-};
 
 const makeBorder = ([x, y, width, height]: Rect): GameElement => {
     const position = {x, y};
@@ -31,7 +14,6 @@ const makeBorder = ([x, y, width, height]: Rect): GameElement => {
 const makeLeftBorder = (game: Game): GameElement => {
     const border = makeBorder([0, 0, 0, game.height]);
     border.tags.add('border_left');
-    addInvadersCollision(border, game);
 
     return border;
 };
@@ -39,7 +21,6 @@ const makeLeftBorder = (game: Game): GameElement => {
 const makeRightBorder = (game: Game): GameElement => {
     const border = makeBorder([game.width, 0, 0, game.height]);
     border.tags.add('border_right');
-    addInvadersCollision(border, game);
 
     return border;
 };

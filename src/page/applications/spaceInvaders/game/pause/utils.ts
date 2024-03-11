@@ -26,7 +26,7 @@ export const makeButton = (game: Game) => {
         onButtonDown: () => {
             game.scene = GAME_SCENE.RUN;
             game.deleteElements('pause');
-            game.run();
+            game.start();
         },
     });
 

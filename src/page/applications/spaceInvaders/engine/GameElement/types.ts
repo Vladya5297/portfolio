@@ -1,3 +1,5 @@
+import type {GameElement} from './index';
+
 export type Position = {
     x: number;
     y: number;
@@ -40,3 +42,5 @@ export type Style = {
     textBaseline: CanvasTextBaseline;
     fitText: boolean;
 };
+
+export type CollisionCallback<T extends GameElement> = (target: GameElement, self: T) => void;

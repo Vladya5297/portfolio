@@ -1,14 +1,13 @@
-import type {Lambda} from '~/utils/types';
-import {invoke} from '~/utils/toolkit';
-
-import type {GameElement} from '.';
+import type {CollisionCallback, GameElement} from './index';
 
 export const checkCollision = (
-    target: GameElement,
+    self: GameElement,
     elements: GameElement[],
-    callbacks: Lambda[],
+    callbacks: CollisionCallback<any>[],
 ): void => {
-    if (elements.some(element => element.collides(target))) {
-        callbacks.forEach(invoke);
-    }
+    elements.forEach(element => {
+        if (element.collides(self)) {
+            callbacks.forEach(callback => callback(element, self));
+        }
+    });
 };
