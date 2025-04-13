@@ -10,7 +10,7 @@ const Content = () => {
                 <h2>
                     Frontend Developer
                     <br />
-                    From 2021 until now
+                    From 2021 to summer 2024
                 </h2>
                 <p>
                     After leaving Kaspersky, I joined Yandex. When I received the offer,
@@ -29,7 +29,7 @@ const Content = () => {
                     internal version control system.
                 </p>
                 <p>
-                    In my current team, I've also made significant contributions to various
+                    In my main team, I've also made significant contributions to various
                     projects. My experience helped me improve the internal UI system, and
                     I introduced many new reusable components with user-friendly APIs.
                     I managed to optimize the webpack configuration, which reduced

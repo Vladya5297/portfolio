@@ -1,0 +1,10 @@
+.header {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at 5%, #ff6e6a 10%, transparent 0%),
+        radial-gradient(circle at 95%, #ffeab2 10%, transparent 0%),
+        linear-gradient(to right, #ffd0c9 0%, #ffd0c9 100%);
+}

@@ -1,3 +1,4 @@
+import {Bestdoctor} from './bestdoctor';
 import {Croc} from './croc';
 import {GitHub} from './github';
 import {Hire} from './hire';
@@ -12,6 +13,7 @@ export const applications = [
     Croc,
     Kaspersky,
     Yandex,
+    Bestdoctor,
     Wavelength,
     SpaceInvaders,
     Terminal,

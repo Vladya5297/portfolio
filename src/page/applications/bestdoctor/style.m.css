@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'BDfont';
+    src: url(./assets/Bestdoctor-500.woff) format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BDfont';
+    src: url(./assets/Bestdoctor-300.woff) format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+.root {
+    font-family: BDfont, Arial, sans-serif;
+
+    --accent-color: #FF6D6D;
+    --color-text-primary: #000000;
+}
+
+.content {
+    width: 90%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.root p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--color-text-primary);
+}
+
+.root h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
